@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "graph_id": "kpi-calculator-collaboration-v1",
+  "title": "Build and independently verify a small weighted KPI calculator",
+  "goal_node_ids": ["integration-evidence"],
+  "nodes": [
+    {
+      "id": "metric-contract",
+      "type": "contract",
+      "statement": "Define a versioned weighted KPI contract with at least three components, a 0-100 score range, weights summing to one, and an explicit missing-input policy.",
+      "dependencies": [],
+      "scope": "project",
+      "priority": 100,
+      "max_attempts": 2,
+      "output_contract": {"artifact_type": "kpi-contract-json", "schema_version": 1},
+      "verifier": {
+        "id": "kpi-demo-verifier-v1",
+        "command": ["python", "verifier.py", "--node", "{node_id}", "--artifact", "{artifact}", "--project", "{project}", "--result-dir", "{result_dir}"],
+        "frozen_files": ["verifier.py"],
+        "timeout_sec": 30,
+        "result_file": "result.json",
+        "pass_field": "hard_pass"
+      }
+    },
+    {
+      "id": "adversarial-cases",
+      "type": "test-design",
+      "statement": "Define at least six mechanism-distinct KPI test cases covering nominal, lower and upper boundaries, a missing component, an out-of-range component, and unknown extra input.",
+      "dependencies": [],
+      "scope": "project",
+      "priority": 90,
+      "max_attempts": 2,
+      "output_contract": {"artifact_type": "kpi-test-cases-json", "schema_version": 1},
+      "verifier": {
+        "id": "kpi-demo-verifier-v1",
+        "command": ["python", "verifier.py", "--node", "{node_id}", "--artifact", "{artifact}", "--project", "{project}", "--result-dir", "{result_dir}"],
+        "frozen_files": ["verifier.py"],
+        "timeout_sec": 30,
+        "result_file": "result.json",
+        "pass_field": "hard_pass"
+      }
+    },
+    {
+      "id": "calculator-implementation",
+      "type": "implementation",
+      "statement": "Implement calculate(scores, contract) in a Python artifact: validate the frozen contract and inputs, reject missing/unknown/out-of-range values, and return the weighted 0-100 score.",
+      "dependencies": ["metric-contract", "adversarial-cases"],
+      "scope": "project",
+      "priority": 50,
+      "max_attempts": 3,
+      "output_contract": {"artifact_type": "python-kpi-calculator", "interface": "calculate(scores, contract)"},
+      "verifier": {
+        "id": "kpi-demo-verifier-v1",
+        "command": ["python", "verifier.py", "--node", "{node_id}", "--artifact", "{artifact}", "--project", "{project}", "--result-dir", "{result_dir}"],
+        "frozen_files": ["verifier.py"],
+        "timeout_sec": 30,
+        "result_file": "result.json",
+        "pass_field": "hard_pass"
+      }
+    },
+    {
+      "id": "integration-evidence",
+      "type": "integration",
+      "statement": "Produce an integration report that names the exact three dependency assets and whose calculator still passes the frozen contract and boundary suite.",
+      "dependencies": ["metric-contract", "adversarial-cases", "calculator-implementation"],
+      "scope": "project",
+      "priority": 10,
+      "max_attempts": 2,
+      "output_contract": {"artifact_type": "kpi-integration-report-json", "schema_version": 1},
+      "verifier": {
+        "id": "kpi-demo-verifier-v1",
+        "command": ["python", "verifier.py", "--node", "{node_id}", "--artifact", "{artifact}", "--project", "{project}", "--result-dir", "{result_dir}"],
+        "frozen_files": ["verifier.py"],
+        "timeout_sec": 30,
+        "result_file": "result.json",
+        "pass_field": "hard_pass"
+      }
+    }
+  ]
+}

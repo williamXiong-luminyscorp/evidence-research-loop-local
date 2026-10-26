@@ -1,0 +1,42 @@
+{
+  "ideas": [
+    {
+      "falsifiable_prediction": "On every frozen seed, compute success, attempts, and actual successful latency; immediate must satisfy both constraints and rank first by the declared ordering",
+      "hypothesis": "immediate is eligible and leads the frozen primary metric ordering",
+      "idea_id": "hypothesis-immediate",
+      "minimum_experiment": "Run all declared policies on the same complete frozen seed set"
+    },
+    {
+      "falsifiable_prediction": "On every frozen seed, compute success, attempts, and actual successful latency; fixed_25ms must satisfy both constraints and rank first by the declared ordering",
+      "hypothesis": "fixed_25ms is eligible and leads the frozen primary metric ordering",
+      "idea_id": "hypothesis-fixed_25ms",
+      "minimum_experiment": "Run all declared policies on the same complete frozen seed set"
+    },
+    {
+      "falsifiable_prediction": "On every frozen seed, compute success, attempts, and actual successful latency; fixed_50ms must satisfy both constraints and rank first by the declared ordering",
+      "hypothesis": "fixed_50ms is eligible and leads the frozen primary metric ordering",
+      "idea_id": "hypothesis-fixed_50ms",
+      "minimum_experiment": "Run all declared policies on the same complete frozen seed set"
+    },
+    {
+      "falsifiable_prediction": "On every frozen seed, compute success, attempts, and actual successful latency; fixed_75ms must satisfy both constraints and rank first by the declared ordering",
+      "hypothesis": "fixed_75ms is eligible and leads the frozen primary metric ordering",
+      "idea_id": "hypothesis-fixed_75ms",
+      "minimum_experiment": "Run all declared policies on the same complete frozen seed set"
+    },
+    {
+      "falsifiable_prediction": "On every frozen seed, compute success, attempts, and actual successful latency; exponential_20ms must satisfy both constraints and rank first by the declared ordering",
+      "hypothesis": "exponential_20ms is eligible and leads the frozen primary metric ordering",
+      "idea_id": "hypothesis-exponential_20ms",
+      "minimum_experiment": "Run all declared policies on the same complete frozen seed set"
+    }
+  ],
+  "stage": "ideation",
+  "usage": {
+    "input_tokens": 0,
+    "known_cost_usd": 0.0,
+    "model": null,
+    "model_calls": 0,
+    "output_tokens": 0
+  }
+}

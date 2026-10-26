@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "assets": {
+    "asset-7e5236940b7581a4e6c4": {
+      "asset_id": "asset-7e5236940b7581a4e6c4",
+      "artifact_hash": "ec49be74d32d24b7420fa1af48f9eaf1c5bb52333f41ef6e203f1be74c069d67",
+      "artifact_path": "verified-assets/files/asset-7e5236940b7581a4e6c4.json",
+      "output_contract_hash": "2302fad5d9e1b886918fa1fdd1ed07aa930c529b42a67ade6d961e0225b71180",
+      "semantic_binding": {
+        "statement_hash": "0ec1cf6540f93b7d54cf4424da69368d46a4efb295f2bcf37a9d3043a5d15224",
+        "dependency_assets": [],
+        "output_contract_hash": "2302fad5d9e1b886918fa1fdd1ed07aa930c529b42a67ade6d961e0225b71180",
+        "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e"
+      },
+      "semantic_binding_hash": "21e5b7054bebfd7cdc3342f71703697ee69065faf2728d612085c46c19699e72",
+      "scope": "project",
+      "source_node_id": "metric-contract",
+      "source_attempt_id": "attempt-6a97011047a74e0bae86a73d5b295e0d",
+      "verified_at": "2026-10-26T18:43:33.325903+00:00",
+      "verifier_id": "kpi-demo-verifier-v1",
+      "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e",
+      "verifier_frozen_files": [
+        {
+          "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "source": "command",
+          "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+          "size_bytes": 105840
+        },
+        {
+          "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+          "source": "explicit",
+          "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+          "size_bytes": 7960
+        }
+      ],
+      "blueprint_revision": 1
+    },
+    "asset-da05cd49bf5bb28111d3": {
+      "asset_id": "asset-da05cd49bf5bb28111d3",
+      "artifact_hash": "2eff4371061a2af26c68ab3dd8d44f01729111ebebd90751e9908c4f8a4a671d",
+      "artifact_path": "verified-assets/files/asset-da05cd49bf5bb28111d3.json",
+      "output_contract_hash": "33bca5ad7d58b9ee3cfdb019afba28fda72f5b3aabff7761f761ad3977c7961d",
+      "semantic_binding": {
+        "statement_hash": "51595032de4bf0bbf6f4dbd02fa58db963fad22c18629d582cc3b6db6aacb68e",
+        "dependency_assets": [],
+        "output_contract_hash": "33bca5ad7d58b9ee3cfdb019afba28fda72f5b3aabff7761f761ad3977c7961d",
+        "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e"
+      },
+      "semantic_binding_hash": "10ababa7091776d9621c0f05a4ed062f5cc8684ea2aa7c7145a44b2c26a74ba4",
+      "scope": "project",
+      "source_node_id": "adversarial-cases",
+      "source_attempt_id": "attempt-1aa134404cff40acbe22736aa33b38b7",
+      "verified_at": "2026-10-26T18:43:46.390263+00:00",
+      "verifier_id": "kpi-demo-verifier-v1",
+      "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e",
+      "verifier_frozen_files": [
+        {
+          "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "source": "command",
+          "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+          "size_bytes": 105840
+        },
+        {
+          "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+          "source": "explicit",
+          "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+          "size_bytes": 7960
+        }
+      ],
+      "blueprint_revision": 1
+    },
+    "asset-d2e8570d189b684ce45a": {
+      "asset_id": "asset-d2e8570d189b684ce45a",
+      "artifact_hash": "64644bbd0eb04c2b589b6eef182c8fa8b14a95139c56bd46cb58fbec2e50eaa3",
+      "artifact_path": "verified-assets/files/asset-d2e8570d189b684ce45a.py",
+      "output_contract_hash": "2a92c18185a88c8d7c78f380fc879ac238ed72a978e9639345a57808d7723833",
+      "semantic_binding": {
+        "statement_hash": "76b4340bc9e6e348333c5ad52e78b03ad9a7b7539c346bfe32e0bc34aea3a41e",
+        "dependency_assets": [
+          {
+            "node_id": "metric-contract",
+            "asset_id": "asset-7e5236940b7581a4e6c4"
+          },
+          {
+            "node_id": "adversarial-cases",
+            "asset_id": "asset-da05cd49bf5bb28111d3"
+          }
+        ],
+        "output_contract_hash": "2a92c18185a88c8d7c78f380fc879ac238ed72a978e9639345a57808d7723833",
+        "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e"
+      },
+      "semantic_binding_hash": "380322bacc236a74691cfa0d1a5861a1c47fb8fe4b6e4ea4fbb4b9a5f2b8b42b",
+      "scope": "project",
+      "source_node_id": "calculator-implementation",
+      "source_attempt_id": "attempt-3b5be3df3228476cb8245ac5a1e72743",
+      "verified_at": "2026-10-26T18:45:47.305230+00:00",
+      "verifier_id": "kpi-demo-verifier-v1",
+      "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e",
+      "verifier_frozen_files": [
+        {
+          "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "source": "command",
+          "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+          "size_bytes": 105840
+        },
+        {
+          "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+          "source": "explicit",
+          "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+          "size_bytes": 7960
+        }
+      ],
+      "blueprint_revision": 1
+    },
+    "asset-ae0efac4bddadeb6f9a4": {
+      "asset_id": "asset-ae0efac4bddadeb6f9a4",
+      "artifact_hash": "335c09d23da857e818ad329f1c9408aeb88f73f9c6775719081bf667f28a3114",
+      "artifact_path": "verified-assets/files/asset-ae0efac4bddadeb6f9a4.json",
+      "output_contract_hash": "e7b30d19c02478d1e3574cc2e6b44908ad3a414081357b31dd906b1bffeeaec8",
+      "semantic_binding": {
+        "statement_hash": "daf0653c3f88c783167cae32789403cb13c19db1581df0a0a0f952f3c787080f",
+        "dependency_assets": [
+          {
+            "node_id": "metric-contract",
+            "asset_id": "asset-7e5236940b7581a4e6c4"
+          },
+          {
+            "node_id": "adversarial-cases",
+            "asset_id": "asset-da05cd49bf5bb28111d3"
+          },
+          {
+            "node_id": "calculator-implementation",
+            "asset_id": "asset-d2e8570d189b684ce45a"
+          }
+        ],
+        "output_contract_hash": "e7b30d19c02478d1e3574cc2e6b44908ad3a414081357b31dd906b1bffeeaec8",
+        "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e"
+      },
+      "semantic_binding_hash": "c11c0472a7a1e939bed0edacc79b33b369ae7ff66aeaf2a268a55e79b3b57089",
+      "scope": "project",
+      "source_node_id": "integration-evidence",
+      "source_attempt_id": "attempt-7a5448ebf28f4b569f41dcdc84b0cde4",
+      "verified_at": "2026-10-26T18:50:13.690543+00:00",
+      "verifier_id": "kpi-demo-verifier-v1",
+      "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e",
+      "verifier_frozen_files": [
+        {
+          "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "source": "command",
+          "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+          "size_bytes": 105840
+        },
+        {
+          "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+          "source": "explicit",
+          "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+          "size_bytes": 7960
+        }
+      ],
+      "blueprint_revision": 2
+    }
+  }
+}

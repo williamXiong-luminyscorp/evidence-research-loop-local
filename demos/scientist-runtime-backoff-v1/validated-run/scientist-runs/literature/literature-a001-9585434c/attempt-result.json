@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "attempt_id": "literature-a001-9585434c",
+  "stage": "literature",
+  "status": "completed",
+  "started_at": "2026-10-26T18:38:55.947970+00:00",
+  "finished_at": "2026-10-26T18:38:56.403323+00:00",
+  "duration_sec": 0.26983819995075464,
+  "return_code": 0,
+  "timed_out": false,
+  "process_tree_terminated": false,
+  "error": null,
+  "adjustments": [],
+  "raw_response_hash": "564b3e59af1d2a4d00d806a7eae89245bd6e02b7f5968fc5b206cab254fe51f0",
+  "normalized_response_hash": "564b3e59af1d2a4d00d806a7eae89245bd6e02b7f5968fc5b206cab254fe51f0"
+}

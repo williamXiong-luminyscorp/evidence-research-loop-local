@@ -1,0 +1,1 @@
+usage: stage_adapter.py STAGE REQUEST RESPONSE ATTEMPT_DIR PROJECT

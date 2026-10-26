@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "plan_version": "backoff-study-v1.1",
+  "plan_hash": "0b18844f616142efd9b38987902daff966c5360a8373fda33255217e49d97764",
+  "status": "completed",
+  "current_stage": null,
+  "stage_calls_started": 5,
+  "stage_calls_completed": 5,
+  "model_calls": 0,
+  "known_cost_usd": 0.0,
+  "unknown_cost_calls": 0,
+  "accumulated_active_sec": 3.028048299951479,
+  "stages": {
+    "ideation": {
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "ideation-a001-f709c936",
+          "path": "scientist-runs/ideation/ideation-a001-f709c936",
+          "status": "completed",
+          "started_at": "2026-10-26T18:38:55.468413+00:00",
+          "retry_of": null,
+          "command": [
+            "python",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run/stage_adapter.py",
+            "ideation",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\ideation\\ideation-a001-f709c936\\request.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\ideation\\ideation-a001-f709c936\\response.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\ideation\\ideation-a001-f709c936",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run"
+          ],
+          "request_hash": "e798469e14b991095db1155cf82f3e51d2b9395ff6c3ed27896d7b146c4ba994",
+          "finished_at": "2026-10-26T18:38:55.841279+00:00",
+          "result_hash": "f3943dde632545e7a002fdadc0b04dd82f65ef190f1bc376a64b6419e0feb878"
+        }
+      ],
+      "output_path": "scientist-runs/ideation/ideation-a001-f709c936/normalized-response.json",
+      "output_hash": "c279792aaae4be7f91d3ad39b3c62a1d68f7bbfb1fd8b101d18e27c2b198b92a",
+      "last_error": null
+    },
+    "literature": {
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "literature-a001-9585434c",
+          "path": "scientist-runs/literature/literature-a001-9585434c",
+          "status": "completed",
+          "started_at": "2026-10-26T18:38:55.947970+00:00",
+          "retry_of": null,
+          "command": [
+            "python",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run/stage_adapter.py",
+            "literature",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\literature\\literature-a001-9585434c\\request.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\literature\\literature-a001-9585434c\\response.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\literature\\literature-a001-9585434c",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run"
+          ],
+          "request_hash": "fdbba58c5e7f58d844a9ee725d38917cb6ed45d0bc2fa09c23cb83c144236718",
+          "finished_at": "2026-10-26T18:38:56.403323+00:00",
+          "result_hash": "5c1b679386aa0a84195cc26d4535ed5e4d005c6ed0bd3632186a2fc57c00fd66"
+        }
+      ],
+      "output_path": "scientist-runs/literature/literature-a001-9585434c/normalized-response.json",
+      "output_hash": "564b3e59af1d2a4d00d806a7eae89245bd6e02b7f5968fc5b206cab254fe51f0",
+      "last_error": null
+    },
+    "experiment": {
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "experiment-a001-20c65ed9",
+          "path": "scientist-runs/experiment/experiment-a001-20c65ed9",
+          "status": "completed",
+          "started_at": "2026-10-26T18:38:56.505887+00:00",
+          "retry_of": null,
+          "command": [
+            "python",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run/stage_adapter.py",
+            "experiment",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\experiment\\experiment-a001-20c65ed9\\request.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\experiment\\experiment-a001-20c65ed9\\response.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\experiment\\experiment-a001-20c65ed9",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run"
+          ],
+          "request_hash": "7b50d5532905ddf07ed4e3ca4e744f16c79b00c801c4e74e719b2a5426e286e7",
+          "finished_at": "2026-10-26T18:38:57.227649+00:00",
+          "result_hash": "5bc84287f0388ca8924098d67d65e8dd308de07726efcfddae8099c07688a1a1"
+        }
+      ],
+      "output_path": "scientist-runs/experiment/experiment-a001-20c65ed9/normalized-response.json",
+      "output_hash": "7b8a3e1412ebeb0cdcbca61d1b640eb94a30da9df11e208d29ae9f3befe11558",
+      "last_error": null
+    },
+    "analysis": {
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "analysis-a001-ccc6b971",
+          "path": "scientist-runs/analysis/analysis-a001-ccc6b971",
+          "status": "completed",
+          "started_at": "2026-10-26T18:38:57.338867+00:00",
+          "retry_of": null,
+          "command": [
+            "python",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run/stage_adapter.py",
+            "analysis",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\analysis\\analysis-a001-ccc6b971\\request.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\analysis\\analysis-a001-ccc6b971\\response.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\analysis\\analysis-a001-ccc6b971",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run"
+          ],
+          "request_hash": "1cb192eb4eaf930b305ee2f37145f0fd75c2f0cad935d134d8378dc6733b98fb",
+          "finished_at": "2026-10-26T18:38:57.750339+00:00",
+          "result_hash": "273c5856bc35c07bbbb433cf8a7943aab1eb2f2ca8756a346f92a92ca4d088cb"
+        }
+      ],
+      "output_path": "scientist-runs/analysis/analysis-a001-ccc6b971/normalized-response.json",
+      "output_hash": "5a6bbb9f0c5ca3e4519fa363b4012c8ced7b10880e839b04f269bef6f373b43f",
+      "last_error": null
+    },
+    "review": {
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "review-a001-728c2617",
+          "path": "scientist-runs/review/review-a001-728c2617",
+          "status": "completed",
+          "started_at": "2026-10-26T18:38:57.884745+00:00",
+          "retry_of": null,
+          "command": [
+            "python",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run/stage_adapter.py",
+            "review",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\review\\review-a001-728c2617\\request.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\review\\review-a001-728c2617\\response.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run\\scientist-runs\\review\\review-a001-728c2617",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\validated-run"
+          ],
+          "request_hash": "72234dc614d5290e224cdaaa9ffa21d3e4299af7112101cd9acbc3c31fba62d1",
+          "finished_at": "2026-10-26T18:38:58.329837+00:00",
+          "result_hash": "e95703d56a3b6ee94aa7c8dedb0bc638d6bcbbff7a55e91e55f38b9a6f2defa3"
+        }
+      ],
+      "output_path": "scientist-runs/review/review-a001-728c2617/normalized-response.json",
+      "output_hash": "d4989ed50ce5376e0c1e00ecd5c4a45c658cf2df7df7d82ac5630ae0099261f7",
+      "last_error": null
+    }
+  },
+  "created_at": "2026-10-26T18:38:55.398910+00:00",
+  "updated_at": "2026-10-26T18:38:58.487227+00:00",
+  "protocol_lock_hash": "e14f51fa920060694619adb41d76e89a46a14b66c95e7a5736bd94687c60fdb5"
+}

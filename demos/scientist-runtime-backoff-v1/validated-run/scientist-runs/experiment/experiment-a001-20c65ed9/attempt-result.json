@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "attempt_id": "experiment-a001-20c65ed9",
+  "stage": "experiment",
+  "status": "completed",
+  "started_at": "2026-10-26T18:38:56.505887+00:00",
+  "finished_at": "2026-10-26T18:38:57.227649+00:00",
+  "duration_sec": 0.48141849995590746,
+  "return_code": 0,
+  "timed_out": false,
+  "process_tree_terminated": false,
+  "error": null,
+  "adjustments": [],
+  "raw_response_hash": "e97a9fd40b663c84874a9a752232b61479b7f8292698c047c9ca3fe5ce483f9f",
+  "normalized_response_hash": "7b8a3e1412ebeb0cdcbca61d1b640eb94a30da9df11e208d29ae9f3befe11558"
+}

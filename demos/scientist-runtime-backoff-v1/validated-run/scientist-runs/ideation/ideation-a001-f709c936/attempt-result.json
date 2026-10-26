@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "attempt_id": "ideation-a001-f709c936",
+  "stage": "ideation",
+  "status": "completed",
+  "started_at": "2026-10-26T18:38:55.468413+00:00",
+  "finished_at": "2026-10-26T18:38:55.841279+00:00",
+  "duration_sec": 0.25134270009584725,
+  "return_code": 0,
+  "timed_out": false,
+  "process_tree_terminated": false,
+  "error": null,
+  "adjustments": [],
+  "raw_response_hash": "c279792aaae4be7f91d3ad39b3c62a1d68f7bbfb1fd8b101d18e27c2b198b92a",
+  "normalized_response_hash": "c279792aaae4be7f91d3ad39b3c62a1d68f7bbfb1fd8b101d18e27c2b198b92a"
+}

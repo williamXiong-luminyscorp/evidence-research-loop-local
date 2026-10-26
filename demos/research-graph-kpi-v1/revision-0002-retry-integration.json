@@ -1,0 +1,10 @@
+{
+  "expected_revision": 1,
+  "reason": "The first integration artifact encoded dependency_assets as an array instead of the frozen node-to-asset mapping. Preserve the failed attempt and reopen only the integration node for a contract-conforming repair.",
+  "add_nodes": [],
+  "dependency_updates": [],
+  "supersede": [],
+  "invalidate": [
+    "integration-evidence"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "artifact_type": "integration-evidence-report",
+  "node_id": "integration-evidence",
+  "statement": "Produce an integration report that names the exact three dependency assets and whose calculator still passes the frozen contract and boundary suite.",
+  "dependency_asset_ids": [
+    "asset-7e5236940b7581a4e6c4",
+    "asset-da05cd49bf5bb28111d3",
+    "asset-d2e8570d189b684ce45a"
+  ],
+  "dependency_assets": [
+    {
+      "node_id": "metric-contract",
+      "asset_id": "asset-7e5236940b7581a4e6c4",
+      "artifact_hash": "ec49be74d32d24b7420fa1af48f9eaf1c5bb52333f41ef6e203f1be74c069d67"
+    },
+    {
+      "node_id": "adversarial-cases",
+      "asset_id": "asset-da05cd49bf5bb28111d3",
+      "artifact_hash": "2eff4371061a2af26c68ab3dd8d44f01729111ebebd90751e9908c4f8a4a671d"
+    },
+    {
+      "node_id": "calculator-implementation",
+      "asset_id": "asset-d2e8570d189b684ce45a",
+      "artifact_hash": "64644bbd0eb04c2b589b6eef182c8fa8b14a95139c56bd46cb58fbec2e50eaa3"
+    }
+  ],
+  "independent_test_status": "passed",
+  "independent_test_summary": {
+    "passed_count": 7,
+    "total_count": 7,
+    "method": "Loaded the verified calculator asset directly, instantiated every contract-relative case from the verified adversarial-cases asset against the verified metric-contract asset, compared accepted scores numerically, and required the declared invalid mappings to raise an exception.",
+    "cases": [
+      {
+        "case_id": "nominal-weighted-mix",
+        "status": "passed",
+        "outcome": "accepted",
+        "actual": 71.5,
+        "expected": 71.5
+      },
+      {
+        "case_id": "inclusive-lower-boundary",
+        "status": "passed",
+        "outcome": "accepted",
+        "actual": 0.0,
+        "expected": 0.0
+      },
+      {
+        "case_id": "inclusive-upper-boundary",
+        "status": "passed",
+        "outcome": "accepted",
+        "actual": 100.0,
+        "expected": 100.0
+      },
+      {
+        "case_id": "required-component-omitted",
+        "status": "passed",
+        "outcome": "rejected",
+        "exception_type": "ValueError"
+      },
+      {
+        "case_id": "component-below-minimum",
+        "status": "passed",
+        "outcome": "rejected",
+        "exception_type": "ValueError"
+      },
+      {
+        "case_id": "component-above-maximum",
+        "status": "passed",
+        "outcome": "rejected",
+        "exception_type": "ValueError"
+      },
+      {
+        "case_id": "undeclared-extra-component",
+        "status": "passed",
+        "outcome": "rejected",
+        "exception_type": "ValueError"
+      }
+    ]
+  },
+  "conclusion": "The calculator passes the frozen weighted-arithmetic contract and all seven named boundary/adversarial cases supplied by the direct dependency assets."
+}

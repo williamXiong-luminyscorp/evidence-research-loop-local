@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-10-26T19:19:39.5581698Z",
+  "candidate": {
+    "server_version": "1.1.1",
+    "engine_version": "evidence-research-loop-v2.5.1",
+    "skill_file_count": 63,
+    "skill_tree_sha256": "5451854c94f0330eee72e01c4a10c3f79283161d128ed58fad3398913ce03b4b",
+    "mcp_tool_count": 29
+  },
+  "checks": [
+    {
+      "id": "engine_unit_tests",
+      "status": "pass",
+      "evidence": "37/37 unittest cases passed, including shared-volume copy without copystat."
+    },
+    {
+      "id": "server_regressions",
+      "status": "pass",
+      "evidence": "9/9 standalone MCP/server regressions passed in run 20261026T191350Z-bc35520e."
+    },
+    {
+      "id": "skill_install",
+      "status": "pass",
+      "evidence": "Installed skill has 63 files, matches source hash 5451854c...03b4b, and passes Skill Creator quick validation."
+    },
+    {
+      "id": "local_container",
+      "status": "pass",
+      "evidence": "Image e02e5ee0...99cbc ran as UID/GID 20000, was healthy, exposed 29 tools, and completed accepted Graph and Scientist fixture runs."
+    },
+    {
+      "id": "azure_identity",
+      "status": "pass",
+      "evidence": "Every Azure operation explicitly targeted subscription 9069dbca-8580-437f-8cac-294d94584d02 in tenant 6263c045-9d6c-40bc-922c-dbdd2c400fb8; the unrelated default subscription was not used."
+    },
+    {
+      "id": "azure_revision",
+      "status": "pass",
+      "evidence": "Revision evidence-research-loop-mcp--v251-20261026 is Healthy/Provisioned and serves 100% traffic from locked digest sha256:065257...34d5f."
+    },
+    {
+      "id": "remote_auth_and_contract",
+      "status": "pass",
+      "evidence": "Health reports server 1.1.1, engine v2.5.1 and a matching 63-file hash; unauthenticated MCP is 401; authenticated MCP negotiates 2026-07-28 and lists 29 tools."
+    },
+    {
+      "id": "remote_outer_search",
+      "status": "pass",
+      "evidence": "azure-v251-e2e-20261026c completed with audit valid/accepted and manifest verified."
+    },
+    {
+      "id": "remote_research_graph",
+      "status": "pass",
+      "evidence": "azure-v251-feature-20261026c-graph produced a verified asset and audit valid/accepted; it re-audited after revision restart."
+    },
+    {
+      "id": "remote_scientist_runtime",
+      "status": "pass",
+      "evidence": "azure-v251-feature-20261026c-scientist completed five command stages with 12 events, zero model calls and audit valid/accepted; it re-audited after restart."
+    },
+    {
+      "id": "restart_persistence",
+      "status": "pass",
+      "evidence": "After revision restart the outer 148-file evidence manifest SHA-256 was cbd6522d...ff48f7 and both feature projects re-audited successfully."
+    },
+    {
+      "id": "failure_preservation",
+      "status": "pass",
+      "evidence": "The root-container release candidate and two Azure Files copystat feature-smoke failures remain recorded; successful reruns use new images and project IDs."
+    }
+  ],
+  "release_gate": {
+    "ready_to_build": true,
+    "ready_to_deploy": true,
+    "deployed": true,
+    "accepted": true,
+    "blocking_items": []
+  },
+  "claim_boundary": "Acceptance covers packaging, deployed orchestration and evidence integrity for the tested fixtures. It does not prove autonomous discovery quality, module necessity, mathematical theorem-solving strength, cross-domain generalization, production security isolation for untrusted tenants, KPI fairness, or scientific novelty."
+}

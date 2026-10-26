@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "study_id": "retry-backoff-transient-service-v1",
+  "question": "Which retry delay policy minimizes observed p95 successful completion latency while meeting the frozen reliability and attempt constraints?",
+  "simulation": {
+    "seed_start": 10000,
+    "seed_count": 2400,
+    "block_size": 400,
+    "outage_probability": 0.26,
+    "outage_mean_ms": 70.0,
+    "failure_response_ms": 5.0,
+    "base_service_median_ms": 28.0,
+    "base_service_sigma": 0.28,
+    "service_jitter_ms": 4.0,
+    "maximum_attempts": 4
+  },
+  "constraints": {
+    "minimum_success_rate": 0.965,
+    "maximum_mean_attempts": 2.5,
+    "primary_metric": "p95_success_latency_ms",
+    "selection_order": [
+      "p95_success_latency_ms_ascending",
+      "mean_attempts_ascending",
+      "policy_id_ascending"
+    ]
+  },
+  "policies": [
+    {"policy_id": "immediate", "retry_delays_ms": [0.0, 0.0, 0.0]},
+    {"policy_id": "fixed_25ms", "retry_delays_ms": [25.0, 25.0, 25.0]},
+    {"policy_id": "fixed_50ms", "retry_delays_ms": [50.0, 50.0, 50.0]},
+    {"policy_id": "fixed_75ms", "retry_delays_ms": [75.0, 75.0, 75.0]},
+    {"policy_id": "exponential_20ms", "retry_delays_ms": [20.0, 40.0, 80.0]}
+  ],
+  "literature_scope": [
+    {
+      "source_id": "aws-builders-library-retries",
+      "title": "Timeouts, retries, and backoff with jitter",
+      "locator": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+      "source_type": "engineering_guidance"
+    },
+    {
+      "source_id": "google-cloud-retry-strategy",
+      "title": "Retry strategy",
+      "locator": "https://cloud.google.com/storage/docs/retry-strategy",
+      "source_type": "official_documentation"
+    }
+  ]
+}

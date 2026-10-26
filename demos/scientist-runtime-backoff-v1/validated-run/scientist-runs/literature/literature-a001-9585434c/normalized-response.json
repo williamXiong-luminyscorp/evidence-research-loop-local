@@ -1,0 +1,44 @@
+{
+  "novelty_assessment": {
+    "reason": "This zero-network run records source locators but does not retrieve full texts or establish novelty.",
+    "status": "unknown"
+  },
+  "sources": [
+    {
+      "locator": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+      "refutes": [],
+      "source_id": "aws-builders-library-retries",
+      "source_type": "engineering_guidance",
+      "supports": [
+        "hypothesis-immediate",
+        "hypothesis-fixed_25ms",
+        "hypothesis-fixed_50ms",
+        "hypothesis-fixed_75ms",
+        "hypothesis-exponential_20ms"
+      ],
+      "title": "Timeouts, retries, and backoff with jitter"
+    },
+    {
+      "locator": "https://cloud.google.com/storage/docs/retry-strategy",
+      "refutes": [],
+      "source_id": "google-cloud-retry-strategy",
+      "source_type": "official_documentation",
+      "supports": [
+        "hypothesis-immediate",
+        "hypothesis-fixed_25ms",
+        "hypothesis-fixed_50ms",
+        "hypothesis-fixed_75ms",
+        "hypothesis-exponential_20ms"
+      ],
+      "title": "Retry strategy"
+    }
+  ],
+  "stage": "literature",
+  "usage": {
+    "input_tokens": 0,
+    "known_cost_usd": 0.0,
+    "model": null,
+    "model_calls": 0,
+    "output_tokens": 0
+  }
+}

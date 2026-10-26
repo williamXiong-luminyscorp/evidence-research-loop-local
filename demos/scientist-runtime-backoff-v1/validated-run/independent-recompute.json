@@ -1,0 +1,11 @@
+{
+  "eligible_policy_ids": [
+    "fixed_50ms",
+    "exponential_20ms",
+    "fixed_75ms"
+  ],
+  "matches_recorded_analysis": true,
+  "raw_observation_count": 12000,
+  "selected_p95_success_latency_ms": 143.515047201,
+  "selected_policy_id": "fixed_50ms"
+}

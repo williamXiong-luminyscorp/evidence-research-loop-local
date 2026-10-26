@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/evidence-research-loop/scientist-mode.schema.json",
+  "title": "Evidence Research Loop Scientist Mode Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "research_question",
+    "claim_boundary",
+    "budget",
+    "stop_rule",
+    "modules"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "research_question": {"type": "string", "minLength": 1},
+    "claim_boundary": {"type": "string", "minLength": 1},
+    "budget": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["max_model_calls", "max_wall_time_sec"],
+      "properties": {
+        "max_model_calls": {"type": "integer", "minimum": 0},
+        "max_wall_time_sec": {"type": "number", "exclusiveMinimum": 0},
+        "max_known_cost_usd": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "stop_rule": {"type": "string", "minLength": 1},
+    "modules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ideation", "literature", "tree_manager", "analysis", "paper_review"],
+      "properties": {
+        "ideation": {"$ref": "#/$defs/module"},
+        "literature": {"$ref": "#/$defs/module"},
+        "tree_manager": {"$ref": "#/$defs/module"},
+        "analysis": {"$ref": "#/$defs/module"},
+        "paper_review": {"$ref": "#/$defs/module"}
+      }
+    }
+  },
+  "$defs": {
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "input_contract", "output_contract", "evidence_paths", "failure_status"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "input_contract": {"type": "string"},
+        "output_contract": {"type": "string"},
+        "evidence_paths": {"type": "array", "items": {"type": "string"}},
+        "failure_status": {"type": "string"}
+      }
+    }
+  }
+}

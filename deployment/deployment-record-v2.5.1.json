@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-26T19:19:39.5581698Z",
+  "status": "deployed_and_verified",
+  "server_version": "1.1.1",
+  "engine_version": "evidence-research-loop-v2.5.1",
+  "engine_file_count": 63,
+  "engine_tree_sha256": "5451854c94f0330eee72e01c4a10c3f79283161d128ed58fad3398913ce03b4b",
+  "azure": {
+    "tenant_id": "6263c045-9d6c-40bc-922c-dbdd2c400fb8",
+    "subscription_id": "9069dbca-8580-437f-8cac-294d94584d02",
+    "subscription_name": "CSP Subscription 1",
+    "resource_group": "lmyrg",
+    "environment": "bc-diagnostics-env",
+    "container_app": "evidence-research-loop-mcp",
+    "revision": "evidence-research-loop-mcp--v251-20261026",
+    "endpoint": "https://evidence-research-loop-mcp.nicetree-1d19d2fd.eastus.azurecontainerapps.io/mcp",
+    "registry": "erlmcpacr.azurecr.io",
+    "image_tag": "v2.5.1-20261026",
+    "image_digest": "sha256:065257eba239f1a3a540d46d2dbbb21ac00e11a68dc2cb7e6a43d74f14f34d5f",
+    "revision_mode": "Single",
+    "traffic_percent": 100,
+    "min_replicas": 1,
+    "max_replicas": 1,
+    "storage_binding": "erl-mcp-storage",
+    "storage_mount": "/data",
+    "storage_account": "erlmcpdata20261019",
+    "storage_share": "erl-projects",
+    "previous_known_good_image_digest": "sha256:3a06637f0cb088a931340a8fee9390a0ae8c0f745796743e3058c714b69854b4"
+  },
+  "local_image": {
+    "tag": "evidence-research-loop-mcp:v2.5.1-final-local",
+    "image_id": "sha256:e02e5ee08f06174f8a5cd4159f7f5535e4efae69ed1e0842d0f8a5ae56099cbc",
+    "size_bytes": 162031365,
+    "architecture": "amd64",
+    "os": "linux",
+    "configured_user": "20000:20000",
+    "runtime_identity": "uid=20000(erlrunner) gid=20000(erlrunner) groups=20000(erlrunner)"
+  },
+  "verification": {
+    "skill_quick_validate": "passed",
+    "installed_skill": {
+      "file_count": 63,
+      "tree_sha256": "5451854c94f0330eee72e01c4a10c3f79283161d128ed58fad3398913ce03b4b",
+      "matches_source": true
+    },
+    "engine_unit_tests": {
+      "passed": 37,
+      "failed": 0,
+      "elapsed_sec": 117.451
+    },
+    "server_regressions": {
+      "passed": 9,
+      "failed": 0,
+      "run_id": "20261026T191350Z-bc35520e"
+    },
+    "local_container": {
+      "healthy": true,
+      "engine_hash_valid": true,
+      "mcp_protocol": "2026-07-28",
+      "tool_count": 29,
+      "graph_valid_and_accepted": true,
+      "scientist_valid_and_accepted": true,
+      "scientist_model_calls": 0,
+      "scientist_known_cost_usd": 0.0
+    },
+    "remote_http": {
+      "health_status": "ok",
+      "unauthenticated_mcp_status": 401,
+      "server_version": "1.1.1",
+      "engine_version": "evidence-research-loop-v2.5.1",
+      "engine_hash_valid": true,
+      "tool_count": 29
+    },
+    "remote_outer_search": {
+      "project_id": "azure-v251-e2e-20261026c",
+      "job_id": "job-20261026T191759Z-f23e44c3",
+      "search_status": "completed",
+      "audit_valid": true,
+      "audit_accepted": true,
+      "manifest_verified": true
+    },
+    "remote_research_graph": {
+      "project_id": "azure-v251-feature-20261026c-graph",
+      "audit_valid": true,
+      "audit_accepted": true,
+      "event_count": 4,
+      "asset_count": 1
+    },
+    "remote_scientist_runtime": {
+      "project_id": "azure-v251-feature-20261026c-scientist",
+      "job_id": "job-20261026T191738Z-9537d208",
+      "execution_status": "completed",
+      "audit_valid": true,
+      "audit_accepted": true,
+      "event_count": 12,
+      "model_calls": 0,
+      "known_cost_usd": 0.0,
+      "exported": true
+    },
+    "post_restart": {
+      "revision_health": "Healthy",
+      "revision_provisioning": "Provisioned",
+      "outer_project_id": "azure-v251-e2e-20261026c",
+      "manifest_sha256": "cbd6522d9fddaa8840860407c44471dc4158714e442d159392ac395083ff48f7",
+      "manifest_file_count": 148,
+      "research_graph_reaudit_valid_and_accepted": true,
+      "scientist_reaudit_valid_and_accepted": true
+    }
+  },
+  "preserved_failures": [
+    {
+      "scope": "local_container",
+      "classification": "container_security_boundary_mismatch",
+      "evidence": "The first release-candidate image ran as root; Dockerfile was repaired with USER 20000:20000 and the failed image identity remains in test-output/docker-release/verification-latest.json."
+    },
+    {
+      "scope": "azure_feature_smoke",
+      "project_ids": [
+        "azure-v25-feature-20261026a-graph",
+        "azure-v25-feature-20261026b-graph"
+      ],
+      "classification": "azure_files_copystat_not_supported",
+      "evidence": "Research Graph used shutil.copy2 for attempt and asset copies. Azure Files rejected copystat. The v2.5.1 repair uses content-only copy when ERL_SHARED_VOLUME_PERMISSIONS is enabled and has a dedicated regression test."
+    }
+  ],
+  "cost_boundary": "The deployment smoke used deterministic commands and zero model calls. Azure infrastructure and registry charges are not calculated in this record.",
+  "capability_boundary": "The remote Graph and Scientist projects verify deployed orchestration and evidence plumbing. They are transport fixtures, not evidence of scientific novelty, model creativity, autonomous problem decomposition, cross-domain generalization, KPI fairness, or production approval."
+}

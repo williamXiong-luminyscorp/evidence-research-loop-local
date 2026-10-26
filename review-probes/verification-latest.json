@@ -1,0 +1,139 @@
+{
+  "run_directory": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\review-probes\\.tmp\\run-16bf4f381c2248d7b3e608854488a809",
+  "expired_lease": {
+    "expired_lease_heartbeat_accepted": false,
+    "error": "lease expired for node goal; work was recovered and must be reclaimed",
+    "desired": "expired lease must be rejected"
+  },
+  "semantic_asset_reuse": {
+    "semantically_unrelated_asset_reuse_accepted": false,
+    "error": "asset semantic binding does not match target statement, inputs, and verifier",
+    "graph_accepted": false,
+    "audit": {
+      "graph_id": "probe-graph",
+      "blueprint_revision": 1,
+      "blueprint_hash": "48021566b2783aeb7d20254848cb3d8a867ebad647cf28e371368cea5b72edf9",
+      "counts": {
+        "verified": 1,
+        "ready": 1
+      },
+      "ready_node_ids": [
+        "target"
+      ],
+      "leased": {},
+      "goals": {
+        "target": "ready"
+      },
+      "accepted": false,
+      "valid": true,
+      "errors": [],
+      "event_count": 4,
+      "contribution_count": 1,
+      "asset_count": 1
+    },
+    "desired": "reuse must bind statement/input/verifier semantics, not only output shape"
+  },
+  "verifier_drift": {
+    "changed_verifier_accepted_bad_artifact": false,
+    "error": "node goal verifier integrity failure: frozen verifier file hash mismatch: C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\review-probes\\.tmp\\run-16bf4f381c2248d7b3e608854488a809\\verifier-drift\\verifier.py; frozen verifier file size mismatch: C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\review-probes\\.tmp\\run-16bf4f381c2248d7b3e608854488a809\\verifier-drift\\verifier.py",
+    "audit": {
+      "graph_id": "probe-graph",
+      "blueprint_revision": 1,
+      "blueprint_hash": "c0243da944c0335606f32f244b9603803afd8e6802d3e324b4ca96c4cdce0db7",
+      "counts": {
+        "leased": 1
+      },
+      "ready_node_ids": [],
+      "leased": {
+        "goal": {
+          "worker": "worker-goal",
+          "claimed_at": "2026-10-26T18:50:18.227927+00:00",
+          "expires_epoch": 1793040678.2279387,
+          "lease_seconds": 60,
+          "lease_fingerprint": "09e13a6e8a624fc7"
+        }
+      },
+      "goals": {
+        "goal": "leased"
+      },
+      "accepted": false,
+      "valid": false,
+      "errors": [
+        "node goal: frozen verifier file hash mismatch: C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\review-probes\\.tmp\\run-16bf4f381c2248d7b3e608854488a809\\verifier-drift\\verifier.py",
+        "node goal: frozen verifier file size mismatch: C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\review-probes\\.tmp\\run-16bf4f381c2248d7b3e608854488a809\\verifier-drift\\verifier.py"
+      ],
+      "event_count": 2,
+      "contribution_count": 0,
+      "asset_count": 0
+    },
+    "desired": "freeze and revalidate verifier executable/dependency hashes before every run"
+  },
+  "superseded_dependency": {
+    "accepted_after_dependency_superseded": false,
+    "goal_status": "stale",
+    "audit": {
+      "graph_id": "probe-graph",
+      "blueprint_revision": 2,
+      "blueprint_hash": "10afc43c6b8839fd2484dd313cd192658cf4abc060ed4e60c3a069ecaddab13a",
+      "counts": {
+        "superseded": 1,
+        "stale": 1,
+        "ready": 1
+      },
+      "ready_node_ids": [
+        "replacement"
+      ],
+      "leased": {},
+      "goals": {
+        "goal": "stale"
+      },
+      "accepted": false,
+      "valid": true,
+      "errors": [],
+      "event_count": 8,
+      "contribution_count": 2,
+      "asset_count": 2
+    },
+    "desired": "superseding a dependency must stale all verified descendants"
+  },
+  "rewritten_protocol_lock": {
+    "initially_accepted": true,
+    "audit_after_input_and_lock_rewrite": {
+      "valid": false,
+      "accepted": false,
+      "errors": [
+        "protocol lock hash changed"
+      ]
+    },
+    "desired": "audit must bind the immutable protocol lock to an earlier event/hash anchor"
+  },
+  "rewritten_analysis_and_state": {
+    "initially_accepted": true,
+    "audit_after_analysis_and_state_rewrite": {
+      "valid": false,
+      "accepted": false,
+      "execution_status": "completed",
+      "acceptance": {
+        "accepted": true,
+        "review_decision": "accept",
+        "supported_claim_ids": [
+          "c"
+        ],
+        "required_claim_status": {
+          "c": "supported"
+        },
+        "required_claim_review_status": {
+          "c": "accept"
+        },
+        "novelty_status": "unknown",
+        "novelty_claim_allowed": false,
+        "reason": "review accepted every required supported claim with validated evidence"
+      },
+      "errors": [
+        "normalized response hash mismatch: analysis-a001-09abf059"
+      ],
+      "event_count": 12
+    },
+    "desired": "audit must cross-check stage output hashes against durable attempt and event records"
+  }
+}

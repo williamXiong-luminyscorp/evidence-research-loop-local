@@ -1,0 +1,12 @@
+{
+  "hard_pass": true,
+  "node_id": "integration-evidence",
+  "errors": [],
+  "details": {
+    "dependency_assets": {
+      "metric-contract": "asset-7e5236940b7581a4e6c4",
+      "adversarial-cases": "asset-da05cd49bf5bb28111d3",
+      "calculator-implementation": "asset-d2e8570d189b684ce45a"
+    }
+  }
+}

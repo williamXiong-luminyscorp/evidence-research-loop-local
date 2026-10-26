@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "claim_id": "claim-best-policy",
+      "claim_type": "empirical",
+      "evidence_ids": [
+        "exp-backoff-simulation"
+      ],
+      "statement": "Under the frozen simulation protocol, fixed_50ms is the eligible policy selected by the declared ordering; observed p95 successful latency is 143.515047201 ms.",
+      "status": "supported",
+      "validated_evidence_ids": [
+        "exp-backoff-simulation"
+      ]
+    }
+  ],
+  "generated_from_attempt": "analysis-a001-ccc6b971",
+  "response_hash": "5a6bbb9f0c5ca3e4519fa363b4012c8ced7b10880e839b04f269bef6f373b43f"
+}

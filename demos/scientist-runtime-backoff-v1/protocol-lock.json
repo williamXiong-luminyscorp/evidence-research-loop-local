@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "plan_version": "backoff-study-v1",
+  "plan_hash": "230e993f53593fa95a083f178af81d5ee50b6aa00e81a050983adbe686b74583",
+  "plan_snapshot": "protocol/research-plan-230e993f53593fa95a083f178af81d5ee50b6aa00e81a050983adbe686b74583.json",
+  "plan_snapshot_hash": "230e993f53593fa95a083f178af81d5ee50b6aa00e81a050983adbe686b74583",
+  "frozen_inputs": [
+    {
+      "path": "protocol.json",
+      "sha256": "f670efe60ce8b4291b4ab65b97a83d61e19cd84f166fe8fc988420011bf57ca6"
+    },
+    {
+      "path": "stage_adapter.py",
+      "sha256": "a3dadbf86cd2adb59ea1d3b9acf0b03e14decf3422409a8bc223f785e5013475"
+    }
+  ],
+  "created_at": "2026-10-26T18:38:08.184553+00:00"
+}

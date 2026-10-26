@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "attempt_id": "review-a001-728c2617",
+  "stage": "review",
+  "status": "completed",
+  "started_at": "2026-10-26T18:38:57.884745+00:00",
+  "finished_at": "2026-10-26T18:38:58.329837+00:00",
+  "duration_sec": 0.24172859988175333,
+  "return_code": 0,
+  "timed_out": false,
+  "process_tree_terminated": false,
+  "error": null,
+  "adjustments": [],
+  "raw_response_hash": "d4989ed50ce5376e0c1e00ecd5c4a45c658cf2df7df7d82ac5630ae0099261f7",
+  "normalized_response_hash": "d4989ed50ce5376e0c1e00ecd5c4a45c658cf2df7df7d82ac5630ae0099261f7"
+}

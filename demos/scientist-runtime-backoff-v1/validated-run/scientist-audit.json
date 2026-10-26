@@ -1,0 +1,23 @@
+{
+  "valid": true,
+  "accepted": true,
+  "execution_status": "completed",
+  "acceptance": {
+    "accepted": true,
+    "review_decision": "accept",
+    "supported_claim_ids": [
+      "claim-best-policy"
+    ],
+    "required_claim_status": {
+      "claim-best-policy": "supported"
+    },
+    "required_claim_review_status": {
+      "claim-best-policy": "accept"
+    },
+    "novelty_status": "unknown",
+    "novelty_claim_allowed": false,
+    "reason": "review accepted every required supported claim with validated evidence"
+  },
+  "errors": [],
+  "event_count": 12
+}

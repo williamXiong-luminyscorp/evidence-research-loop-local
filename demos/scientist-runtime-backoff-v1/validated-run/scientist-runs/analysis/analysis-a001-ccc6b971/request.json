@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "attempt_id": "analysis-a001-ccc6b971",
+  "stage": "analysis",
+  "plan_version": "backoff-study-v1.1",
+  "plan_hash": "0b18844f616142efd9b38987902daff966c5360a8373fda33255217e49d97764",
+  "research_question": "Under the frozen transient-service simulation, which declared retry delay policy has the lowest observed p95 successful completion latency while satisfying reliability and mean-attempt constraints?",
+  "claim_boundary": "Only the policies, stochastic service model, seeds, constraints, and selection rule frozen in protocol.json. Results are simulation evidence, not a production guarantee.",
+  "stage_instructions": "Recompute all summaries from raw observations, apply the frozen eligibility and ordering rules, and state the selected policy without a hardcoded expected answer.",
+  "required_claim_ids": [
+    "claim-best-policy"
+  ],
+  "prior_stage_outputs": [
+    {
+      "stage": "ideation",
+      "path": "scientist-runs/ideation/ideation-a001-f709c936/normalized-response.json",
+      "sha256": "c279792aaae4be7f91d3ad39b3c62a1d68f7bbfb1fd8b101d18e27c2b198b92a"
+    },
+    {
+      "stage": "literature",
+      "path": "scientist-runs/literature/literature-a001-9585434c/normalized-response.json",
+      "sha256": "564b3e59af1d2a4d00d806a7eae89245bd6e02b7f5968fc5b206cab254fe51f0"
+    },
+    {
+      "stage": "experiment",
+      "path": "scientist-runs/experiment/experiment-a001-20c65ed9/normalized-response.json",
+      "sha256": "7b8a3e1412ebeb0cdcbca61d1b640eb94a30da9df11e208d29ae9f3befe11558"
+    }
+  ],
+  "output_contract": "claims[] with claim_id/statement/status/evidence_ids",
+  "created_at": "2026-10-26T18:38:57.336957+00:00"
+}

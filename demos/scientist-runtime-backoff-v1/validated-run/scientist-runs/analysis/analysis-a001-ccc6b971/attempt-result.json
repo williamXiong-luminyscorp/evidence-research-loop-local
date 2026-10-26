@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "attempt_id": "analysis-a001-ccc6b971",
+  "stage": "analysis",
+  "status": "completed",
+  "started_at": "2026-10-26T18:38:57.338867+00:00",
+  "finished_at": "2026-10-26T18:38:57.750339+00:00",
+  "duration_sec": 0.23774220002815127,
+  "return_code": 0,
+  "timed_out": false,
+  "process_tree_terminated": false,
+  "error": null,
+  "adjustments": [],
+  "raw_response_hash": "1ef178be429538c751ffc1b54942fe72a973153341bb326d0957e15d69b3d980",
+  "normalized_response_hash": "5a6bbb9f0c5ca3e4519fa363b4012c8ced7b10880e839b04f269bef6f373b43f"
+}

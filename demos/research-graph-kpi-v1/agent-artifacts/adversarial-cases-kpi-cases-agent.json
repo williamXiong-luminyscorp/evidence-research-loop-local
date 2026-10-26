@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "artifact_type": "kpi-test-cases-json",
+  "design_basis": "Contract-relative cases: declared component ids, weights, and score bounds are read from the metric contract rather than duplicated here.",
+  "cases": [
+    {
+      "case_id": "nominal-weighted-mix",
+      "category": "nominal",
+      "input_template": {
+        "scores": "Assign every declared component a distinct in-range value strictly between the minimum and maximum."
+      },
+      "expected_behavior": "Accept the complete mapping and return the weighted sum of each declared component score using its contract weight."
+    },
+    {
+      "case_id": "inclusive-lower-boundary",
+      "category": "lower_boundary",
+      "input_template": {
+        "scores": "Assign every declared component exactly score_range.minimum."
+      },
+      "expected_behavior": "Accept the inclusive lower boundary and return score_range.minimum."
+    },
+    {
+      "case_id": "inclusive-upper-boundary",
+      "category": "upper_boundary",
+      "input_template": {
+        "scores": "Assign every declared component exactly score_range.maximum."
+      },
+      "expected_behavior": "Accept the inclusive upper boundary and return score_range.maximum."
+    },
+    {
+      "case_id": "required-component-omitted",
+      "category": "missing",
+      "input_template": {
+        "scores": "Give valid in-range values for all but one declared component."
+      },
+      "expected_behavior": "Reject the input under the contract's missing-input policy; do not impute, renormalize weights, or return a score."
+    },
+    {
+      "case_id": "component-below-minimum",
+      "category": "out_of_range",
+      "input_template": {
+        "scores": "Give every declared component a valid value except one set to score_range.minimum minus one."
+      },
+      "expected_behavior": "Reject the input because one declared component is below the permitted range; do not clamp or return a score."
+    },
+    {
+      "case_id": "component-above-maximum",
+      "category": "out_of_range",
+      "input_template": {
+        "scores": "Give every declared component a valid value except one set to score_range.maximum plus one."
+      },
+      "expected_behavior": "Reject the input because one declared component exceeds the permitted range; do not clamp or return a score."
+    },
+    {
+      "case_id": "undeclared-extra-component",
+      "category": "unknown_extra",
+      "input_template": {
+        "scores": "Give every declared component a valid value and add one non-declared component with a valid-looking score."
+      },
+      "expected_behavior": "Reject the mapping because it contains an unknown component; do not ignore the extra field or return a score."
+    }
+  ]
+}

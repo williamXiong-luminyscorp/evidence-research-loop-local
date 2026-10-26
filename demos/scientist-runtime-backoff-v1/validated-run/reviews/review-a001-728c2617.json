@@ -1,0 +1,281 @@
+{
+  "claim_reviews": [
+    {
+      "claim_id": "claim-best-policy",
+      "decision": "accept",
+      "reason": "Independent raw-data recomputation matches the frozen selection rule."
+    }
+  ],
+  "decision": "accept",
+  "independent_recalculation": {
+    "eligible_policy_ids": [
+      "fixed_50ms",
+      "exponential_20ms",
+      "fixed_75ms"
+    ],
+    "p95_margin_to_runner_up_ms": 38.077146444,
+    "runner_up_policy_id": "exponential_20ms",
+    "selected_p95_success_latency_ms": 143.515047201,
+    "selected_policy_id": "fixed_50ms",
+    "selection_rule": [
+      "p95_success_latency_ms_ascending",
+      "mean_attempts_ascending",
+      "policy_id_ascending"
+    ],
+    "summaries": [
+      {
+        "block_summaries": [
+          {
+            "p95_success_latency_ms": 50.205100155,
+            "seed_count": 400,
+            "seed_start": 10000,
+            "success_rate": 0.765
+          },
+          {
+            "p95_success_latency_ms": 47.870339062,
+            "seed_count": 400,
+            "seed_start": 10400,
+            "success_rate": 0.79
+          },
+          {
+            "p95_success_latency_ms": 49.981626024,
+            "seed_count": 400,
+            "seed_start": 10800,
+            "success_rate": 0.785
+          },
+          {
+            "p95_success_latency_ms": 47.123467198,
+            "seed_count": 400,
+            "seed_start": 11200,
+            "success_rate": 0.8025
+          },
+          {
+            "p95_success_latency_ms": 50.169053085,
+            "seed_count": 400,
+            "seed_start": 11600,
+            "success_rate": 0.8225
+          },
+          {
+            "p95_success_latency_ms": 45.999094857,
+            "seed_count": 400,
+            "seed_start": 12000,
+            "success_rate": 0.81
+          }
+        ],
+        "eligible": false,
+        "failure_count": 490,
+        "mean_attempts": 1.71875,
+        "p50_success_latency_ms": 30.695164788,
+        "p95_success_latency_ms": 48.232697842,
+        "policy_id": "immediate",
+        "seed_count": 2400,
+        "success_count": 1910,
+        "success_rate": 0.795833333
+      },
+      {
+        "block_summaries": [
+          {
+            "p95_success_latency_ms": 116.971143477,
+            "seed_count": 400,
+            "seed_start": 10000,
+            "success_rate": 0.945
+          },
+          {
+            "p95_success_latency_ms": 91.476032269,
+            "seed_count": 400,
+            "seed_start": 10400,
+            "success_rate": 0.9325
+          },
+          {
+            "p95_success_latency_ms": 114.603771873,
+            "seed_count": 400,
+            "seed_start": 10800,
+            "success_rate": 0.94
+          },
+          {
+            "p95_success_latency_ms": 93.730619331,
+            "seed_count": 400,
+            "seed_start": 11200,
+            "success_rate": 0.9275
+          },
+          {
+            "p95_success_latency_ms": 98.425788846,
+            "seed_count": 400,
+            "seed_start": 11600,
+            "success_rate": 0.9425
+          },
+          {
+            "p95_success_latency_ms": 96.583839444,
+            "seed_count": 400,
+            "seed_start": 12000,
+            "success_rate": 0.9225
+          }
+        ],
+        "eligible": false,
+        "failure_count": 156,
+        "mean_attempts": 1.52625,
+        "p50_success_latency_ms": 32.81969169,
+        "p95_success_latency_ms": 101.832121355,
+        "policy_id": "fixed_25ms",
+        "seed_count": 2400,
+        "success_count": 2244,
+        "success_rate": 0.935
+      },
+      {
+        "block_summaries": [
+          {
+            "p95_success_latency_ms": 144.955153643,
+            "seed_count": 400,
+            "seed_start": 10000,
+            "success_rate": 0.975
+          },
+          {
+            "p95_success_latency_ms": 140.678811348,
+            "seed_count": 400,
+            "seed_start": 10400,
+            "success_rate": 0.9825
+          },
+          {
+            "p95_success_latency_ms": 143.515047201,
+            "seed_count": 400,
+            "seed_start": 10800,
+            "success_rate": 0.99
+          },
+          {
+            "p95_success_latency_ms": 147.163634738,
+            "seed_count": 400,
+            "seed_start": 11200,
+            "success_rate": 0.985
+          },
+          {
+            "p95_success_latency_ms": 145.962447846,
+            "seed_count": 400,
+            "seed_start": 11600,
+            "success_rate": 0.9825
+          },
+          {
+            "p95_success_latency_ms": 142.908245013,
+            "seed_count": 400,
+            "seed_start": 12000,
+            "success_rate": 0.9725
+          }
+        ],
+        "eligible": true,
+        "failure_count": 45,
+        "mean_attempts": 1.416666667,
+        "p50_success_latency_ms": 33.52106848,
+        "p95_success_latency_ms": 143.515047201,
+        "policy_id": "fixed_50ms",
+        "seed_count": 2400,
+        "success_count": 2355,
+        "success_rate": 0.98125
+      },
+      {
+        "block_summaries": [
+          {
+            "p95_success_latency_ms": 186.825306708,
+            "seed_count": 400,
+            "seed_start": 10000,
+            "success_rate": 0.99
+          },
+          {
+            "p95_success_latency_ms": 187.945151716,
+            "seed_count": 400,
+            "seed_start": 10400,
+            "success_rate": 0.995
+          },
+          {
+            "p95_success_latency_ms": 191.100797408,
+            "seed_count": 400,
+            "seed_start": 10800,
+            "success_rate": 1.0
+          },
+          {
+            "p95_success_latency_ms": 188.395763352,
+            "seed_count": 400,
+            "seed_start": 11200,
+            "success_rate": 0.995
+          },
+          {
+            "p95_success_latency_ms": 188.010778556,
+            "seed_count": 400,
+            "seed_start": 11600,
+            "success_rate": 0.995
+          },
+          {
+            "p95_success_latency_ms": 190.595557306,
+            "seed_count": 400,
+            "seed_start": 12000,
+            "success_rate": 0.9925
+          }
+        ],
+        "eligible": true,
+        "failure_count": 13,
+        "mean_attempts": 1.355,
+        "p50_success_latency_ms": 33.729150182,
+        "p95_success_latency_ms": 188.395763352,
+        "policy_id": "fixed_75ms",
+        "seed_count": 2400,
+        "success_count": 2387,
+        "success_rate": 0.994583333
+      },
+      {
+        "block_summaries": [
+          {
+            "p95_success_latency_ms": 180.641082581,
+            "seed_count": 400,
+            "seed_start": 10000,
+            "success_rate": 0.9725
+          },
+          {
+            "p95_success_latency_ms": 181.739229625,
+            "seed_count": 400,
+            "seed_start": 10400,
+            "success_rate": 0.9825
+          },
+          {
+            "p95_success_latency_ms": 182.979437573,
+            "seed_count": 400,
+            "seed_start": 10800,
+            "success_rate": 0.985
+          },
+          {
+            "p95_success_latency_ms": 180.531607756,
+            "seed_count": 400,
+            "seed_start": 11200,
+            "success_rate": 0.98
+          },
+          {
+            "p95_success_latency_ms": 180.964017698,
+            "seed_count": 400,
+            "seed_start": 11600,
+            "success_rate": 0.98
+          },
+          {
+            "p95_success_latency_ms": 182.859124887,
+            "seed_count": 400,
+            "seed_start": 12000,
+            "success_rate": 0.97
+          }
+        ],
+        "eligible": true,
+        "failure_count": 52,
+        "mean_attempts": 1.5225,
+        "p50_success_latency_ms": 33.501444262,
+        "p95_success_latency_ms": 181.592193645,
+        "policy_id": "exponential_20ms",
+        "seed_count": 2400,
+        "success_count": 2348,
+        "success_rate": 0.978333333
+      }
+    ]
+  },
+  "stage": "review",
+  "usage": {
+    "input_tokens": 0,
+    "known_cost_usd": 0.0,
+    "model": null,
+    "model_calls": 0,
+    "output_tokens": 0
+  }
+}

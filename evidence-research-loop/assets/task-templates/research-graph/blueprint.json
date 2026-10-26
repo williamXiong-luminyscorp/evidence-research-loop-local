@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "graph_id": "replace-with-versioned-graph-id",
+  "title": "Replace with the real project goal",
+  "goal_node_ids": ["integrated-goal"],
+  "nodes": [
+    {
+      "id": "problem-contract",
+      "type": "contract",
+      "statement": "Freeze the real scope, invariants, evidence and acceptance contract.",
+      "dependencies": [],
+      "scope": "project",
+      "priority": 100,
+      "max_attempts": 2,
+      "output_contract": {"artifact_type": "replace-with-domain-contract", "schema_version": 1},
+      "verifier": {
+        "id": "replace-with-contract-verifier",
+        "command": ["python", "{project}/verifier_adapter.py", "--node", "{node_id}", "--artifact", "{artifact}", "--result", "{result_dir}/verifier.json"],
+        "timeout_sec": 300,
+        "result_file": "verifier.json",
+        "pass_field": "hard_pass"
+      }
+    },
+    {
+      "id": "candidate-implementation",
+      "type": "implementation",
+      "statement": "Produce an implementation that satisfies the frozen contract.",
+      "dependencies": ["problem-contract"],
+      "scope": "project",
+      "priority": 50,
+      "max_attempts": 3,
+      "output_contract": {"artifact_type": "replace-with-implementation-artifact", "schema_version": 1},
+      "verifier": {
+        "id": "replace-with-implementation-verifier",
+        "command": ["python", "{project}/verifier_adapter.py", "--node", "{node_id}", "--artifact", "{artifact}", "--result", "{result_dir}/verifier.json"],
+        "timeout_sec": 900,
+        "result_file": "verifier.json",
+        "pass_field": "hard_pass"
+      }
+    },
+    {
+      "id": "integrated-goal",
+      "type": "integration",
+      "statement": "Demonstrate the integrated system against the root acceptance contract.",
+      "dependencies": ["problem-contract", "candidate-implementation"],
+      "scope": "project",
+      "priority": 10,
+      "max_attempts": 2,
+      "output_contract": {"artifact_type": "replace-with-integration-evidence", "schema_version": 1},
+      "verifier": {
+        "id": "replace-with-integration-verifier",
+        "command": ["python", "{project}/verifier_adapter.py", "--node", "{node_id}", "--artifact", "{artifact}", "--result", "{result_dir}/verifier.json"],
+        "timeout_sec": 1200,
+        "result_file": "verifier.json",
+        "pass_field": "hard_pass"
+      }
+    }
+  ]
+}

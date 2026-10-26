@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "plan_version": "replace-with-versioned-real-plan",
+  "research_question": "Replace with a falsifiable research question.",
+  "claim_boundary": "Only make claims supported by the frozen inputs and recorded experiments in this project.",
+  "frozen_input_files": [
+    "research-context.md"
+  ],
+  "budget": {
+    "max_stage_calls": 10,
+    "max_wall_time_sec": 3600,
+    "max_known_cost_usd": null
+  },
+  "acceptance": {
+    "required_claim_ids": [
+      "replace-with-required-claim-id"
+    ]
+  },
+  "stages": {
+    "ideation": {
+      "enabled": true,
+      "instructions": "Generate falsifiable hypotheses and a minimum experiment; do not assume the desired answer.",
+      "max_attempts": 2,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "--request", "{request}", "--response", "{response}"],
+        "timeout_sec": 600,
+        "may_use_model": true,
+        "env_allowlist": []
+      }
+    },
+    "literature": {
+      "enabled": true,
+      "instructions": "Search allowed primary sources and record locators, support, contradictions and novelty uncertainty.",
+      "max_attempts": 2,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "--request", "{request}", "--response", "{response}"],
+        "timeout_sec": 900,
+        "may_use_model": true,
+        "env_allowlist": []
+      }
+    },
+    "experiment": {
+      "enabled": true,
+      "instructions": "Run the frozen experiment; write raw files inside the current attempt directory and reference them in evidence_files.",
+      "max_attempts": 2,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "--request", "{request}", "--response", "{response}"],
+        "timeout_sec": 1200,
+        "may_use_model": true,
+        "env_allowlist": []
+      }
+    },
+    "analysis": {
+      "enabled": true,
+      "instructions": "Recompute from raw evidence and link every supported claim to validated evidence IDs.",
+      "max_attempts": 2,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "--request", "{request}", "--response", "{response}"],
+        "timeout_sec": 900,
+        "may_use_model": true,
+        "env_allowlist": []
+      }
+    },
+    "review": {
+      "enabled": true,
+      "instructions": "Independently review protocol, raw evidence, claims, uncertainty and limitations; reject unsupported claims.",
+      "max_attempts": 2,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "--request", "{request}", "--response", "{response}"],
+        "timeout_sec": 900,
+        "may_use_model": true,
+        "env_allowlist": []
+      }
+    }
+  }
+}

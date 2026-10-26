@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "attempt_id": "ideation-a001-d9692083",
+  "stage": "ideation",
+  "plan_version": "backoff-study-v1",
+  "plan_hash": "230e993f53593fa95a083f178af81d5ee50b6aa00e81a050983adbe686b74583",
+  "research_question": "Under the frozen transient-service simulation, which declared retry delay policy has the lowest observed p95 successful completion latency while satisfying reliability and mean-attempt constraints?",
+  "claim_boundary": "Only the policies, stochastic service model, seeds, constraints, and selection rule frozen in protocol.json. Results are simulation evidence, not a production guarantee.",
+  "stage_instructions": "Turn every declared policy into a falsifiable hypothesis without choosing a winner.",
+  "required_claim_ids": [
+    "claim-best-policy"
+  ],
+  "prior_stage_outputs": [],
+  "output_contract": "ideas[] with idea_id, hypothesis, falsifiable_prediction, minimum_experiment",
+  "created_at": "2026-10-26T18:38:08.279502+00:00"
+}

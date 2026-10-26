@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "name": "scientist-mode-structure-smoke",
+  "artifact": {
+    "kind": "configuration",
+    "baseline": "baseline.json",
+    "candidate_filename": "scientist-mode.json"
+  },
+  "public_context_files": ["brief.md"],
+  "contract": {
+    "schema_version": 2,
+    "name": "scientist-mode-structure-smoke",
+    "artifact": {
+      "kind": "configuration",
+      "stable_interface": "five-boolean Scientist Mode module configuration",
+      "mutable_boundary": "candidate JSON only"
+    },
+    "workload": "8 development and 8 disjoint structural scenarios; scoring relationships are predefined by the evaluator and do not estimate module utility",
+    "hard_gate": {"file": "correct.json", "field": "correct", "equals": true},
+    "objectives": [
+      {"metric": "mean_structural_coverage_score", "direction": "maximize"},
+      {"metric": "supported_conclusion_rate", "direction": "maximize"},
+      {"metric": "complete_package_rate", "direction": "maximize"},
+      {"metric": "mean_stage_cost", "direction": "minimize"}
+    ],
+    "behavior_signature_metrics": ["behavior_digest", "enabled_module_count"],
+    "evaluator": {
+      "command": ["{python}", "evaluator.py", "{candidate}", "{result_dir}", "{split}"],
+      "metrics_file": "metrics.json",
+      "timeout_sec": 30,
+      "env": {}
+    },
+    "splits": {"dev": {"env": {}}, "holdout": {"env": {}}},
+    "resource_envelope": "one serial Python process, deterministic simulator, 30 second timeout",
+    "budget_and_stop_rule": "two generations, three candidates each, six zero-cost generator calls",
+    "frozen_input_files": [
+      "evaluator.py",
+      "brief.md",
+      "seeds.json",
+      "fixtures/full.json",
+      "fixtures/no_ideation.json",
+      "fixtures/no_literature.json",
+      "fixtures/no_tree_manager.json",
+      "fixtures/no_analysis.json",
+      "fixtures/no_paper_review.json"
+    ],
+    "environment_checks": []
+  },
+  "generator": {
+    "backend": "deterministic",
+    "timeout_sec": 30,
+    "roles": ["conservative", "mechanism", "repair"],
+    "deterministic_plan": [
+      {
+        "generation": 1,
+        "slot": 1,
+        "artifact": "fixtures/full.json",
+        "hypothesis": "all five switches exercise every predefined structural stage",
+        "mechanism": "enable all five optional interfaces in the smoke test"
+      },
+      {
+        "generation": 1,
+        "slot": 2,
+        "artifact": "fixtures/no_ideation.json",
+        "hypothesis": "probe the predefined score when the ideation switch is disabled",
+        "mechanism": "disable hypothesis generation while retaining downstream switches"
+      },
+      {
+        "generation": 1,
+        "slot": 3,
+        "artifact": "fixtures/no_literature.json",
+        "hypothesis": "probe the predefined score when the literature switch is disabled",
+        "mechanism": "disable literature filtering and citation evidence"
+      },
+      {
+        "generation": 2,
+        "slot": 1,
+        "artifact": "fixtures/no_tree_manager.json",
+        "hypothesis": "probe the predefined score when the tree-manager switch is disabled",
+        "mechanism": "disable branch expansion and experiment management"
+      },
+      {
+        "generation": 2,
+        "slot": 2,
+        "artifact": "fixtures/no_analysis.json",
+        "hypothesis": "probe the predefined score when the analysis switch is disabled",
+        "mechanism": "disable robust aggregation and evidence interpretation"
+      },
+      {
+        "generation": 2,
+        "slot": 3,
+        "artifact": "fixtures/no_paper_review.json",
+        "hypothesis": "probe the predefined score when the paper-review switch is disabled",
+        "mechanism": "disable structured research packaging and claim review"
+      }
+    ]
+  },
+  "budget": {
+    "max_generations": 2,
+    "candidates_per_generation": 3,
+    "max_generator_calls": 6,
+    "max_wall_time_sec": 120,
+    "wall_time_scope": "generation, development evaluation, freeze, and holdout after baseline initialization",
+    "max_known_cost_usd": 0.01,
+    "no_improvement_generations": 2
+  },
+  "selection": {
+    "elite_count": 3,
+    "minimum_improvement": 0.0,
+    "freeze_comparators": 1,
+    "holdout_repeats": 2,
+    "independent_holdout_claim": false
+  }
+}

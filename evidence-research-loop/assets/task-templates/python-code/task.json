@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "name": "python-unique-sort-optimization",
+  "artifact": {"kind": "code", "baseline": "baseline.py", "candidate_filename": "candidate.py"},
+  "public_context_files": ["brief.md"],
+  "contract": {
+    "schema_version": 2,
+    "name": "python-unique-sort-optimization",
+    "artifact": {"kind": "code", "stable_interface": "solve(list[int]) -> list[int]", "mutable_boundary": "candidate artifact only"},
+    "workload": "12 fixed development cases and 12 disjoint holdout cases; each case records its seed and actual elapsed time",
+    "hard_gate": {"file": "correct.json", "field": "correct", "equals": true},
+    "objectives": [
+      {"metric": "median_elapsed_ns", "direction": "minimize"},
+      {"metric": "p95_elapsed_ns", "direction": "minimize"}
+    ],
+    "behavior_signature_metrics": ["behavior_digest"],
+    "evaluator": {"command": ["{python}", "evaluator.py", "{candidate}", "{result_dir}", "{split}"], "metrics_file": "metrics.json", "timeout_sec": 30, "env": {}},
+    "splits": {"dev": {"env": {"PYTHONHASHSEED": "0"}}, "holdout": {"env": {"PYTHONHASHSEED": "0"}}},
+    "resource_envelope": "one serial Python process, 30 second evaluator timeout",
+    "budget_and_stop_rule": "two generations, three candidates per generation, stop on budget or no improvement",
+    "frozen_input_files": ["evaluator.py", "brief.md", "seeds.json"],
+    "environment_checks": []
+  },
+  "generator": {
+    "backend": "deterministic",
+    "timeout_sec": 30,
+    "roles": ["conservative", "mechanism", "repair"],
+    "deterministic_plan": [
+      {"generation": 1, "slot": 1, "artifact": "fixtures/optimized.py", "hypothesis": "set construction removes quadratic membership checks", "mechanism": "built-in set plus sorted"},
+      {"generation": 1, "slot": 2, "artifact": "fixtures/wrong_order.py", "hypothesis": "insertion-order deduplication may be faster", "mechanism": "dict insertion order without required sort"},
+      {"generation": 1, "slot": 3, "artifact": "fixtures/manual_set.py", "hypothesis": "repair order correctness while keeping constant-time membership", "mechanism": "manual set accumulation then sort"},
+      {"generation": 2, "slot": 1, "artifact": "fixtures/optimized_duplicate.py", "hypothesis": "repeat the best minimal mechanism", "mechanism": "exact duplicate used to verify source deduplication"},
+      {"generation": 2, "slot": 2, "artifact": "fixtures/set_comprehension.py", "hypothesis": "set comprehension may reduce call overhead", "mechanism": "set comprehension plus sorted"},
+      {"generation": 2, "slot": 3, "artifact": "fixtures/dict_sort.py", "hypothesis": "repair ordering while retaining dict-based deduplication", "mechanism": "dict keys then sorted"}
+    ]
+  },
+  "budget": {"max_generations": 2, "candidates_per_generation": 3, "max_generator_calls": 6, "max_wall_time_sec": 300, "wall_time_scope": "generation, dev evaluation, freeze, and holdout after one-time baseline initialization", "max_known_cost_usd": 1.0, "no_improvement_generations": 2},
+  "selection": {"elite_count": 2, "minimum_improvement": 0.0, "freeze_comparators": 1, "holdout_repeats": 2}
+}

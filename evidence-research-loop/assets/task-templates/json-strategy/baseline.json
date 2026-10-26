@@ -1,0 +1,5 @@
+{
+  "safety_capacity": 25,
+  "batch_size": 50,
+  "review_period": 1
+}

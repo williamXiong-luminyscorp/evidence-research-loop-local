@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "plan_version": "backoff-study-v1",
+  "research_question": "Under the frozen transient-service simulation, which declared retry delay policy has the lowest observed p95 successful completion latency while satisfying reliability and mean-attempt constraints?",
+  "claim_boundary": "Only the policies, stochastic service model, seeds, constraints, and selection rule frozen in protocol.json. Results are simulation evidence, not a production guarantee.",
+  "frozen_input_files": [
+    "protocol.json",
+    "stage_adapter.py"
+  ],
+  "budget": {
+    "max_stage_calls": 5,
+    "max_wall_time_sec": 180,
+    "max_known_cost_usd": 0.001
+  },
+  "acceptance": {
+    "required_claim_ids": [
+      "claim-best-policy"
+    ]
+  },
+  "stages": {
+    "ideation": {
+      "enabled": true,
+      "instructions": "Turn every declared policy into a falsifiable hypothesis without choosing a winner.",
+      "max_attempts": 1,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "{stage}", "{request}", "{response}", "{attempt_dir}", "{project}"],
+        "timeout_sec": 30,
+        "env_allowlist": [],
+        "may_use_model": false
+      }
+    },
+    "literature": {
+      "enabled": true,
+      "instructions": "Record the predeclared engineering sources. Do not assert novelty because this run does not retrieve and compare full source content.",
+      "max_attempts": 1,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "{stage}", "{request}", "{response}", "{attempt_dir}", "{project}"],
+        "timeout_sec": 30,
+        "env_allowlist": [],
+        "may_use_model": false
+      }
+    },
+    "experiment": {
+      "enabled": true,
+      "instructions": "Run every policy on every frozen seed, save all row-level observations, and report only metrics computed from those rows.",
+      "max_attempts": 1,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "{stage}", "{request}", "{response}", "{attempt_dir}", "{project}"],
+        "timeout_sec": 60,
+        "env_allowlist": [],
+        "may_use_model": false
+      }
+    },
+    "analysis": {
+      "enabled": true,
+      "instructions": "Recompute all summaries from raw observations, apply the frozen eligibility and ordering rules, and state the selected policy without a hardcoded expected answer.",
+      "max_attempts": 1,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "{stage}", "{request}", "{response}", "{attempt_dir}", "{project}"],
+        "timeout_sec": 45,
+        "env_allowlist": [],
+        "may_use_model": false
+      }
+    },
+    "review": {
+      "enabled": true,
+      "instructions": "Independently recompute the result from raw observations and reject the claim if the analysis differs from the frozen rule.",
+      "max_attempts": 1,
+      "backend": {
+        "kind": "command",
+        "command": ["python", "{project}/stage_adapter.py", "{stage}", "{request}", "{response}", "{attempt_dir}", "{project}"],
+        "timeout_sec": 45,
+        "env_allowlist": [],
+        "may_use_model": false
+      }
+    }
+  }
+}

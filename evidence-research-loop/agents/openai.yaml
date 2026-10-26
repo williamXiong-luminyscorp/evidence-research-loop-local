@@ -1,0 +1,6 @@
+interface:
+  display_name: "证据驱动的方案进化"
+  short_description: "运行多代方案搜索、Research Graph 多 Agent 协作与真实 Scientist 流程"
+  default_prompt: "使用 $evidence-research-loop 把当前目标定义成可执行 solution 搜索：固定任务适配器、基线、裁判和预算，自动生成并评测多代候选，维护谱系、Pareto、多样性与失败档案，冻结后做独立测试并导出可复核证据。复杂方案内部用 Research Graph 将义务拆成可领取、可验证、失败可重构和成果可复用的节点；科研任务用真实 Scientist Runtime 执行构想、文献、实验、分析与独立评审。"
+policy:
+  allow_implicit_invocation: true

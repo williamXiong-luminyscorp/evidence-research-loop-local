@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "graph_id": "kpi-calculator-collaboration-v1",
+  "title": "Build and independently verify a small weighted KPI calculator",
+  "goal_node_ids": [
+    "integration-evidence"
+  ],
+  "nodes": [
+    {
+      "id": "adversarial-cases",
+      "type": "test-design",
+      "statement": "Define at least six mechanism-distinct KPI test cases covering nominal, lower and upper boundaries, a missing component, an out-of-range component, and unknown extra input.",
+      "dependencies": [],
+      "scope": "project",
+      "priority": 90,
+      "max_attempts": 2,
+      "output_contract": {
+        "artifact_type": "kpi-test-cases-json",
+        "schema_version": 1
+      },
+      "verifier": {
+        "id": "kpi-demo-verifier-v1",
+        "command": [
+          "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+          "--node",
+          "{node_id}",
+          "--artifact",
+          "{artifact}",
+          "--project",
+          "{project}",
+          "--result-dir",
+          "{result_dir}"
+        ],
+        "frozen_files": [
+          "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py"
+        ],
+        "timeout_sec": 30,
+        "result_file": "result.json",
+        "pass_field": "hard_pass",
+        "frozen_file_manifest": [
+          {
+            "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+            "source": "command",
+            "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+            "size_bytes": 105840
+          },
+          {
+            "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+            "source": "explicit",
+            "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+            "size_bytes": 7960
+          }
+        ],
+        "contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e"
+      }
+    },
+    {
+      "id": "calculator-implementation",
+      "type": "implementation",
+      "statement": "Implement calculate(scores, contract) in a Python artifact: validate the frozen contract and inputs, reject missing/unknown/out-of-range values, and return the weighted 0-100 score.",
+      "dependencies": [
+        "metric-contract",
+        "adversarial-cases"
+      ],
+      "scope": "project",
+      "priority": 50,
+      "max_attempts": 3,
+      "output_contract": {
+        "artifact_type": "python-kpi-calculator",
+        "interface": "calculate(scores, contract)"
+      },
+      "verifier": {
+        "id": "kpi-demo-verifier-v1",
+        "command": [
+          "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+          "--node",
+          "{node_id}",
+          "--artifact",
+          "{artifact}",
+          "--project",
+          "{project}",
+          "--result-dir",
+          "{result_dir}"
+        ],
+        "frozen_files": [
+          "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py"
+        ],
+        "timeout_sec": 30,
+        "result_file": "result.json",
+        "pass_field": "hard_pass",
+        "frozen_file_manifest": [
+          {
+            "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+            "source": "command",
+            "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+            "size_bytes": 105840
+          },
+          {
+            "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+            "source": "explicit",
+            "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+            "size_bytes": 7960
+          }
+        ],
+        "contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e"
+      }
+    },
+    {
+      "id": "integration-evidence",
+      "type": "integration",
+      "statement": "Produce an integration report that names the exact three dependency assets and whose calculator still passes the frozen contract and boundary suite.",
+      "dependencies": [
+        "metric-contract",
+        "adversarial-cases",
+        "calculator-implementation"
+      ],
+      "scope": "project",
+      "priority": 10,
+      "max_attempts": 2,
+      "output_contract": {
+        "artifact_type": "kpi-integration-report-json",
+        "schema_version": 1
+      },
+      "verifier": {
+        "id": "kpi-demo-verifier-v1",
+        "command": [
+          "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+          "--node",
+          "{node_id}",
+          "--artifact",
+          "{artifact}",
+          "--project",
+          "{project}",
+          "--result-dir",
+          "{result_dir}"
+        ],
+        "frozen_files": [
+          "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py"
+        ],
+        "timeout_sec": 30,
+        "result_file": "result.json",
+        "pass_field": "hard_pass",
+        "frozen_file_manifest": [
+          {
+            "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+            "source": "command",
+            "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+            "size_bytes": 105840
+          },
+          {
+            "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+            "source": "explicit",
+            "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+            "size_bytes": 7960
+          }
+        ],
+        "contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e"
+      }
+    },
+    {
+      "id": "metric-contract",
+      "type": "contract",
+      "statement": "Define a versioned weighted KPI contract with at least three components, a 0-100 score range, weights summing to one, and an explicit missing-input policy.",
+      "dependencies": [],
+      "scope": "project",
+      "priority": 100,
+      "max_attempts": 2,
+      "output_contract": {
+        "artifact_type": "kpi-contract-json",
+        "schema_version": 1
+      },
+      "verifier": {
+        "id": "kpi-demo-verifier-v1",
+        "command": [
+          "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+          "--node",
+          "{node_id}",
+          "--artifact",
+          "{artifact}",
+          "--project",
+          "{project}",
+          "--result-dir",
+          "{result_dir}"
+        ],
+        "frozen_files": [
+          "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py"
+        ],
+        "timeout_sec": 30,
+        "result_file": "result.json",
+        "pass_field": "hard_pass",
+        "frozen_file_manifest": [
+          {
+            "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+            "source": "command",
+            "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+            "size_bytes": 105840
+          },
+          {
+            "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+            "source": "explicit",
+            "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+            "size_bytes": 7960
+          }
+        ],
+        "contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e"
+      }
+    }
+  ]
+}

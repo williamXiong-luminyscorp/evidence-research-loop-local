@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "name": "capacity-buffer-strategy",
+  "artifact": {"kind": "configuration", "baseline": "baseline.json", "candidate_filename": "candidate.json"},
+  "public_context_files": ["brief.md"],
+  "contract": {
+    "schema_version": 2,
+    "name": "capacity-buffer-strategy",
+    "artifact": {"kind": "configuration", "stable_interface": "three-field JSON strategy", "mutable_boundary": "candidate artifact only"},
+    "workload": "12 fixed development pressure scenarios and 12 disjoint holdout scenarios with per-scenario raw records",
+    "hard_gate": {"file": "correct.json", "field": "correct", "equals": true},
+    "objectives": [
+      {"metric": "mean_total_cost", "direction": "minimize"},
+      {"metric": "mean_committed_capacity", "direction": "minimize"}
+    ],
+    "behavior_signature_metrics": ["behavior_digest"],
+    "evaluator": {"command": ["{python}", "evaluator.py", "{candidate}", "{result_dir}", "{split}"], "metrics_file": "metrics.json", "timeout_sec": 30, "env": {}},
+    "splits": {"dev": {"env": {}}, "holdout": {"env": {}}},
+    "resource_envelope": "one serial Python process, 30 second evaluator timeout",
+    "budget_and_stop_rule": "two generations, three candidates per generation, stop on budget or no improvement",
+    "frozen_input_files": ["evaluator.py", "brief.md", "seeds.json"],
+    "environment_checks": []
+  },
+  "generator": {
+    "backend": "deterministic",
+    "timeout_sec": 30,
+    "roles": ["conservative", "mechanism", "repair"],
+    "deterministic_plan": [
+      {"generation": 1, "slot": 1, "artifact": "fixtures/balanced.json", "hypothesis": "reduce excess reserve and right-size the batch", "mechanism": "balanced reserve and economic batch"},
+      {"generation": 1, "slot": 2, "artifact": "fixtures/infeasible.json", "hypothesis": "aggressively lower reserve", "mechanism": "low reserve with slower review"},
+      {"generation": 1, "slot": 3, "artifact": "fixtures/low_inventory.json", "hypothesis": "repair service while minimizing committed capacity", "mechanism": "minimum feasible reserve with smaller batch"},
+      {"generation": 2, "slot": 1, "artifact": "fixtures/low_inventory_duplicate.json", "hypothesis": "retain low-inventory choice", "mechanism": "exact duplicate used to verify source deduplication"},
+      {"generation": 2, "slot": 2, "artifact": "fixtures/lowest_cost.json", "hypothesis": "move batch to the analytic cost minimum", "mechanism": "minimum feasible reserve with cost-optimal batch"},
+      {"generation": 2, "slot": 3, "artifact": "fixtures/repair.json", "hypothesis": "repair the infeasible line while preserving a small batch", "mechanism": "minimum feasible reserve with intermediate batch"}
+    ]
+  },
+  "budget": {"max_generations": 2, "candidates_per_generation": 3, "max_generator_calls": 6, "max_wall_time_sec": 300, "wall_time_scope": "generation, dev evaluation, freeze, and holdout after one-time baseline initialization", "max_known_cost_usd": 1.0, "no_improvement_generations": 2},
+  "selection": {"elite_count": 2, "minimum_improvement": 0.0, "freeze_comparators": 1, "holdout_repeats": 2}
+}

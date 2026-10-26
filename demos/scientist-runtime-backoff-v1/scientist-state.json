@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "plan_version": "backoff-study-v1",
+  "plan_hash": "230e993f53593fa95a083f178af81d5ee50b6aa00e81a050983adbe686b74583",
+  "status": "blocked",
+  "current_stage": "ideation",
+  "stage_calls_started": 1,
+  "stage_calls_completed": 1,
+  "model_calls": 0,
+  "known_cost_usd": 0.0,
+  "unknown_cost_calls": 0,
+  "accumulated_active_sec": 0.3519312001299113,
+  "stages": {
+    "ideation": {
+      "status": "failed",
+      "attempts": [
+        {
+          "id": "ideation-a001-d9692083",
+          "path": "scientist-runs/ideation/ideation-a001-d9692083",
+          "status": "failed",
+          "started_at": "2026-10-26T18:38:08.281677+00:00",
+          "retry_of": null,
+          "command": [
+            "python",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1/stage_adapter.py",
+            "ideation",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\scientist-runs\\ideation\\ideation-a001-d9692083\\request.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\scientist-runs\\ideation\\ideation-a001-d9692083\\response.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\scientist-runs\\ideation\\ideation-a001-d9692083",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1"
+          ],
+          "request_hash": "392b25f5a94300b8e4f5edf69a54750982e22c832c88c6e8f9ee1d5c18470638",
+          "finished_at": "2026-10-26T18:38:08.544312+00:00",
+          "result_hash": "8357940d0c4ac0ab295f4f60f68432fc3403dfa265b539c91ec4d57bab44dd54"
+        }
+      ],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": "stage command exited 1"
+    },
+    "literature": {
+      "status": "pending",
+      "attempts": [],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": null
+    },
+    "experiment": {
+      "status": "pending",
+      "attempts": [],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": null
+    },
+    "analysis": {
+      "status": "pending",
+      "attempts": [],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": null
+    },
+    "review": {
+      "status": "pending",
+      "attempts": [],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": null
+    }
+  },
+  "created_at": "2026-10-26T18:38:08.208432+00:00",
+  "updated_at": "2026-10-26T18:38:08.628667+00:00",
+  "protocol_lock_hash": "c17978477a6db9822fec1a87880d79738cce7f15ab4aaed11e7049dce070baf2",
+  "last_error": "stage command exited 1"
+}

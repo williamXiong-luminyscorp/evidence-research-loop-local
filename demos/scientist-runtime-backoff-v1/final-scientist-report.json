@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "plan_version": "backoff-study-v1",
+  "plan_hash": "230e993f53593fa95a083f178af81d5ee50b6aa00e81a050983adbe686b74583",
+  "execution_status": "blocked",
+  "research_question": "Under the frozen transient-service simulation, which declared retry delay policy has the lowest observed p95 successful completion latency while satisfying reliability and mean-attempt constraints?",
+  "claim_boundary": "Only the policies, stochastic service model, seeds, constraints, and selection rule frozen in protocol.json. Results are simulation evidence, not a production guarantee.",
+  "stages": {
+    "ideation": {
+      "status": "failed",
+      "attempts": [
+        {
+          "id": "ideation-a001-d9692083",
+          "path": "scientist-runs/ideation/ideation-a001-d9692083",
+          "status": "failed",
+          "started_at": "2026-10-26T18:38:08.281677+00:00",
+          "retry_of": null,
+          "command": [
+            "python",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1/stage_adapter.py",
+            "ideation",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\scientist-runs\\ideation\\ideation-a001-d9692083\\request.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\scientist-runs\\ideation\\ideation-a001-d9692083\\response.json",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1\\scientist-runs\\ideation\\ideation-a001-d9692083",
+            "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\scientist-runtime-backoff-v1"
+          ],
+          "request_hash": "392b25f5a94300b8e4f5edf69a54750982e22c832c88c6e8f9ee1d5c18470638",
+          "finished_at": "2026-10-26T18:38:08.544312+00:00",
+          "result_hash": "8357940d0c4ac0ab295f4f60f68432fc3403dfa265b539c91ec4d57bab44dd54"
+        }
+      ],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": "stage command exited 1"
+    },
+    "literature": {
+      "status": "pending",
+      "attempts": [],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": null
+    },
+    "experiment": {
+      "status": "pending",
+      "attempts": [],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": null
+    },
+    "analysis": {
+      "status": "pending",
+      "attempts": [],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": null
+    },
+    "review": {
+      "status": "pending",
+      "attempts": [],
+      "output_path": null,
+      "output_hash": null,
+      "last_error": null
+    }
+  },
+  "usage": {
+    "stage_calls_started": 1,
+    "stage_calls_completed": 1,
+    "model_calls": 0,
+    "known_cost_usd": 0.0,
+    "unknown_cost_calls": 0,
+    "active_duration_sec": 0.3170454001519829
+  },
+  "acceptance": {
+    "accepted": false,
+    "review_decision": null,
+    "supported_claim_ids": [],
+    "required_claim_status": {
+      "claim-best-policy": "missing"
+    },
+    "required_claim_review_status": {
+      "claim-best-policy": "missing"
+    },
+    "novelty_status": "unknown",
+    "novelty_claim_allowed": false,
+    "reason": "review did not accept every required supported claim, no supported claim exists, or evidence is missing"
+  },
+  "evidence": {
+    "ideas": "ideas.jsonl",
+    "literature": "literature-ledger.jsonl",
+    "experiments": "experiment-ledger.jsonl",
+    "analysis": "analysis-results.json",
+    "claim_evidence_matrix": "claim-evidence-matrix.json",
+    "reviews": "reviews/",
+    "events": "scientist-events.jsonl",
+    "runs": "scientist-runs/"
+  },
+  "limitations": [
+    "Machine execution validates only the configured contracts and evidence.",
+    "Novelty may be claimed only when novelty_status is supported_distinct.",
+    "Completion does not imply acceptance; inspect acceptance.accepted."
+  ],
+  "generated_at": "2026-10-26T18:38:08.612261+00:00"
+}

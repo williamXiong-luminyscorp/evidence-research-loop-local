@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "attempt_id": "attempt-f94af4c7daeb4254b869c3e9582488ef",
+  "node_id": "integration-evidence",
+  "blueprint_revision": 1,
+  "worker": "kpi-integration-agent",
+  "lease_fingerprint": "8a798b771f2892ae",
+  "status": "failed",
+  "started_at": "2026-10-26T18:47:35.505965+00:00",
+  "artifact_path": "attempts/attempt-f94af4c7daeb4254b869c3e9582488ef/artifact.json",
+  "artifact_hash": "12f80fa363c9d46f6e0e5f9719db5638147963f3fb74a2bdab2c090e13834d80",
+  "contributor": {
+    "kind": "agent",
+    "id": "kpi-integration-agent",
+    "roles": [
+      "integration-reviewer"
+    ],
+    "model": "current-codex"
+  },
+  "known_cost_usd": null,
+  "source_ids": [],
+  "verifier_contract_hash": "eddc576d9add7d685eb9d2bd0f0e9ad38af59726ecd13b63f3b277e180f9692e",
+  "verifier_frozen_files": [
+    {
+      "path": "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "source": "command",
+      "sha256": "7d96a4ed35d6e596cd9dd8933feafc66349cc21f75be3b15c89fd336e50140c1",
+      "size_bytes": 105840
+    },
+    {
+      "path": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+      "source": "explicit",
+      "sha256": "be93f954f121e4e277ec60db09d5a31a8eda15d84a7354f52339bb39171809c6",
+      "size_bytes": 7960
+    }
+  ],
+  "finalized": true,
+  "exit_code": 0,
+  "timed_out": false,
+  "elapsed_sec": 0.1437176000326872,
+  "environment_keys": [
+    "COMSPEC",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "PATHEXT",
+    "PYTHONIOENCODING",
+    "PYTHONUTF8",
+    "SYSTEMROOT",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "command": [
+    "C:\\Users\\WilliamXiong\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\verifier.py",
+    "--node",
+    "integration-evidence",
+    "--artifact",
+    "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\run\\attempts\\attempt-f94af4c7daeb4254b869c3e9582488ef\\artifact.json",
+    "--project",
+    "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\run",
+    "--result-dir",
+    "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\demos\\research-graph-kpi-v1\\run\\attempts\\attempt-f94af4c7daeb4254b869c3e9582488ef\\results"
+  ],
+  "verifier_id": "kpi-demo-verifier-v1",
+  "finished_at": "2026-10-26T18:47:35.759835+00:00",
+  "outcome": {
+    "passed": false,
+    "classification": "hard_gate_failed",
+    "reason": "hard_pass is not true",
+    "result": {
+      "hard_pass": false,
+      "node_id": "integration-evidence",
+      "errors": [
+        "integration report does not name the exact dependency assets"
+      ],
+      "details": {
+        "dependency_assets": {
+          "metric-contract": "asset-7e5236940b7581a4e6c4",
+          "adversarial-cases": "asset-da05cd49bf5bb28111d3",
+          "calculator-implementation": "asset-d2e8570d189b684ce45a"
+        }
+      }
+    }
+  }
+}

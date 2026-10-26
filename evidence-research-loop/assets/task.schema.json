@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence Research Loop automatic task adapter",
+  "type": "object",
+  "required": ["schema_version", "name", "artifact", "public_context_files", "contract", "generator", "budget", "selection"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "name": {"type": "string", "minLength": 1},
+    "artifact": {
+      "type": "object",
+      "required": ["kind", "baseline", "candidate_filename"],
+      "properties": {
+        "kind": {"type": "string"},
+        "baseline": {"type": "string"},
+        "candidate_filename": {"type": "string", "pattern": "^[^/\\\\]+$"}
+      }
+    },
+    "public_context_files": {"type": "array", "items": {"type": "string"}},
+    "contract": {"type": "object"},
+    "generator": {
+      "type": "object",
+      "required": ["backend", "roles"],
+      "properties": {
+        "backend": {"enum": ["deterministic", "command", "codex", "docker-command"]},
+        "roles": {"type": "array", "minItems": 1, "items": {"enum": ["conservative", "mechanism", "exploratory", "repair"]}},
+        "timeout_sec": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "budget": {
+      "type": "object",
+      "required": ["max_generations", "candidates_per_generation", "max_generator_calls", "max_wall_time_sec"],
+      "properties": {
+        "max_generations": {"type": "integer", "minimum": 1},
+        "candidates_per_generation": {"type": "integer", "minimum": 1},
+        "max_generator_calls": {"type": "integer", "minimum": 1},
+        "max_wall_time_sec": {"type": "integer", "minimum": 1},
+        "wall_time_scope": {"type": "string", "minLength": 1},
+        "max_known_cost_usd": {"type": "number", "exclusiveMinimum": 0},
+        "no_improvement_generations": {"type": "integer", "minimum": 1}
+      }
+    },
+    "selection": {
+      "type": "object",
+      "required": ["elite_count", "minimum_improvement", "freeze_comparators", "holdout_repeats"],
+      "properties": {
+        "independent_holdout_claim": {"type": "boolean"},
+        "allow_failing_baseline": {"type": "boolean"}
+      }
+    }
+  }
+}

@@ -276,9 +276,18 @@ python $scientist export C:\work\scientist-project
 ```powershell
 py -3.13 -m venv .venv
 .\.venv\Scripts\python -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python -m pytest -q
+.\.venv\Scripts\python tests/run_selftest.py
 docker build -t evidence-research-loop-mcp:test .
 ```
+
+`run_selftest.py` 统一运行 37 项引擎回归与 9 项 MCP 服务回归，不调用模型。
+Windows/Codex 沙箱内请使用此入口：它为每次运行设置独立的 `ERL_TEST_TMP`，
+使用工作区 `ai agent/.erl-test-tmp/<唯一 ID>`，避免系统 Temp 的继承权限拒绝写入，
+也缩短生成文件路径。无须关闭沙箱、修改系统 Temp ACL 或以管理员权限运行。
+该入口当前按本仓库工作区布局定位短路径（MCP 目录的第三层父目录）。
+每轮的协议、源码哈希、原始 stdout/stderr、退出码、耗时、汇总及哈希清单
+保存在新的 `test-output/selftest/<时间戳-唯一 ID>/`；失败运行同样保留。
+直接运行 `unittest discover` 不会自动设置此环境变量，不能视为相同的测试入口。
 
 MCP 使用 Streamable HTTP `/mcp`。`/healthz` 不要求认证，只返回版本和引擎完整性。生产端点：
 

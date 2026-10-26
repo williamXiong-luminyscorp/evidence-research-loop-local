@@ -50,7 +50,7 @@ Evidence Research Loop 是一个**证据驱动的工程方案进化系统**。�
 | --- | --- | --- |
 | ShinkaEvolve | 程序种群、变异/组合、适应度、档案/岛屿、文本反馈 | 候选谱系、生成角色、冻结 evaluator、精英/Pareto/niche/失败档案、失败驱动 repair |
 | AI Scientist-v2 | 假设形成、实验分支、分析和研究产物组织 | 可选 Scientist Mode，用相同的冻结、独立测试和审计门禁编排研究 |
-| Prove2Me | 不可变问题/证明分离、依赖图、可复用的已验证资产 | Research Graph 的节点契约、依赖、资产登记和贡献账本；只借鉴公开论文描述，没有复制其未许可 workspace 代码 |
+| Prove2Me | 不可变主张/提交分离、条件归约、多条证明路径、资产复用 | Composition Graph 的 Claim、Reduction、实际子产物绑定和工程验收；独立实现公开方法，没有打包其 workspace，不等同完整平台复现 |
 | Goedel-Architect | 蓝图 DAG、并行节点验证、结构化失败和失败驱动重构 | Research Graph 的 ready queue、lease、验证器、split/rewire/invalidate 和恢复；当前通用实现为 clean-room 实现 |
 | 软件与实验工程 | 可复现构建、独立测试、故障注入、审计与恢复 | 协议哈希、唯一 run ID、事件链、holdout 历史、逐例记录、进程树超时和证据清单 |
 
@@ -74,6 +74,28 @@ Scientist Mode 现在包含真实命令执行层：它会实际调用构想、�
 不是对跨领域泛化、全自动问题分解或 AI Scientist-v2 等级科研能力的证明。
 
 ## How：系统怎样运行
+
+### 组合图：把模块结果组成完整系统
+
+普通 Research Graph 管理任务领取与依赖调度。新增的 **Composition Graph** 管理主张是否有足够证据成立：同一目标可以有多条替代路径，每条组合路径必须满足全部前提。
+
+运行顺序是：冻结 Claim 和裁判 → 提交组合产物并检查条件 → 验证子模块 → 显式绑定每个子模块的不可变 evidence ID → 用真实子产物执行组合和集成 → 根目标通过固定 holdout → 审计。
+
+`conditionally_validated` 只表示条件组合检查通过；子模块尚未完成、真实集成失败或 holdout 缺失时，目标不会接受。撤销证据只使依赖它的路径失效，其他有效路径仍可保留。资产导入检查原始来源和精确契约，并在目标项目重新运行裁判。检索目前为文字检索，不把语义相似当成复用许可。
+
+本版保证类别为 `empirical`，只支持声明契约和测试范围内的工程验收；拒绝将其标为 `formal`。人审和盲回译接口记录外部提交的声明，不能自行认证审查者身份或证明上下文隔离。完整用法见 [Composition Graph](evidence-research-loop/references/composition-graph.md)。
+
+本地 CLI：
+
+```powershell
+python evidence-research-loop/scripts/composition_graph.py init <项目目录> <composition-blueprint.json>
+python evidence-research-loop/scripts/composition_graph.py submit <项目目录> <提交请求.json>
+python evidence-research-loop/scripts/composition_graph.py audit <项目目录>
+```
+
+MCP 使用 `create_project(template="composition-graph")`、`initialize_composition_graph`、`submit_composition`、`get_composition_status`、`audit_composition_graph`；恢复、撤销、资产导出/导入及 read-back/milestone 有对应专用工具。模板是已知配置的基础设施冒烟，不能作为自主研究或未见数据泛化成果。
+
+以下是外层方案搜索流程，与组合图可配合使用：
 
 ```mermaid
 flowchart LR

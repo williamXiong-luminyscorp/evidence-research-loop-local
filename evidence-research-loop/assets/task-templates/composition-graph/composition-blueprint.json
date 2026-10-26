@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "graph_id": "affine-composition-smoke",
+  "title": "Deterministic engineering composition infrastructure smoke",
+  "goal_claim_ids": ["pipeline"],
+  "claims": [
+    {
+      "id": "scale",
+      "statement": "Scale configuration produces 2*x on the named finite checks.",
+      "contract": {"artifact": "JSON", "operation": "scale", "factor": 2},
+      "environment": {"arithmetic": "Python integer", "fixture_version": 1},
+      "scope": "named deterministic fixtures only",
+      "guarantee": "empirical",
+      "verifiers": {"direct": {"command": ["{python}", "verifier_adapter.py", "{request}", "{result_dir}"], "timeout_sec": 10}}
+    },
+    {
+      "id": "offset",
+      "statement": "Offset configuration produces x+3 on the named finite checks.",
+      "contract": {"artifact": "JSON", "operation": "offset", "amount": 3},
+      "environment": {"arithmetic": "Python integer", "fixture_version": 1},
+      "scope": "named deterministic fixtures only",
+      "guarantee": "empirical",
+      "verifiers": {"direct": {"command": ["{python}", "verifier_adapter.py", "{request}", "{result_dir}"], "timeout_sec": 10}}
+    },
+    {
+      "id": "pipeline",
+      "statement": "The actual bound scale and offset configurations compose to 2*x+3 on the named integration and holdout fixtures.",
+      "contract": {"artifact": "JSON", "composition": "ordered scale and offset", "result": "2*x+3"},
+      "environment": {"arithmetic": "Python integer", "fixture_version": 1},
+      "scope": "named deterministic fixtures only; holdout is a fixed smoke suite, not unseen generalization data",
+      "guarantee": "empirical",
+      "verifiers": {
+        "composition": {"command": ["{python}", "verifier_adapter.py", "{request}", "{result_dir}"], "timeout_sec": 10},
+        "integration": {"command": ["{python}", "verifier_adapter.py", "{request}", "{result_dir}"], "timeout_sec": 10},
+        "holdout": {"command": ["{python}", "verifier_adapter.py", "{request}", "{result_dir}"], "timeout_sec": 10}
+      }
+    }
+  ]
+}

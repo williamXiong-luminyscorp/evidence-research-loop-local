@@ -14,7 +14,8 @@ description: 用证据驱动的方案进化解决研究或工程优化问题：�
 ## 先选择工作模式
 
 - **工程方案进化**：用户要开发软件/系统、找最佳实现、优化性能或把 ShinkaEvolve 原理迁移到其他领域。读取 [工程方案进化](references/engineering-evolution.md)。
-- **Research Graph 协作**：一个方案内部需要多个 Agent 分解依赖、并行完成节点、复用已验证资产，或在失败后重构蓝图。读取 [Research Graph](references/research-graph.md)。它是内层协作图，不替代外层候选比较和根级独立验收。
+- **Research Graph 协作**：一个方案内部需要多个 Agent 分解依赖、并行完成节点，或在失败后重构蓝图。读取 [Research Graph](references/research-graph.md)。它管理任务调度；`dependencies` 本身不是经验证的组合关系。
+- **Composition Graph 组合验收**：同一目标有多条实现路径，需要分别验证子能力、组合关系和实际系统，并保存可跨项目复核的资产。读取 [Composition Graph](references/composition-graph.md)。它区分条件组合通过与整体接受，不替代外层搜索，也不把工程测试提升为数学证明。
 - **研究结论比较**：用户要检验假设、比较干预或复现实证结果。按本文流程执行。
 - **Scientist Mode**：用户要形成假设、查文献和新颖性、管理多分支实验、生成科学分析与论文评审，或搭建 AI Scientist-v2 式流程。读取 [Scientist Mode](references/scientist-mode.md)，用 `scripts/scientist_runtime.py` 执行真实 stage command；复杂实验树可组合 Research Graph。五模块是可选产品设计，其真实效用必须在目标任务上另行比较，结构模板和单元测试不能提供该证据。
 - 两者重叠时，以可运行系统为候选、以研究协议管理证据；模块微基准不能替代端到端系统验收。

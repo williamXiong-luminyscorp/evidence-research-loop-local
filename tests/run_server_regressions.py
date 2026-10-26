@@ -65,6 +65,10 @@ EXPECTED_TOOLS = {
     "get_scientist_status",
     "audit_scientist_project",
     "export_scientist_report",
+    "initialize_composition_graph", "submit_composition", "get_composition_status",
+    "audit_composition_graph", "resume_composition_graph", "revoke_composition_evidence",
+    "export_composition_asset", "import_composition_asset", "search_composition_assets",
+    "record_composition_readback", "attest_composition_milestone",
 }
 
 
@@ -157,7 +161,7 @@ class RegressionRun:
 
 def case_engine_identity() -> None:
     identity = server._engine_identity()
-    check(identity["engine_version"] == "evidence-research-loop-v2.5.1", str(identity))
+    check(identity["engine_version"] == "evidence-research-loop-v2.6.0", str(identity))
     check(identity["engine_hash_valid"] is True, str(identity))
     check(identity["engine_file_count"] > 0, str(identity))
 
@@ -167,7 +171,7 @@ async def case_mcp_contract() -> None:
         listed = await client.list_tools()
         tools = listed.tools
         names = {tool.name for tool in tools}
-        check(len(tools) == 29, f"expected 29 tools, observed {len(tools)}")
+        check(len(tools) == len(EXPECTED_TOOLS), f"expected {len(EXPECTED_TOOLS)} tools, observed {len(tools)}")
         check(names == EXPECTED_TOOLS, f"tool mismatch: {sorted(names ^ EXPECTED_TOOLS)}")
         for tool in tools:
             schema = tool.input_schema

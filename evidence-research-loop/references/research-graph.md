@@ -2,6 +2,8 @@
 
 Research Graph 把一个完整候选内部的工作拆成带依赖和验收契约的节点。它与候选谱系并存：候选谱系比较整体方案；Research Graph 负责让多个 Agent 组合完成一个方案。
 
+这里的 `dependencies` 表示任务调度的前置条件，不代表机器已经验证“这些子结论足以推出父结论”。需要一项主张的多条替代路径、条件组合状态、实际子产物绑定和组合证据时，使用 [Composition Graph](composition-graph.md)。不要将本模块的 DAG 或 `verified` 状态称为 Prove2Me 的 proof-sketch 机制完整复现。
+
 它是通用 clean-room 实现。设计受到 Prove2Me 的不可变问题/证明分离和可复用验证资产、Goedel-Architect 的 blueprint/refinement 思想启发；没有复制 Prove2Me workspace 或 Goedel-Architect 源码。来源和许可证边界见 [设计影响与第三方边界](design-influences.md)。
 
 ## 蓝图

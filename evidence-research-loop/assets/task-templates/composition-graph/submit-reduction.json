@@ -1,0 +1,1 @@
+{"kind": "reduction", "claim_id": "pipeline", "premises": ["scale", "offset"], "artifact": "pipeline.json", "author": {"kind": "fixture", "id": "known-smoke-control"}}

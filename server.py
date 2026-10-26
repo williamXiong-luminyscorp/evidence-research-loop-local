@@ -22,8 +22,8 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 
-SERVER_VERSION = "1.1.1"
-ENGINE_VERSION = "evidence-research-loop-v2.5.1"
+SERVER_VERSION = "1.2.0"
+ENGINE_VERSION = "evidence-research-loop-v2.6.0"
 PROJECT_ID = re.compile(r"^[a-z0-9][a-z0-9-]{1,62}$")
 TERMINAL_STATES = {
     "completed",
@@ -43,6 +43,7 @@ PROJECTS_ROOT = Path(os.getenv("ERL_PROJECTS_ROOT", APP_ROOT / ".data" / "projec
 CONTROLLER = SKILL_ROOT / "scripts" / "evolution_controller.py"
 AUDITOR = SKILL_ROOT / "scripts" / "audit_search.py"
 RESEARCH_GRAPH = SKILL_ROOT / "scripts" / "research_graph.py"
+COMPOSITION_GRAPH = SKILL_ROOT / "scripts" / "composition_graph.py"
 SCIENTIST_RUNTIME = SKILL_ROOT / "scripts" / "scientist_runtime.py"
 VERSION_FILE = APP_ROOT / "version.json"
 LOCAL_REGISTRY = PROJECTS_ROOT / ".local-projects.json"
@@ -52,6 +53,7 @@ PROJECT_TEMPLATES = {
     "scientist-mode",
     "research-graph",
     "scientist-runtime",
+    "composition-graph",
 }
 
 if SHARED_VOLUME_PERMISSIONS:
@@ -497,6 +499,8 @@ def get_capabilities() -> dict[str, Any]:
             "background_jobs": True,
             "controller_backends_bundled": ["deterministic", "command"],
             "research_graph": True,
+            "composition_graph": True,
+            "composition_guarantee": "empirical",
             "scientist_runtime": True,
             "codex_cli_bundled": False,
             "process_identity": {"uid": RUN_UID, "gid": RUN_GID},
@@ -578,7 +582,7 @@ def create_project(project_id: str, template: str = "python-code") -> dict[str, 
 def write_files(project_id: str, files: list[dict[str, str]], overwrite: bool = False) -> dict[str, Any]:
     """Write UTF-8 or base64 files before search starts; optional sha256 values guard transfer integrity."""
     project = _project_path(project_id)
-    state_files = ("search-state.json", "scientist-state.json", "research-graph.json")
+    state_files = ("search-state.json", "scientist-state.json", "research-graph.json", "composition.json")
     if any((project / name).exists() for name in state_files):
         raise RuntimeError(
             "project has started; create a new versioned project instead of changing frozen inputs "
@@ -965,6 +969,132 @@ async def audit_research_graph(project_id: str) -> dict[str, Any]:
         _run_sync, [sys.executable, str(RESEARCH_GRAPH), "audit", str(project)], project, 180
     )
     return {"project_id": project_id, **_command_result(result)}
+
+
+async def _composition_command(project: Path, args: list[str], timeout: int = 120) -> dict[str, Any]:
+    result = await asyncio.to_thread(
+        _run_sync, [sys.executable, str(COMPOSITION_GRAPH), *args], project, timeout)
+    return _command_result(result)
+
+
+@mcp.tool()
+async def initialize_composition_graph(project_id: str, blueprint_path: str = "composition-blueprint.json") -> dict[str, Any]:
+    """Freeze immutable engineering claims and verifiers for an evidence-backed AND-OR composition graph."""
+    project = _project_path(project_id)
+    blueprint = _relative_path(project, blueprint_path)
+    if not blueprint.is_file():
+        raise FileNotFoundError(blueprint_path)
+    result = await _composition_command(project, ["init", str(project), str(blueprint)])
+    return {"project_id": project_id, "initialized": result["exit_code"] == 0, **result}
+
+
+@mcp.tool()
+async def submit_composition(project_id: str, submission: dict[str, Any], artifact_content: str | None = None) -> dict[str, Any]:
+    """Execute frozen direct, conditional reduction, bound integration/holdout, or counterexample checks.
+
+    A successful command is NOT necessarily an accepted goal; inspect the returned graph states.
+    Submission kinds and required bindings are documented in references/composition-graph.md.
+    """
+    project = _project_path(project_id)
+    request = dict(submission)
+    if artifact_content is not None:
+        if request.get("artifact") is not None:
+            raise ValueError("provide artifact_content or a project artifact path, not both")
+        artifact, _ = _write_runtime_payload(project, "composition-incoming", ".txt", artifact_content.encode("utf-8"))
+        request["artifact"] = str(artifact)
+    elif "artifact" in request:
+        request["artifact"] = str(_relative_path(project, request["artifact"]))
+    payload, _ = _write_runtime_payload(project, "composition-incoming", ".json",
+        (json.dumps(request, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+    return {"project_id": project_id, **await _composition_command(project, ["submit", str(project), str(payload)], 900)}
+
+
+@mcp.tool()
+async def get_composition_status(project_id: str) -> dict[str, Any]:
+    """Derive claim and alternative-path states from evidence; conditional checks alone never accept engineering goals."""
+    project = _project_path(project_id)
+    return {"project_id": project_id, **await _composition_command(project, ["status", str(project)])}
+
+
+@mcp.tool()
+async def audit_composition_graph(project_id: str) -> dict[str, Any]:
+    """Reconcile immutable claims, event records, artifact bindings, verification outputs, and goal acceptance."""
+    project = _project_path(project_id)
+    return {"project_id": project_id, **await _composition_command(project, ["audit", str(project)], 180)}
+
+
+@mcp.tool()
+async def resume_composition_graph(project_id: str) -> dict[str, Any]:
+    """Recover interrupted verification attempts without erasing evidence or inventing a successful terminal result."""
+    project = _project_path(project_id)
+    return {"project_id": project_id, **await _composition_command(project, ["resume", str(project)])}
+
+
+@mcp.tool()
+async def revoke_composition_evidence(project_id: str, evidence_id: str, reason: str) -> dict[str, Any]:
+    """Retract evidence and invalidate only its dependent paths; preserve alternative paths and original records."""
+    if not reason.strip():
+        raise ValueError("reason is required")
+    project = _project_path(project_id)
+    return {"project_id": project_id, **await _composition_command(project, ["revoke", str(project), evidence_id, "--reason", reason])}
+
+
+@mcp.tool()
+async def export_composition_asset(project_id: str, claim_id: str) -> dict[str, Any]:
+    """Export an accepted claim's evidence bundle for compatible-target revalidation, without granting automatic trust."""
+    project = _project_path(project_id)
+    destination = project / "composition-exports" / (uuid.uuid4().hex + ".json")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    _chown_tree(destination.parent)
+    result = await _composition_command(project, ["export", str(project), claim_id, str(destination)], 180)
+    return {"project_id": project_id, "path": destination.relative_to(project).as_posix(), **result}
+
+
+@mcp.tool()
+async def import_composition_asset(project_id: str, claim_id: str, asset_json: str) -> dict[str, Any]:
+    """Import a bundle by verifying its exact contract/environment and running the target verifier; labels are not trusted."""
+    project = _project_path(project_id)
+    payload = json.loads(asset_json)
+    if not isinstance(payload, dict) or not isinstance(payload.get("source_project"), str):
+        raise ValueError("asset must name a source_project")
+    source = Path(payload["source_project"]).resolve()
+    if not _is_under(source, [PROJECTS_ROOT.resolve(), *_allowed_local_roots()]):
+        raise PermissionError("asset source is outside configured project roots")
+    asset, _ = _write_runtime_payload(project, "composition-imports", ".json", asset_json.encode("utf-8"))
+    return {"project_id": project_id, **await _composition_command(project, ["import", str(project), claim_id, str(asset)], 900)}
+
+
+@mcp.tool()
+async def search_composition_assets(project_id: str, query: str) -> dict[str, Any]:
+    """Find exported asset candidates by text; retrieval similarity never authorizes reuse."""
+    project = _project_path(project_id)
+    root = project / "composition-exports"
+    root.mkdir(exist_ok=True)
+    _chown_tree(root)
+    return {"project_id": project_id, **await _composition_command(project, ["search", str(root), query])}
+
+
+@mcp.tool()
+async def record_composition_readback(project_id: str, claim_id: str, text: str, author: str,
+                                      source_blind_declared: bool = False) -> dict[str, Any]:
+    """Record a claimed blind read-back, without asserting that input isolation or reviewer identity was verified."""
+    if not source_blind_declared:
+        raise ValueError("source_blind_declared must be explicit; do not invent independence")
+    project = _project_path(project_id)
+    path, _ = _write_runtime_payload(project, "composition-readbacks", ".txt", text.encode("utf-8"))
+    return {"project_id": project_id, **await _composition_command(project,
+        ["readback", str(project), claim_id, str(path), "--author", author, "--source-blind-declared"])}
+
+
+@mcp.tool()
+async def attest_composition_milestone(project_id: str, claim_id: str, readback_id: str,
+                                      reviewer: str, decision: str) -> dict[str, Any]:
+    """Record an explicitly supplied human review decision; agent must not invent approval. Identity is not authenticated here."""
+    if decision not in {"approve", "reject"}:
+        raise ValueError("decision must be approve or reject")
+    project = _project_path(project_id)
+    return {"project_id": project_id, **await _composition_command(project,
+        ["attest", str(project), claim_id, readback_id, "--reviewer", reviewer, "--decision", decision])}
 
 
 @mcp.tool()

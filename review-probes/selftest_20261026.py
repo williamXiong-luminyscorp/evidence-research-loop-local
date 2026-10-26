@@ -22,6 +22,7 @@ def main():
     commands = [
         [sys.executable, '-m', 'unittest', 'discover', '-s', 'evidence-research-loop/tests', '-v'],
         [sys.executable, 'tests/run_server_regressions.py'],
+        [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_composition_mcp.py', '-v'],
     ]
     inputs = [Path(__file__), ROOT / 'server.py', ROOT / 'worker.py', ROOT / 'tests/run_server_regressions.py']
     inputs += sorted((ROOT / 'evidence-research-loop').rglob('*.py'))

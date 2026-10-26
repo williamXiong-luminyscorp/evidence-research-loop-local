@@ -11,6 +11,8 @@ Evidence Research Loop 是独立实现，不是下列项目的官方 fork。这�
 
 公开可见、可 clone 或 README 自称 open source，不等于获得复制、修改或再发布源码的许可。因此 ERL 只根据论文公开描述 clean-room 实现以下通用思想：不可变 statement/artifact 分离、依赖图、审计核心、已验证资产复用。没有复制 workspace 的 Skill、脚本或文档。若未来要包含其代码，必须先取得明确许可证或书面许可，并在发布物中登记来源。
 
+`composition_graph.py` 将主张与提交分开，增加带实际验证记录的条件组合、替代路径和工程资产复验。AND-OR 是对论文多证明/多前提行为的实现建模，不是声称复用了官方服务端算法。它接受工程经验验证，不提供 Lean 内核、官方平台、自动 mission 人审或完整 Prove2Me 复现；操作与边界见 [Composition Graph](composition-graph.md)。
+
 Prove2Me 的 [Formalpedia](https://github.com/prove2me/formalpedia) 是另一个 Apache-2.0 仓库；本次核查 commit 为 `082b32d5d4099d88e510efc822346b699a9584fa`。ERL 当前没有打包它。若未来把它作为数学资产源，必须固定 commit、Lean/Mathlib 环境、原证明者与许可证，并保持为可追溯外部资产。
 
 ## Goedel-Architect

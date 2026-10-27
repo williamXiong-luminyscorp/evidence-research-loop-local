@@ -22,8 +22,8 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 
-SERVER_VERSION = "1.2.0"
-ENGINE_VERSION = "evidence-research-loop-v2.6.0"
+SERVER_VERSION = "1.2.1"
+ENGINE_VERSION = "evidence-research-loop-v2.6.1"
 PROJECT_ID = re.compile(r"^[a-z0-9][a-z0-9-]{1,62}$")
 TERMINAL_STATES = {
     "completed",

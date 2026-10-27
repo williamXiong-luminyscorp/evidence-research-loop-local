@@ -1295,13 +1295,23 @@ def freeze_and_holdout(project: Path, config: dict[str, Any], state: dict[str, A
                 append_event(project, "freeze_recovered", freeze_id=freeze["freeze_id"])
                 break
         if freeze is None:
-            if operation_timeout(deadline) is not None and operation_timeout(deadline) <= 0:
+            freeze_timeout = operation_timeout(deadline)
+            if freeze_timeout is not None and freeze_timeout <= 0:
                 return holdout_completion(project, config, state)
             args = ["freeze", str(project), intent["selected_candidate_id"]]
             for comparator in intent["comparison_candidate_ids"][1:]:
                 args.extend(["--comparator", comparator])
             args.extend(["--split", "dev", "--reason", intent["reason"]])
-            freeze = engine_call(project, *args, timeout=operation_timeout(deadline))
+            try:
+                freeze = engine_call(project, *args, timeout=freeze_timeout)
+            except Exception as exc:
+                state["status"] = "holdout_incomplete"
+                state["last_error"] = f"freeze engine did not complete: {exc}"
+                state["updated_at"] = utc_now()
+                save_json(state_path(project), state)
+                append_event(project, "freeze_controller_error", error=str(exc),
+                             timeout=freeze_timeout, error_type=type(exc).__name__)
+                return holdout_completion(project, config, state)
         state["freeze_id"] = freeze["freeze_id"]
         state["selected_candidate_id"] = freeze["selected_candidate_id"]
         state["comparison_candidate_ids"] = freeze["comparison_candidate_ids"]

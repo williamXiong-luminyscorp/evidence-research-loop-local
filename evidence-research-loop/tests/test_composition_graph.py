@@ -47,7 +47,7 @@ class CompositionGraphTests(unittest.TestCase):
             claims.append({'id':cid,'statement':'Test claim '+cid,'scope':'bounded fixture',
                 'contract':{'name':cid},'environment':{'test':1},'guarantee':'empirical',
                 'verifiers':{stage:{'command':[sys.executable,str(self.verifier),'{request}','{result_dir}'],
-                    'result_file':'result.json','pass_field':'passed','timeout_sec':.5}
+                    'result_file':'result.json','pass_field':'passed','timeout_sec':2.0}
                     for stage in ('direct','composition','integration','holdout','refutation')}})
         self.blueprint={'schema_version':1,'graph_id':'test','title':'test','claims':claims,'goal_claim_ids':['T']}
         self.bp=self.root/'blueprint.json'

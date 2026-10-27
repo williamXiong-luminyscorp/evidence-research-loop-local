@@ -477,15 +477,39 @@ class ControllerTests(unittest.TestCase):
         report = controller.execute_search(project)
         elapsed = time.perf_counter() - started
         call = controller.load_json(project / "generator-workspaces" / "g001-s001" / "call-result.json")
-        self.assertTrue(call["timed_out"])
+        self.assertTrue(call["timed_out"], call)
         self.assertLess(call["duration_sec"], 1.5)
         # One-time protocol initialization and baseline calibration are outside
-        # max_wall_time_sec; the bounded search phase itself must stop promptly.
-        self.assertLess(elapsed, 3.5)
+        # max_wall_time_sec.  Their host-dependent process startup cost is not
+        # part of the hard search budget; keep only a broad anti-hang assertion.
+        self.assertLess(elapsed, 10.0)
         self.assertLess(report["search_state"]["accumulated_active_sec"], 1.5)
         self.assertEqual("wall_time_budget_exhausted", report["search_state"]["stop_reason"])
         self.assertEqual("holdout_incomplete", report["search_state"]["status"])
         self.assertFalse(auditor.audit(project, False)["valid"])
+
+    def test_freeze_timeout_is_incomplete_and_resume_retries(self):
+        project, _ = self.make_single_slot_task()
+        original = controller.engine_call
+        injected = {"done": False}
+
+        def fail_freeze(path, *args, **kwargs):
+            if args and args[0] == "freeze" and not injected["done"]:
+                injected["done"] = True
+                raise TimeoutError("injected timeout at freeze boundary")
+            return original(path, *args, **kwargs)
+
+        with patch.object(controller, "engine_call", side_effect=fail_freeze):
+            first = controller.execute_search(project)
+        self.assertEqual("holdout_incomplete", first["search_state"]["status"])
+        self.assertIsNone(first["search_state"].get("freeze_id"))
+        self.assertTrue(any(row["type"] == "freeze_controller_error"
+                            for row in controller.load_events(project)))
+        self.assertFalse(auditor.audit(project, False)["valid"])
+
+        resumed = controller.execute_search(project)
+        self.assertEqual("completed", resumed["search_state"]["status"])
+        self.assertTrue(auditor.audit(project, False)["valid"])
 
     def test_mid_holdout_interruption_is_terminal_and_retry_is_linked(self):
         project, _ = self.make_single_slot_task()

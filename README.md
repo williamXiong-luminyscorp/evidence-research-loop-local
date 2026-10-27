@@ -206,13 +206,14 @@ get_capabilities
   → finalize_evidence
 ```
 
-当前 29 个工具分为三组：
+当前 40 个工具覆盖以下能力组：
 
 - 能力与项目：`get_capabilities`、`list_projects`、`attach_local_project`、`create_project`；
 - 文件：`write_files`、`list_files`、`read_file`；
 - 外层搜索：`validate_project`、`start_search`、`resume_search`、`get_status`、`audit_project`、`finalize_evidence`；
 - Research Graph：`initialize_research_graph`、`claim_research_node`、`heartbeat_research_node`、`submit_research_node`、`fail_research_node`、`reuse_research_asset`、`revise_research_graph`、`resume_research_graph`、`get_research_graph_status`、`audit_research_graph`；
 - Scientist Runtime：`validate_scientist_project`、`start_scientist_study`、`resume_scientist_study`、`get_scientist_status`、`audit_scientist_project`、`export_scientist_report`。
+- Composition Graph：`initialize_composition_graph`、`submit_composition`、`get_composition_status`、`audit_composition_graph`、`resume_composition_graph`、`revoke_composition_evidence`、`export_composition_asset`、`import_composition_asset`、`search_composition_assets`、`record_composition_readback`、`attest_composition_milestone`。
 
 `start_search` 和 `resume_search` 立即返回 job ID；用 `get_status` 查询后台任务。只有 `audit_project` 才判断证据是否有效、结果是否接受。
 
@@ -302,7 +303,8 @@ py -3.13 -m venv .venv
 docker build -t evidence-research-loop-mcp:test .
 ```
 
-`run_selftest.py` 统一运行 37 项引擎回归与 9 项 MCP 服务回归，不调用模型。
+`run_selftest.py` 统一运行 45 项引擎回归、9 项 MCP 服务回归与 3 项
+Composition MCP 回归，共 57 项，不调用模型。
 Windows/Codex 沙箱内请使用此入口：它为每次运行设置独立的 `ERL_TEST_TMP`，
 使用工作区 `ai agent/.erl-test-tmp/<唯一 ID>`，避免系统 Temp 的继承权限拒绝写入，
 也缩短生成文件路径。无须关闭沙箱、修改系统 Temp ACL 或以管理员权限运行。
@@ -318,6 +320,14 @@ https://evidence-research-loop-mcp.nicetree-1d19d2fd.eastus.azurecontainerapps.i
 ```
 
 本机 `~/.codex/config.toml` 已注册 `evidence-research-loop-local` 和 `evidence-research-loop-cloud`。安装或更新环境变量后需要完全重启 Codex。Bearer token 不存入仓库。Azure 镜像 digest、存储、持久化验证和复核命令见 [`deployment/README.md`](deployment/README.md)。
+
+## 在 Cursor 中使用
+
+Cursor 可以同时加载本项目的 Skill 和 MCP。Cursor 当前会发现
+`~/.codex/skills/evidence-research-loop`，可在 Agent 对话中使用
+`/evidence-research-loop` 或 `@evidence-research-loop`；MCP 则通过 KPI 项目的
+`.cursor/mcp.json` 连接本地 `run_local.py`。完整 Windows 配置、验证步骤和 KPI
+首次提示词见 [Cursor KPI 使用指南](docs/CURSOR_KPI.md)。
 
 ## 许可状态
 

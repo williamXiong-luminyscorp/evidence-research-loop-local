@@ -1,0 +1,35 @@
+{
+  "release": "v2.6.1",
+  "server_version": "1.2.1",
+  "engine_version": "evidence-research-loop-v2.6.1",
+  "skill_file_count": 76,
+  "skill_tree_sha256": "d905a27b5f17850f475227b4934bcf8c86cb0cde2aa9ade2bb3c5cab552071a1",
+  "targeted_regressions": {
+    "passed": 2,
+    "failed": 0,
+    "cases": [
+      "test_total_wall_time_is_hard_and_includes_generator",
+      "test_freeze_timeout_is_incomplete_and_resume_retries"
+    ]
+  },
+  "first_full_attempt": {
+    "run_id": "20261027T222901Z-38e640ff",
+    "engine_passed": 43,
+    "engine_failed": 2,
+    "server_passed": 9,
+    "composition_mcp_passed": 3,
+    "preserved": true,
+    "finding": "two normal composition verifier launches exceeded a 0.5-second test-fixture timeout under Windows load"
+  },
+  "final_full_attempt": {
+    "run_id": "20261027T223417Z-4ef73b9d",
+    "engine": {"passed": 45, "failed": 0},
+    "server": {"passed": 9, "failed": 0},
+    "composition_mcp": {"passed": 3, "failed": 0},
+    "total_passed": 57,
+    "total_failed": 0,
+    "all_suites_passed": true
+  },
+  "model_calls": 0,
+  "scope": "state-machine reliability, named failure regressions, packaging identity, and Cursor integration documentation; not autonomous research quality or production readiness"
+}

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "evidence-research-loop-local": {
+      "type": "stdio",
+      "command": "${env:ERL_MCP_HOME}\\.venv\\Scripts\\python.exe",
+      "args": ["${env:ERL_MCP_HOME}\\run_local.py"],
+      "env": {
+        "ERL_PROJECTS_ROOT": "${workspaceFolder}\\.erl\\projects",
+        "ERL_LOCAL_ALLOWED_ROOTS": "${workspaceFolder}"
+      }
+    }
+  }
+}

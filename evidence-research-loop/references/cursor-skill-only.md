@@ -27,7 +27,9 @@ python $skill\scripts\evolution_controller.py export $project
 python $skill\scripts\audit_search.py $project --verify-manifest
 ```
 
-Research Graph、Composition Graph、Scientist Runtime 使用同一目录下的 `research_graph.py`、`composition_graph.py`、`scientist_runtime.py`。
+每次 `start` / `resume` / `export` 都维护进度 Canvas，见 [进度 Canvas](progress-canvas.md)。Cursor 看板写到工作区 `canvases/`；Git 副本写到 `$project/progress.canvas.tsx`。
+
+Research Graph、Composition Graph、Scientist Runtime 使用同一目录下的 `research_graph.py`、`composition_graph.py`、`scientist_runtime.py`。同样要有进度看板。
 
 ## AI 搜索
 

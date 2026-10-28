@@ -20,7 +20,8 @@ Cursor 和 Codex 读取本 Skill 后直接运行 `scripts/`，不经过 MCP。�
 3. 用 `scripts/audit_search.py` 做独立审计；
 4. Research Graph、Composition Graph、Scientist Runtime 同样直接调用对应脚本；
 5. 需要 AI 生成候选时设置 `generator.backend=codex`，在用户本机环境运行，以便使用已有 Codex 登录；
-6. 启动付费或账户计量模型前，先报告模型、最大调用数、单次超时、总时限和费用是否可知。
+6. 启动付费或账户计量模型前，先报告模型、最大调用数、单次超时、总时限和费用是否可知；
+7. **每次搜索都做进度 Canvas**，规范见 [进度 Canvas](references/progress-canvas.md)。开始前先立看板，结束后用实测数字更新；聊天旁打开，并在任务目录留下 `progress.canvas.tsx` 以便进 Git。缺少进度看板不得声称本轮已向用户交付。
 
 仓库内同时放置 `.cursor/skills/evidence-research-loop/` 和 `.codex/skills/evidence-research-loop/`。不得把 Token 写入 `task.json`。MCP 服务器源码可以保留在发布包中，但不是这条执行路径的一部分。
 
@@ -143,6 +144,7 @@ holdout 在 `run.json` 和访问开始记录落盘后中断时，必须保留该
 - 冻结裁判统一评分，候选谱系、全部失败和资源成本可追溯；
 - 至少一轮由失败或指标差距驱动的改进，或有明确的无改进停止证据；
 - 冻结后完成独立测试和相关消融；
-- 报告说明比较了什么、实际结果、推荐、未知项、缺少项及数据性质。
+- 报告说明比较了什么、实际结果、推荐、未知项、缺少项及数据性质；
+- 进度 Canvas 已用最终状态、谱系、分数和 token 用量更新（见 [进度 Canvas](references/progress-canvas.md)）。
 
 用户明确只要求某阶段时，报告该阶段完成即可。工具、依赖或预算受阻时保留成果并标记 `partial/blocked`；无需用户输入即可继续时继续执行。生产部署、真实订单、对外发布或不可逆操作仍遵循原任务授权，研究胜出本身不等于自动上线授权。

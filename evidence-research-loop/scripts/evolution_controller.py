@@ -753,6 +753,15 @@ def format_parts(parts: list[str], values: dict[str, str]) -> list[str]:
     return [part.format(**values) for part in parts]
 
 
+USAGE_INT_FIELDS = (
+    "input_tokens",
+    "cached_input_tokens",
+    "cache_write_input_tokens",
+    "output_tokens",
+    "reasoning_output_tokens",
+)
+
+
 def usage_from_jsonl(text: str) -> dict[str, int] | None:
     best: dict[str, int] | None = None
     for line in text.splitlines():
@@ -766,15 +775,85 @@ def usage_from_jsonl(text: str) -> dict[str, int] | None:
             if isinstance(item, dict):
                 keys = set(item)
                 if {"input_tokens", "output_tokens"}.issubset(keys):
+                    parsed: dict[str, int] = {}
                     try:
-                        best = {"input_tokens": int(item["input_tokens"]),
-                                "output_tokens": int(item["output_tokens"])}
+                        for field in USAGE_INT_FIELDS:
+                            if field in item and item[field] is not None:
+                                parsed[field] = int(item[field])
                     except (TypeError, ValueError):
-                        pass
+                        parsed = {}
+                    if {"input_tokens", "output_tokens"}.issubset(parsed):
+                        best = parsed
                 stack.extend(item.values())
             elif isinstance(item, list):
                 stack.extend(item)
     return best
+
+
+def token_usage_path(project: Path) -> Path:
+    return project / "codex-token-usage.jsonl"
+
+
+def token_usage_summary_path(project: Path) -> Path:
+    return project / "codex-token-usage.json"
+
+
+def load_token_usage_records(project: Path) -> list[dict[str, Any]]:
+    path = token_usage_path(project)
+    if not path.is_file():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line]
+
+
+def summarize_token_usage(records: list[dict[str, Any]]) -> dict[str, Any]:
+    totals = {field: 0 for field in USAGE_INT_FIELDS}
+    billed_calls = 0
+    for record in records:
+        usage = record.get("usage") or {}
+        if usage:
+            billed_calls += 1
+            for field in USAGE_INT_FIELDS:
+                totals[field] += int(usage.get(field, 0) or 0)
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "secret_recorded": False,
+        "auth": "codex-login",
+        "call_count": len(records),
+        "calls_with_usage": billed_calls,
+        "totals": totals,
+        "cost_usd": None,
+        "cost_usd_known": False,
+        "records_file": token_usage_path(Path(".")).name,
+    }
+
+
+def write_token_usage_record(project: Path, *, request_id: str, generation: int,
+                             call_result: dict[str, Any], workspace: Path) -> None:
+    if any(row.get("request_id") == request_id for row in load_token_usage_records(project)):
+        return
+    usage = call_result.get("usage")
+    if not call_result.get("model_call") and not usage:
+        return
+    task = load_json(project / "task.json")
+    record = {
+        "schema_version": SCHEMA_VERSION,
+        "at": utc_now(),
+        "request_id": request_id,
+        "generation": generation,
+        "model": task.get("generator", {}).get("model"),
+        "backend": task.get("generator", {}).get("backend"),
+        "auth": "codex-login",
+        "secret_recorded": False,
+        "model_call": bool(call_result.get("model_call")),
+        "usage": usage,
+        "cost_usd": call_result.get("cost_usd"),
+        "duration_sec": call_result.get("duration_sec"),
+        "return_code": call_result.get("return_code"),
+        "call_result_path": str((workspace / "call-result.json").relative_to(project)),
+    }
+    append_jsonl(token_usage_path(project), record)
+    records = load_token_usage_records(project)
+    save_json(token_usage_summary_path(project), summarize_token_usage(records))
 
 
 def codex_model_call_observed(text: str, response_path: Path, usage: dict[str, int] | None) -> bool:
@@ -991,6 +1070,8 @@ def account_finished_call(project: Path, state: dict[str, Any], request_id: str,
                  duration_sec=call_result["duration_sec"], usage=call_result.get("usage"),
                  cost_usd=call_result.get("cost_usd"), model_call=bool(call_result.get("model_call")),
                  call_result_path=str((workspace / "call-result.json").relative_to(project)))
+    write_token_usage_record(project, request_id=request_id, generation=generation,
+                             call_result=call_result, workspace=workspace)
     reconcile_call_accounting(project, state)
 
 

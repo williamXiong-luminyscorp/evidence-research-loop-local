@@ -23,7 +23,7 @@ from starlette.responses import JSONResponse
 
 
 SERVER_VERSION = "1.2.3"
-ENGINE_VERSION = "evidence-research-loop-v2.6.3"
+ENGINE_VERSION = "evidence-research-loop-v2.6.4"
 PROJECT_ID = re.compile(r"^[a-z0-9][a-z0-9-]{1,62}$")
 TERMINAL_STATES = {
     "completed",

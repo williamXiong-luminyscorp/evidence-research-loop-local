@@ -79,6 +79,54 @@ class ControllerTests(unittest.TestCase):
             with self.assertRaisesRegex(SystemExit, "Codex authentication is required"):
                 controller.validate_config(project, config)
 
+    def test_codex_usage_records_cached_and_reasoning_tokens(self):
+        text = (
+            '{"type":"turn.completed","usage":{'
+            '"input_tokens":100,"cached_input_tokens":40,'
+            '"cache_write_input_tokens":5,"output_tokens":20,'
+            '"reasoning_output_tokens":7}}\n'
+        )
+        usage = controller.usage_from_jsonl(text)
+        self.assertEqual({
+            "input_tokens": 100,
+            "cached_input_tokens": 40,
+            "cache_write_input_tokens": 5,
+            "output_tokens": 20,
+            "reasoning_output_tokens": 7,
+        }, usage)
+
+    def test_token_usage_ledger_omits_secrets_and_deduplicates(self):
+        project = self.copy_task()
+        cfg = json.loads((project / "task.json").read_text(encoding="utf-8"))
+        cfg["generator"] = {"backend": "codex", "model": "gpt-6.1-sol", "timeout_sec": 30,
+                            "roles": ["conservative"]}
+        (project / "task.json").write_text(json.dumps(cfg, indent=2) + "\n", encoding="utf-8")
+        workspace = project / "generator-workspaces" / "g001-s001"
+        workspace.mkdir(parents=True)
+        call_result = {
+            "return_code": 0, "timed_out": False, "duration_sec": 1.5, "model_call": True,
+            "usage": {"input_tokens": 11, "output_tokens": 3, "cached_input_tokens": 2,
+                      "reasoning_output_tokens": 1},
+            "cost_usd": None,
+        }
+        controller.save_json(workspace / "call-result.json", call_result)
+        controller.write_token_usage_record(
+            project, request_id="g001-s001", generation=1,
+            call_result=call_result, workspace=workspace)
+        controller.write_token_usage_record(
+            project, request_id="g001-s001", generation=1,
+            call_result=call_result, workspace=workspace)
+        records = controller.load_token_usage_records(project)
+        self.assertEqual(1, len(records))
+        self.assertFalse(records[0]["secret_recorded"])
+        self.assertEqual("codex-login", records[0]["auth"])
+        self.assertEqual("gpt-6.1-sol", records[0]["model"])
+        self.assertNotIn("access_token", json.dumps(records[0]))
+        summary = json.loads(controller.token_usage_summary_path(project).read_text(encoding="utf-8"))
+        self.assertEqual(1, summary["calls_with_usage"])
+        self.assertEqual(11, summary["totals"]["input_tokens"])
+        self.assertEqual(2, summary["totals"]["cached_input_tokens"])
+
     def test_codex_login_status_on_stderr_is_accepted(self):
         project = self.copy_task()
         config = json.loads((project / "task.json").read_text(encoding="utf-8"))

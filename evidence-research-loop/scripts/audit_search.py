@@ -342,14 +342,29 @@ def audit(project: Path, check_manifest: bool) -> dict[str, Any]:
         errors.extend(verify_manifest(project))
     event_counts = {kind: sum(row["type"] == kind for row in events)
                     for kind in sorted({row["type"] for row in events})}
-    model_usage = {"input_tokens": 0, "output_tokens": 0, "calls_with_usage": 0}
+    model_usage = {
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "calls_with_usage": 0,
+        "cost_usd": None,
+        "secret_recorded": False,
+    }
     for path in sorted((project / "generator-workspaces").glob("*/call-result.json")):
         result = load(path)
         usage = result.get("usage")
         if result.get("model_call") and usage:
             model_usage["calls_with_usage"] += 1
-            model_usage["input_tokens"] += int(usage.get("input_tokens", 0))
-            model_usage["output_tokens"] += int(usage.get("output_tokens", 0))
+            for field in (
+                "input_tokens",
+                "cached_input_tokens",
+                "cache_write_input_tokens",
+                "output_tokens",
+                "reasoning_output_tokens",
+            ):
+                model_usage[field] += int(usage.get(field, 0) or 0)
     holdout = [row for row in runs if row["split"] == "holdout"]
     return {
         "valid": not errors,

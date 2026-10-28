@@ -1,0 +1,24 @@
+{
+  "release": "v2.6.4",
+  "server_version": "1.2.3",
+  "engine_version": "evidence-research-loop-v2.6.4",
+  "skill_file_count": 80,
+  "skill_tree_sha256": "9ce92a71d11420625d9bd8c0e5e3f0175628a285c3277b69eb10361fde81b9e8",
+  "engine_unit_tests": {
+    "passed": 50,
+    "failed": 0,
+    "modules": [
+      "tests.test_evolution_controller",
+      "tests.test_scientist_runtime",
+      "tests.test_research_graph",
+      "tests.test_composition_graph"
+    ]
+  },
+  "server_regressions": {
+    "passed": 9,
+    "failed": 0,
+    "summary": "test-output/server-regressions/20261028T233129Z-462e5324/verification.json"
+  },
+  "model_calls": 0,
+  "scope": "Progress Canvas delivery rule plus Codex token ledger in the Skill; not global optimality of login or packing searches"
+}

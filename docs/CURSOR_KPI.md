@@ -1,64 +1,30 @@
 # 在 Cursor 中用 ERL 开发 KPI 系统
 
-这份指南把两个不同层次连接起来：
+KPI 工作区只使用 Skill，不使用 MCP。Agent 读取 Skill，然后直接运行本机 `scripts/`。这与旧 Codex 项目相同：生成、评测、冻结、Holdout 和审计都在用户登录环境里完成，因此可以使用已有 Codex Token。
 
-- **Skill** 告诉 Cursor Agent 怎样定义基线、冻结裁判、生成候选、保留失败和限制结论；
-- **MCP** 实际创建项目、写入任务文件、启动/恢复搜索、保存证据并执行审计。
+## 1. 安装 Skill
 
-只安装 Skill 会得到研究方法，但不会自动获得持久化 MCP 项目和标准工具调用。只连接 MCP 会得到工具，但 Agent 未必主动遵守 ERL 的研究边界。KPI 项目建议两者同时使用。
-
-## 1. 在 KPI 项目配置本地 MCP
-
-在 Windows 用户环境中设置 ERL MCP 目录，然后完全退出并重启 Cursor：
-
-```powershell
-[Environment]::SetEnvironmentVariable(
-  'ERL_MCP_HOME',
-  'C:\Users\WilliamXiong\OneDrive - Luminys System Corp\Documents\ChatGPT\ai agent\supply-chain-lab\shinka-general-researcher\mcp-server-v1',
-  'User'
-)
-```
-
-在 KPI 仓库创建 `.cursor/mcp.json`：
-
-```json
-{
-  "mcpServers": {
-    "evidence-research-loop-local": {
-      "type": "stdio",
-      "command": "${env:ERL_MCP_HOME}\\.venv\\Scripts\\python.exe",
-      "args": ["${env:ERL_MCP_HOME}\\run_local.py"],
-      "env": {
-        "ERL_PROJECTS_ROOT": "${workspaceFolder}\\.erl\\projects",
-        "ERL_LOCAL_ALLOWED_ROOTS": "${workspaceFolder}"
-      }
-    }
-  }
-}
-```
-
-`${workspaceFolder}` 是当前 KPI 仓库。这样 MCP 只能 attach 当前仓库，并把运行证据保存在该仓库的 `.erl/projects`，不会默认读取其他本地目录。
-
-保存后完全重启 Cursor。在 **Customize → MCPs** 确认 `evidence-research-loop-local` 已连接。也可以在 Cursor CLI 执行：
-
-```text
-agent mcp list
-agent mcp list-tools evidence-research-loop-local
-```
-
-若连接失败，在 Windows 打开 Cursor Output 面板（`Ctrl+Shift+U`），选择 **MCP Logs** 查看启动错误。
-
-## 2. 调用 Skill
-
-Cursor 会自动发现本机 `~/.codex/skills/evidence-research-loop`。在 Agent 输入框键入 `/`，选择 `evidence-research-loop`；也可以使用 `@evidence-research-loop`。
-
-如果 Customize → Skills 中没有看到它，将发布仓库里的 `evidence-research-loop` 文件夹复制到 KPI 仓库：
+将发布仓库中的 `evidence-research-loop` 文件夹放到 KPI 仓库：
 
 ```text
 <kpi-repo>/.cursor/skills/evidence-research-loop/
 ```
 
-目录内必须保留 `SKILL.md`、`references`、`scripts` 和 `assets`。复制后重启 Cursor。
+目录内必须保留 `SKILL.md`、`references`、`scripts` 和 `assets`。Cursor 也可能发现本机 `~/.codex/skills/evidence-research-loop`；KPI 项目以仓库内 Skill 为准。
+
+确认 `.cursor/mcp.json` 为：
+
+```json
+{
+  "mcpServers": {}
+}
+```
+
+不要再配置 `evidence-research-loop-local` MCP。保存后执行 Reload Window。
+
+## 2. 调用 Skill
+
+在 Agent 输入框键入 `/`，选择 `evidence-research-loop`；也可以使用 `@evidence-research-loop`。
 
 ## 3. KPI 项目第一次提示词
 
@@ -67,7 +33,7 @@ Cursor 会自动发现本机 `~/.codex/skills/evidence-research-loop`。在 Agen
 ```text
 /evidence-research-loop
 
-使用 evidence-research-loop-local MCP 对当前 KPI 仓库建立工程方案进化项目。
+使用本机 Skill 脚本对当前 KPI 仓库建立工程方案进化项目。不要调用 MCP。
 
 目标：为全公司员工年度目标流程开发 KPI 系统。员工提出职责、主要任务和年度目标，与主管共同确认；支持年中检查、批准后的目标变更、年底按成果与证据回顾。
 
@@ -99,20 +65,19 @@ Cursor 会自动发现本机 `~/.codex/skills/evidence-research-loop`。在 Agen
 ```text
 /evidence-research-loop
 
-继续当前 MCP 项目。先调用 validate_project；只有协议、基线、裁判和冻结输入都有效时才启动搜索。生成至少两个机制不同的可执行候选，使用预先声明的预算运行多代；完成后调用 audit_project 和 finalize_evidence。最后分别报告结论、基线、证据、失败和未验证项。
+继续当前 Skill 任务目录。先运行 evolution_controller.py validate；只有协议、基线、裁判和冻结输入都有效时才 start。生成至少两个机制不同的可执行候选，使用预先声明的预算运行多代；完成后运行 audit_search.py。最后分别报告结论、基线、证据、失败和未验证项。不要调用 MCP。
 ```
 
-Cursor Agent 应使用如下 MCP 顺序：
+Agent 应使用如下脚本顺序：
 
 ```text
-get_capabilities
-→ attach_local_project 或 create_project/write_files
-→ validate_project
-→ start_search
-→ get_status
-→ resume_search（需要时）
-→ audit_project
-→ finalize_evidence
+evolution_controller.py scaffold
+→ 写入 task.json / baseline / evaluator
+→ evolution_controller.py validate
+→ evolution_controller.py start
+→ evolution_controller.py status 或 resume
+→ audit_search.py
+→ evolution_controller.py export
 ```
 
 大型 KPI 系统内部再使用 Composition Graph 验证子能力和真实集成。Research Graph 可以分配并行开发节点，但节点通过不能替代根级集成、holdout 和人工政策审核。
@@ -130,6 +95,6 @@ get_capabilities
 
 合成数据和 AI 模拟可以验证离线正确性，不能证明员工更愿意填写、流程更公平或组织绩效提高。
 
-## 6. 本地与 Cloud Agent 的区别
+## 6. Cloud Agent
 
-上述 `stdio` 配置适用于 Cursor Desktop 和本机 Cursor CLI。Cursor Cloud Agent 不能直接运行你电脑上的本地 Python 路径；要使用 Cloud Agent，必须把 Skill 放进仓库或同步到 Cursor，并连接已部署的远程 MCP。远程 MCP 版本必须先单独核对，不能默认与本地 v2.6.1 相同。
+上述路径适用于 Cursor Desktop。Cursor Cloud Agent 没有你的本机 Codex 登录；若必须在云端运行，需要单独提供生成后端和凭证，不能假设与本机 Skill-only 配置相同。

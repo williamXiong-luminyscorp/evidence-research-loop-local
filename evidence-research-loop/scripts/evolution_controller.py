@@ -436,7 +436,8 @@ def validate_config(project: Path, config: dict[str, Any]) -> None:
             raise SystemExit("codex backend requires generator.model")
         executable = generator.get("executable", "codex")
         auth = run_process([executable, "login", "status"], project, 30)
-        if auth["return_code"] != 0 or auth["timed_out"] or "logged in" not in auth["stdout"].lower():
+        auth_text = f"{auth.get('stdout', '')}\n{auth.get('stderr', '')}".lower()
+        if auth["return_code"] != 0 or auth["timed_out"] or "logged in" not in auth_text:
             raise SystemExit(
                 "Codex authentication is required before AI search. Do not put a token in task.json. "
                 "Run `codex login --with-access-token` (or `codex login --with-api-key`) in a private "

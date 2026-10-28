@@ -37,7 +37,7 @@ def isolated_projects(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
 def test_bundled_engine_hash_is_fixed_and_valid() -> None:
     identity = server._engine_identity()
-    assert identity["engine_version"] == "evidence-research-loop-v2.6.2"
+    assert identity["engine_version"] == "evidence-research-loop-v2.6.3"
     assert identity["engine_hash_valid"] is True
 
 

@@ -44,7 +44,7 @@ python $graph audit C:\work\research
 5. 同一类失败反复出现或 statement 本身错误时，协调者提交 blueprint revision，而不是无限重试；
 6. goal 节点 verified 后仍运行整个候选的根级集成、holdout 和审计。
 
-Research Graph 管理并发一致性和证据，不会自己调用模型生成 artifact。Codex Skill、MCP 客户端或领域调度器负责启动 Agent 并把领取结果交给它们；因此“图已初始化”不能写成“自主研究已完成”。
+Research Graph 管理并发一致性和证据，不会自己调用模型生成 artifact。Cursor 或 Codex Agent 按 Skill 直接调用本脚本，并把领取结果交给工作 Agent；因此“图已初始化”不能写成“自主研究已完成”。项目 Skill 路径不通过 MCP 调度 Research Graph。
 
 ## 失败与蓝图修订
 

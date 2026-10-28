@@ -79,6 +79,24 @@ class ControllerTests(unittest.TestCase):
             with self.assertRaisesRegex(SystemExit, "Codex authentication is required"):
                 controller.validate_config(project, config)
 
+    def test_codex_login_status_on_stderr_is_accepted(self):
+        project = self.copy_task()
+        config = json.loads((project / "task.json").read_text(encoding="utf-8"))
+        config["generator"] = {
+            "backend": "codex",
+            "model": "test-model",
+            "timeout_sec": 30,
+            "roles": ["conservative", "mechanism", "repair"],
+        }
+        logged_in = {
+            "return_code": 0,
+            "stdout": "",
+            "stderr": "Logged in using personal access token\n",
+            "timed_out": False,
+        }
+        with patch.object(controller, "run_process", return_value=logged_in):
+            controller.validate_config(project, config)
+
     def test_multigeneration_budget_duplicate_failure_and_holdout(self):
         project = self.copy_task()
         report = controller.execute_search(project)

@@ -1,6 +1,7 @@
 """Actual MCP function/transport checks; known fixtures, not autonomous search."""
 import asyncio
 import json
+import os
 from pathlib import Path
 import sys
 import unittest
@@ -15,7 +16,8 @@ from mcp.client import Client
 
 class CompositionMCPTests(unittest.TestCase):
     def setUp(self):
-        self.root = ROOT.parents[2] / '.erl-test-tmp' / ('mcp-' + uuid.uuid4().hex[:8])
+        fixture_base = Path(os.environ.get('ERL_TEST_TMP', ROOT / '.erl-test-tmp'))
+        self.root = fixture_base / ('mcp-' + uuid.uuid4().hex[:8])
         self.root.mkdir(parents=True)
         self.patches = [patch.object(server, 'PROJECTS_ROOT', self.root),
                         patch.object(server, 'LOCAL_REGISTRY', self.root/'.local-projects.json')]

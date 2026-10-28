@@ -8,6 +8,7 @@ __pycache__/
 .test-*/
 test-output-*/
 test-output/
+.erl-test-tmp/
 review-test-*/
 review-probes/.tmp/
 **/.tmp-*/

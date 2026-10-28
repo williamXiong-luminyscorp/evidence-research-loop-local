@@ -17,7 +17,8 @@ def main():
     out.mkdir(parents=True)
     # Keep subprocess fixtures under the permitted workspace and below legacy
     # Windows MAX_PATH limits. System Temp can have incompatible inherited ACLs.
-    fixture_root = ROOT.parents[2] / '.erl-test-tmp' / uuid.uuid4().hex[:8]
+    fixture_base = Path(os.environ.get('ERL_TEST_TMP_ROOT', ROOT / '.erl-test-tmp'))
+    fixture_root = fixture_base / uuid.uuid4().hex[:8]
     fixture_root.mkdir(parents=True, exist_ok=False)
     commands = [
         [sys.executable, '-m', 'unittest', 'discover', '-s', 'evidence-research-loop/tests', '-v'],
@@ -37,6 +38,7 @@ def main():
         env = os.environ.copy()
         env['PYTHONIOENCODING'] = 'utf-8'
         env['ERL_TEST_TMP'] = str(fixture_root)
+        env['ERL_ALLOW_DETERMINISTIC_TEST_MODE'] = '1'
         result = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, timeout=600)
         (out / f'{i}-stdout.txt').write_bytes(result.stdout)
         (out / f'{i}-stderr.txt').write_bytes(result.stderr)

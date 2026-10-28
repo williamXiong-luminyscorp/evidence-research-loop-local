@@ -31,6 +31,7 @@ SKILL_ROOT = HERE.parent
 SCHEMA_VERSION = 1
 WALL_TIME_GUARD_SEC = 0.25
 SHARED_VOLUME_PERMISSIONS = os.getenv("ERL_SHARED_VOLUME_PERMISSIONS", "").lower() in {"1", "true", "yes"}
+DETERMINISTIC_TEST_ENV = "ERL_ALLOW_DETERMINISTIC_TEST_MODE"
 TERMINAL_GENERATION_EVENTS = {
     "generation_failed",
     "generation_duplicate",
@@ -412,6 +413,13 @@ def validate_config(project: Path, config: dict[str, Any]) -> None:
         raise SystemExit("public context basenames must be unique")
     backend = generator["backend"]
     if backend == "deterministic":
+        test_mode_enabled = os.getenv(DETERMINISTIC_TEST_ENV, "").lower() in {"1", "true", "yes"}
+        if generator.get("test_only") is not True or not test_mode_enabled:
+            raise SystemExit(
+                "deterministic generator is test-only and disabled for normal searches; "
+                "configure generator.backend=codex (or an authenticated AI command backend). "
+                f"Infrastructure tests must set generator.test_only=true and {DETERMINISTIC_TEST_ENV}=1"
+            )
         expected = {(generation, slot) for generation in range(1, budget["max_generations"] + 1)
                     for slot in range(1, budget["candidates_per_generation"] + 1)}
         entries = generator.get("deterministic_plan", [])
@@ -423,8 +431,17 @@ def validate_config(project: Path, config: dict[str, Any]) -> None:
                 raise SystemExit(f"deterministic artifact missing: {item['artifact']}")
     elif backend == "command" and not generator.get("command"):
         raise SystemExit("command backend requires generator.command")
-    elif backend == "codex" and not generator.get("model"):
-        raise SystemExit("codex backend requires generator.model")
+    elif backend == "codex":
+        if not generator.get("model"):
+            raise SystemExit("codex backend requires generator.model")
+        executable = generator.get("executable", "codex")
+        auth = run_process([executable, "login", "status"], project, 30)
+        if auth["return_code"] != 0 or auth["timed_out"] or "logged in" not in auth["stdout"].lower():
+            raise SystemExit(
+                "Codex authentication is required before AI search. Do not put a token in task.json. "
+                "Run `codex login --with-access-token` (or `codex login --with-api-key`) in a private "
+                "terminal, then retry validation"
+            )
     elif backend == "docker-command":
         for key in ("image", "expected_image_id", "command"):
             if not generator.get(key):

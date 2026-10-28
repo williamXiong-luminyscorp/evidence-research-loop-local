@@ -26,6 +26,8 @@ import httpx
 from mcp.client import Client
 from starlette.responses import JSONResponse
 
+os.environ["ERL_ALLOW_DETERMINISTIC_TEST_MODE"] = "1"
+
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -161,7 +163,10 @@ class RegressionRun:
 
 def case_engine_identity() -> None:
     identity = server._engine_identity()
-    check(identity["engine_version"] == "evidence-research-loop-v2.6.1", str(identity))
+    check(
+        identity["engine_version"] == "evidence-research-loop-v2.6.2",
+        str(identity),
+    )
     check(identity["engine_hash_valid"] is True, str(identity))
     check(identity["engine_file_count"] > 0, str(identity))
 

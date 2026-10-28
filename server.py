@@ -22,8 +22,8 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 
-SERVER_VERSION = "1.2.1"
-ENGINE_VERSION = "evidence-research-loop-v2.6.1"
+SERVER_VERSION = "1.2.2"
+ENGINE_VERSION = "evidence-research-loop-v2.6.2"
 PROJECT_ID = re.compile(r"^[a-z0-9][a-z0-9-]{1,62}$")
 TERMINAL_STATES = {
     "completed",
@@ -242,6 +242,8 @@ def _subprocess_env(project: Path) -> dict[str, str]:
         "LC_ALL": os.environ.get("LC_ALL", "C.UTF-8"),
         "ERL_SKILL_ROOT": str(SKILL_ROOT),
     }
+    if os.getenv("ERL_ALLOW_DETERMINISTIC_TEST_MODE", "").lower() in {"1", "true", "yes"}:
+        env["ERL_ALLOW_DETERMINISTIC_TEST_MODE"] = "1"
     if SHARED_VOLUME_PERMISSIONS:
         env["ERL_SHARED_VOLUME_PERMISSIONS"] = "1"
     return env

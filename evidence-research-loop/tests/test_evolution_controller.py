@@ -30,6 +30,9 @@ ENGINE_SPEC.loader.exec_module(engine)
 
 class ControllerTests(unittest.TestCase):
     def setUp(self):
+        self.deterministic_test_mode = patch.dict(
+            os.environ, {controller.DETERMINISTIC_TEST_ENV: "1"})
+        self.deterministic_test_mode.start()
         # ERL_TEST_TMP lets restricted Windows runs keep generated commands
         # below the legacy MAX_PATH limit while staying in an allowed root.
         override = os.environ.get("ERL_TEST_TMP")
@@ -43,11 +46,38 @@ class ControllerTests(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.root, ignore_errors=True)
+        self.deterministic_test_mode.stop()
 
     def copy_task(self, template="python-code"):
         target = self.root / template
         shutil.copytree(SKILL_ROOT / "assets" / "task-templates" / template, target)
         return target
+
+    def test_deterministic_generator_requires_explicit_test_mode(self):
+        project = self.copy_task()
+        config = json.loads((project / "task.json").read_text(encoding="utf-8"))
+        with patch.dict(os.environ, {controller.DETERMINISTIC_TEST_ENV: ""}):
+            with self.assertRaisesRegex(SystemExit, "test-only"):
+                controller.validate_config(project, config)
+
+    def test_codex_generator_requires_authentication(self):
+        project = self.copy_task()
+        config = json.loads((project / "task.json").read_text(encoding="utf-8"))
+        config["generator"] = {
+            "backend": "codex",
+            "model": "test-model",
+            "timeout_sec": 30,
+            "roles": ["conservative", "mechanism", "repair"],
+        }
+        failed = {
+            "return_code": 1,
+            "stdout": "Not logged in",
+            "stderr": "",
+            "timed_out": False,
+        }
+        with patch.object(controller, "run_process", return_value=failed):
+            with self.assertRaisesRegex(SystemExit, "Codex authentication is required"):
+                controller.validate_config(project, config)
 
     def test_multigeneration_budget_duplicate_failure_and_holdout(self):
         project = self.copy_task()

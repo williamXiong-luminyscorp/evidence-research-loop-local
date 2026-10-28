@@ -21,6 +21,11 @@ def anyio_backend():
     return "asyncio"
 
 
+@pytest.fixture(autouse=True)
+def deterministic_test_mode(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ERL_ALLOW_DETERMINISTIC_TEST_MODE", "1")
+
+
 @pytest.fixture
 def isolated_projects(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     root = tmp_path / "projects"
@@ -32,7 +37,7 @@ def isolated_projects(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
 def test_bundled_engine_hash_is_fixed_and_valid() -> None:
     identity = server._engine_identity()
-    assert identity["engine_version"] == "evidence-research-loop-v2.6.1"
+    assert identity["engine_version"] == "evidence-research-loop-v2.6.2"
     assert identity["engine_hash_valid"] is True
 
 

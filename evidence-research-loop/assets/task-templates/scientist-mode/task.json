@@ -48,6 +48,7 @@
   },
   "generator": {
     "backend": "deterministic",
+    "test_only": true,
     "timeout_sec": 30,
     "roles": ["conservative", "mechanism", "repair"],
     "deterministic_plan": [

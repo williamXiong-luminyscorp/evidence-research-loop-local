@@ -175,9 +175,11 @@ my-search/
 
 ### 候选生成后端
 
-- `deterministic`：用预制候选测试控制器；不能证明自主搜索能力；
+- `deterministic`：仅用于基础设施测试；任务必须声明 `test_only: true`，并显式设置
+  `ERL_ALLOW_DETERMINISTIC_TEST_MODE=1`，正式搜索会拒绝启动；
 - `command`：接入按约定写出响应和候选文件的 Agent 或脚本；
 - `codex`：底层控制器可调用本机 Codex CLI，使用只读生成 workspace 和结构化响应；
+  验证阶段会检查 `codex login status`，未认证时拒绝启动并提示用户在私有终端登录；
 - `docker-command`：用固定镜像、资源限制和最小挂载提供更强隔离。
 
 当前 MCP 声明内置可用的是 `deterministic` 和 `command`。它不内置 Codex CLI 或付费模型密钥。真实模型搜索需要运行环境另外提供生成后端、凭据、预算和网络策略。

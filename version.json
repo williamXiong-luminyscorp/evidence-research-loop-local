@@ -1,6 +1,6 @@
 {
-  "server_version": "1.2.1",
-  "engine_version": "evidence-research-loop-v2.6.1",
-  "skill_tree_sha256": "d905a27b5f17850f475227b4934bcf8c86cb0cde2aa9ade2bb3c5cab552071a1",
+  "server_version": "1.2.2",
+  "engine_version": "evidence-research-loop-v2.6.2",
+  "skill_tree_sha256": "00da2a0d9ed0a2060700f63241257633f3d2c0d7c2c5847e98b4f2172175c29c",
   "skill_file_count": 76
 }

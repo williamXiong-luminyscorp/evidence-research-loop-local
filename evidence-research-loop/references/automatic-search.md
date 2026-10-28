@@ -35,7 +35,9 @@ python $controller validate C:\work\my-search
 
 ## 生成后端
 
-`deterministic` 用预制候选验证控制器，不产生模型费用。它不能证明自主搜索能力。
+`deterministic` 用预制候选验证控制器，不产生模型费用。它不能证明自主搜索能力，
+并且仅允许在任务声明 `generator.test_only: true` 且进程设置
+`ERL_ALLOW_DETERMINISTIC_TEST_MODE=1` 时运行；正式搜索默认拒绝该后端。
 
 `codex` 调用本机 Codex CLI。示例：
 
@@ -47,6 +49,10 @@ python $controller validate C:\work\my-search
   "roles": ["conservative", "mechanism"]
 }
 ```
+
+控制器在验证 `codex` 任务时执行 `codex login status`。未认证会在任何候选生成前
+停止，并提示用户在私有终端使用 `codex login --with-access-token` 或
+`codex login --with-api-key`；访问令牌不得写入 `task.json`。
 
 控制器将 request、公开任务资料、开发反馈和父代源码嵌入 prompt，使用 ephemeral session、忽略用户配置和项目规则，并显式启用 `read-only` sandbox。模型不使用文件工具；它在符合 `response-schema.json` 的最终 JSON 中返回假设、机制、摘要和完整候选文本，由控制器校验后写入候选文件。
 

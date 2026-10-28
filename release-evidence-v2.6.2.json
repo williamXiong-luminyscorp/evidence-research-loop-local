@@ -1,0 +1,34 @@
+{
+  "release": "v2.6.2",
+  "server_version": "1.2.2",
+  "engine_version": "evidence-research-loop-v2.6.2",
+  "skill_file_count": 76,
+  "skill_tree_sha256": "00da2a0d9ed0a2060700f63241257633f3d2c0d7c2c5847e98b4f2172175c29c",
+  "targeted_regressions": {
+    "passed": 2,
+    "failed": 0,
+    "cases": [
+      "test_deterministic_generator_requires_explicit_test_mode",
+      "test_codex_generator_requires_authentication"
+    ]
+  },
+  "first_full_attempt": {
+    "run_id": "20261028T164334Z-17771b0a",
+    "engine": {"passed": 47, "failed": 0},
+    "server": {"passed": 9, "failed": 0},
+    "composition_mcp": {"passed": 0, "failed": 3},
+    "preserved": true,
+    "finding": "the installed repository layout resolved the composition test fixture root to the protected C:\\Users directory"
+  },
+  "final_full_attempt": {
+    "run_id": "20261028T165435Z-f329d0fb",
+    "engine": {"passed": 47, "failed": 0},
+    "server": {"passed": 9, "failed": 0},
+    "composition_mcp": {"passed": 3, "failed": 0},
+    "total_passed": 59,
+    "total_failed": 0,
+    "all_suites_passed": true
+  },
+  "model_calls": 0,
+  "scope": "production AI-generator enforcement, Codex authentication preflight, installed-path test reliability, and regression evidence; not autonomous discovery quality or production readiness"
+}

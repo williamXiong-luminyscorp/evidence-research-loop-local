@@ -1,0 +1,12 @@
+{"event": "regression_case", "name": "engine_identity", "status": "passed", "elapsed_sec": 0.104216}
+{"event": "regression_case", "name": "mcp_29_tool_contract", "status": "passed", "elapsed_sec": 0.29667}
+{"event": "regression_case", "name": "workspace_boundaries", "status": "passed", "elapsed_sec": 0.051475}
+{"event": "regression_case", "name": "secret_environment_filter", "status": "passed", "elapsed_sec": 0.003221}
+{"event": "regression_case", "name": "bearer_auth", "status": "passed", "elapsed_sec": 0.007504}
+{"event": "regression_case", "name": "transfer_hash_and_freeze_guard", "status": "passed", "elapsed_sec": 0.118729}
+{"event": "regression_case", "name": "research_graph_mcp_flow", "status": "passed", "elapsed_sec": 2.234188}
+{"event": "worker_started", "mode": "scientist-start", "project": "scientist-worker-project"}
+{"event": "worker_finished", "mode": "scientist-start", "started_at_unix": 1793397760.5147867, "exit_code": 0, "finished_at_unix": 1793397760.5148654, "elapsed_sec": 7.867813110351562e-05}
+{"event": "regression_case", "name": "scientist_worker_dispatch", "status": "passed", "elapsed_sec": 0.019145}
+{"event": "regression_case", "name": "deterministic_search_audit_finalize", "status": "passed", "elapsed_sec": 26.943612}
+{"event": "server_regression_complete", "passed": 9, "failed": 0, "total": 9, "summary": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\github-mcp-release-v251\\test-output\\server-regressions\\20261030T220237Z-2e20518f\\verification.json"}

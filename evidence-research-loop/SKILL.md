@@ -11,9 +11,9 @@ description: 用证据驱动的方案进化解决研究或工程优化问题：�
 
 这套方法提取 ShinkaEvolve 的程序进化内核，并补上工程研究所需的需求边界、独立测试和证据管理。它可以优化代码、软件架构、Agent 工作流、算法、配置、业务流程或仿真设计。它找到的是**在已声明搜索空间、裁判、数据和预算下实测最好的方案**；除非完成穷举或形式证明，不得称为全局最优。
 
-## Codex / Cursor 执行入口（Skill-only）
+## Codex / Cursor 执行入口
 
-Cursor 和 Codex 读取本 Skill 后直接运行 `scripts/`，不经过 MCP。不要调用 `evidence-research-loop-local` 或其他 ERL MCP 工具。详细命令见 [Skill-only 执行](references/cursor-skill-only.md)。
+Cursor 和 Codex 可以直接运行本 Skill 的 `scripts/`；需要标准化项目边界、远程恢复或工具式调用时，也可以使用版本匹配的本地/云端 ERL MCP。两种入口使用同一套引擎语义，不能在同一个项目上由两个写者同时运行。直接脚本命令见 [本地 Skill 执行](references/cursor-skill-only.md)。
 
 1. 把任务建在项目目录；
 2. 用 `scripts/evolution_controller.py` 做 `scaffold / validate / start / resume / status / export`；
@@ -21,9 +21,9 @@ Cursor 和 Codex 读取本 Skill 后直接运行 `scripts/`，不经过 MCP。�
 4. Research Graph、Composition Graph、Scientist Runtime 同样直接调用对应脚本；
 5. 需要 AI 生成候选时设置 `generator.backend=codex`，在用户本机环境运行，以便使用已有 Codex 登录；
 6. 启动付费或账户计量模型前，先报告模型、最大调用数、单次超时、总时限和费用是否可知；
-7. **每次搜索都做进度 Canvas**，规范见 [进度 Canvas](references/progress-canvas.md)。开始前先立看板，结束后用实测数字更新；聊天旁打开，并在任务目录留下 `progress.canvas.tsx` 以便进 Git。缺少进度看板不得声称本轮已向用户交付。
+7. 当搜索较长、候选较多，或用户明确需要可视进度时，可按 [进度 Canvas](references/progress-canvas.md) 生成看板；Canvas 是展示层，不是搜索完成、审计有效或结果接受的证据。
 
-仓库内同时放置 `.cursor/skills/evidence-research-loop/` 和 `.codex/skills/evidence-research-loop/`。不得把 Token 写入 `task.json`。MCP 服务器源码可以保留在发布包中，但不是这条执行路径的一部分。
+仓库内可以放置 `.cursor/skills/evidence-research-loop/` 或 `.codex/skills/evidence-research-loop/`。不得把 Token 写入 `task.json`、Canvas 或仓库。使用 MCP 时先核对 `get_capabilities` 的版本和 `engine_hash_valid`，不要假设云端、本地 MCP 和安装 Skill 已自动同步。
 
 ## 先选择工作模式
 
@@ -39,7 +39,7 @@ Cursor 和 Codex 读取本 Skill 后直接运行 `scripts/`，不经过 MCP。�
 
 需求改变时建立新版本协议，并把上一版本冻结赢家作为新 baseline。若新要求使它预期无法通过，在任务中显式设置 `selection.allow_failing_baseline: true`；保留该失败作为需求差距证据，候选必须通过新硬门禁后才能入选。不要先手工把旧实现修到通过再称为研究器续作。
 
-项目没有现成搜索控制器时，按任务选择执行器，全部在本机 Skill 脚本中运行：外层多代候选搜索用 `scripts/evolution_controller.py`；内层多 Agent 节点协作用 `scripts/research_graph.py`；真实科研五阶段用 `scripts/scientist_runtime.py`。先读 [Skill-only 执行](references/cursor-skill-only.md)、[自动搜索与任务适配](references/automatic-search.md)、[Research Graph](references/research-graph.md) 或 [Scientist Mode](references/scientist-mode.md)。Cursor/Codex 项目不要改用 MCP。旧 `assets/task-templates/scientist-mode` 仅用于兼容性冒烟，不得拿它的预设分数声称科研能力；正式 Scientist 项目必须创建 `research-plan.json` 并接入真实 stage adapter。启动真实模型前，先向用户报告模型、最大调用数、单次超时、总时限和可计算费用；价格未知时明确记录 `unknown` 并以调用数和时间硬停止。
+项目没有现成搜索控制器时，按任务选择执行器：外层多代候选搜索用 `scripts/evolution_controller.py`；内层多 Agent 节点协作用 `scripts/research_graph.py`；真实科研五阶段用 `scripts/scientist_runtime.py`。可直接运行脚本，也可通过暴露相同能力的 ERL MCP 调用。先读 [本地 Skill 执行](references/cursor-skill-only.md)、[自动搜索与任务适配](references/automatic-search.md)、[Research Graph](references/research-graph.md) 或 [Scientist Mode](references/scientist-mode.md)。旧 `assets/task-templates/scientist-mode` 仅用于兼容性冒烟，不得拿它的预设分数声称科研能力；正式 Scientist 项目必须创建 `research-plan.json` 并接入真实 stage adapter。启动真实模型前，先向用户报告模型、最大调用数、单次超时、总时限和可计算费用；价格未知时明确记录 `unknown` 并以调用数和时间硬停止。
 
 Research Graph 的使用顺序是：冻结 blueprint、每个节点的 `output_contract`、verifier 及其 `frozen_files` → 多 worker 原子 `claim` → 定期 `heartbeat` → 只向 worker 提供直接依赖资产 → 生成产物 → `execute` 真实 verifier → 登记 verified asset 与 contribution。节点失败必须先 `fail` 留证，再用新的 blueprint revision 做 split/rewire/supersede/invalidate；依赖变化的下游证据作废。资产复用必须同时匹配 statement、直接依赖资产、输出契约、verifier 契约和 scope，不能只比较输出形状。每项贡献记录人/Agent/模型、角色、来源、费用、耗时、产物哈希与验证结果；该账本用于追溯，不自动决定署名、IP 或绩效。
 
@@ -144,7 +144,6 @@ holdout 在 `run.json` 和访问开始记录落盘后中断时，必须保留该
 - 冻结裁判统一评分，候选谱系、全部失败和资源成本可追溯；
 - 至少一轮由失败或指标差距驱动的改进，或有明确的无改进停止证据；
 - 冻结后完成独立测试和相关消融；
-- 报告说明比较了什么、实际结果、推荐、未知项、缺少项及数据性质；
-- 进度 Canvas 已用最终状态、谱系、分数和 token 用量更新（见 [进度 Canvas](references/progress-canvas.md)）。
+- 报告说明比较了什么、实际结果、推荐、未知项、缺少项及数据性质。
 
 用户明确只要求某阶段时，报告该阶段完成即可。工具、依赖或预算受阻时保留成果并标记 `partial/blocked`；无需用户输入即可继续时继续执行。生产部署、真实订单、对外发布或不可逆操作仍遵循原任务授权，研究胜出本身不等于自动上线授权。

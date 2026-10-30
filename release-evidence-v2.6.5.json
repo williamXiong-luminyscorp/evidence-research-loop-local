@@ -1,0 +1,28 @@
+{
+  "release": "v2.6.5",
+  "server_version": "1.2.4",
+  "engine_version": "evidence-research-loop-v2.6.5",
+  "skill_file_count": 80,
+  "skill_tree_sha256": "83d7bf8be4638d71e9f7cb05b69e56985e2dcdc9abc888be05ecf0c05d5de6d2",
+  "reviewed_remote_baseline": {
+    "commit": "6ff3a64e7ac490e6d3af6a03d1adbc636976c9e5",
+    "version": "v2.6.4",
+    "identity_valid": true,
+    "selftest_run_id": "20261030T215513Z-b11dc4a9",
+    "total_passed": 62,
+    "total_failed": 0
+  },
+  "full_selftest": {
+    "run_id": "20261030T215948Z-b1bb6291",
+    "engine": {"passed": 50, "failed": 0},
+    "server": {"passed": 9, "failed": 0},
+    "composition_mcp": {"passed": 3, "failed": 0},
+    "total_passed": 62,
+    "total_failed": 0,
+    "all_suites_passed": true,
+    "evidence_path": "release-records/v2.6.5/selftest"
+  },
+  "model_calls": 0,
+  "historical_kpi_experiment_modified": false,
+  "scope": "entrypoint correction, optional Canvas boundary, KPI component-versus-product baselines, current test documentation, packaging identity, and corrected handoff; not new KPI effectiveness or production-readiness evidence"
+}

@@ -1,0 +1,64 @@
+{
+  "purpose": "infrastructure regression, not autonomous scientific discovery",
+  "model_calls": 0,
+  "commands": [
+    [
+      "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\.venv\\Scripts\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "evidence-research-loop/tests",
+      "-v"
+    ],
+    [
+      "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\.venv\\Scripts\\python.exe",
+      "tests/run_server_regressions.py"
+    ],
+    [
+      "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\.venv\\Scripts\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_composition_mcp.py",
+      "-v"
+    ]
+  ],
+  "timeout_per_suite_sec": 600,
+  "fixture_root": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\github-mcp-release-v251\\.erl-test-tmp\\e89f9c44",
+  "fixture_env": "ERL_TEST_TMP",
+  "source_sha256": {
+    "review-probes\\selftest_20261026.py": "13f33acee86c3f2e7ce6e63c2222b76a474717fda023833104ba8907ffa5c356",
+    "server.py": "a04b647135b65ed14a2264d60f996788b06635c721fe01b4c815a9d644c6c9c9",
+    "worker.py": "78ed7d7d45c3de9e0cd685415853eaa2fd34de0a3aaebb69989c224a195d6781",
+    "tests\\run_server_regressions.py": "5a5a572f82ace103c89b92e2d8460611320ba7692cb99e6581b40643a84cdb88",
+    "evidence-research-loop\\assets\\task-templates\\composition-graph\\verifier_adapter.py": "f7cf367dbe6148ef08cbe19da596cff0d19c493a80400f5d179322ede6b59881",
+    "evidence-research-loop\\assets\\task-templates\\json-strategy\\evaluator.py": "861182611aaebcdbd8d2a914e66a03056eb015cdc51aada3775e93083eb55947",
+    "evidence-research-loop\\assets\\task-templates\\python-code\\baseline.py": "21db5b0127493d498628f2a92dbd23f67cf1dd191b7f68e196d12f3e98716a64",
+    "evidence-research-loop\\assets\\task-templates\\python-code\\evaluator.py": "9f3cca368e07b7d73994cfca1396175e92921fce4886892ae62093448c0c461f",
+    "evidence-research-loop\\assets\\task-templates\\python-code\\fixtures\\dict_sort.py": "ae0157749c1d64570f4911f4103affdfb1602738953140adc1b0b9f67c415619",
+    "evidence-research-loop\\assets\\task-templates\\python-code\\fixtures\\manual_set.py": "08175db3ca6fd766def3e0c3acd9ec4076172c22fb892f0685f0929852263eae",
+    "evidence-research-loop\\assets\\task-templates\\python-code\\fixtures\\optimized.py": "8c2e8f240475b038e42daf6576ddf9b5d12656854c2c4542968868851d26bcd9",
+    "evidence-research-loop\\assets\\task-templates\\python-code\\fixtures\\optimized_duplicate.py": "8c2e8f240475b038e42daf6576ddf9b5d12656854c2c4542968868851d26bcd9",
+    "evidence-research-loop\\assets\\task-templates\\python-code\\fixtures\\set_comprehension.py": "84cbf53f2dba3d001023b45de7764520cbdaf0e0c581c7e566370d9538d6e8d8",
+    "evidence-research-loop\\assets\\task-templates\\python-code\\fixtures\\wrong_order.py": "0b0371b04ef3e5ca8c873ac3fb6564c76928b204482fe81d9f09cc18338a5a3e",
+    "evidence-research-loop\\assets\\task-templates\\research-graph\\verifier_adapter.py": "01eb049f3b7d2801ed2aa5356b7f08f2a45495346ab0811042cf863a1066daf4",
+    "evidence-research-loop\\assets\\task-templates\\scientist-mode\\evaluator.py": "3239b60f0dfccb4702bf70918a02641b369d8f9c86c40b6b6e5d2f749ada1531",
+    "evidence-research-loop\\assets\\task-templates\\scientist-runtime\\stage_adapter.py": "ed733c06b66bdad03f11377280209e9448c0879021a9015cb42b3841ce71413e",
+    "evidence-research-loop\\scripts\\audit_search.py": "9a24b30c74831f6eee203a52ad492dc37a9e34c32e11d32d02622b8efb0445b7",
+    "evidence-research-loop\\scripts\\check_seed_novelty.py": "eeb902382b675c0bdc5d5d3468554d059cd106f5fb359ccbd3e5f4c5c021a0fe",
+    "evidence-research-loop\\scripts\\composition_graph.py": "36e8e447b25d3bf15dd9d4c2f44dcc30e7877bb86e0af12d30310746d9d5f297",
+    "evidence-research-loop\\scripts\\evolution_controller.py": "c39858b0dd8f885f4dde84d0cc0d7ca1b75e74121f9c625bf51d5c678df1f9d9",
+    "evidence-research-loop\\scripts\\research_graph.py": "464b0ce5450a10ab359c24c54d7230c6420841113cd59dd96b238ffac54faeb3",
+    "evidence-research-loop\\scripts\\scientist_runtime.py": "55004be037851fc25900aef384f2cca344a10186f17186b276a4cef8a9e2db89",
+    "evidence-research-loop\\scripts\\solution_evolver.py": "74d3f034bece77dd8436389d08bc8e78f2a9e494870636b885685db93c3974eb",
+    "evidence-research-loop\\scripts\\tree_manifest.py": "bfd1f91a64ba644476385d5115afd726f53479d2a34718f8f4ab18ef9b9bc999",
+    "evidence-research-loop\\tests\\test_composition_graph.py": "70ccc8d6938f5bded8108abcd8e07b96c2ec9e4636a26a5bd3764c6a82ae9550",
+    "evidence-research-loop\\tests\\test_evolution_controller.py": "d285d94d6a3136ed8cadc5e35040828f0053ee7bb103d7edcc67f95ab85f83cb",
+    "evidence-research-loop\\tests\\test_research_graph.py": "29ed8e8b4d143b977fb56cd3b77abcede4bb886825e7fa651b7e1754cb03b68e",
+    "evidence-research-loop\\tests\\test_scientist_runtime.py": "6231dc1e5b6a6e6740822373c2683fa2f64cf6989bc384c8d770be1fba9836fc"
+  }
+}

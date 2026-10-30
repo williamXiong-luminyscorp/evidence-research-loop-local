@@ -305,8 +305,8 @@ py -3.13 -m venv .venv
 docker build -t evidence-research-loop-mcp:test .
 ```
 
-`run_selftest.py` 统一运行 45 项引擎回归、9 项 MCP 服务回归与 3 项
-Composition MCP 回归，共 57 项，不调用模型。
+`run_selftest.py` 当前统一运行 50 项引擎回归、9 项 MCP 服务回归与 3 项
+Composition MCP 回归，共 62 项，不调用模型。
 Windows/Codex 沙箱内请使用此入口：它为每次运行设置独立的 `ERL_TEST_TMP`，
 使用工作区 `ai agent/.erl-test-tmp/<唯一 ID>`，避免系统 Temp 的继承权限拒绝写入，
 也缩短生成文件路径。无须关闭沙箱、修改系统 Temp ACL 或以管理员权限运行。

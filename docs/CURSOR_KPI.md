@@ -1,6 +1,6 @@
 # 在 Cursor 中用 ERL 开发 KPI 系统
 
-KPI 工作区只使用 Skill，不使用 MCP。Agent 读取 Skill，然后直接运行本机 `scripts/`。这与旧 Codex 项目相同：生成、评测、冻结、Holdout 和审计都在用户登录环境里完成，因此可以使用已有 Codex Token。
+KPI 工作区默认可直接使用 Skill 脚本：生成、评测、冻结、Holdout 和审计都在用户登录环境里完成，因此可以使用已有 Codex 登录。用户明确要求标准 MCP 工具、远程恢复或共享执行环境时，也可以使用版本匹配的 ERL MCP；同一项目一次只选一个写入口。
 
 ## 1. 安装 Skill
 
@@ -12,7 +12,7 @@ KPI 工作区只使用 Skill，不使用 MCP。Agent 读取 Skill，然后直接
 
 目录内必须保留 `SKILL.md`、`references`、`scripts` 和 `assets`。Cursor 也可能发现本机 `~/.codex/skills/evidence-research-loop`；KPI 项目以仓库内 Skill 为准。
 
-确认 `.cursor/mcp.json` 为：
+只使用本地 Skill 时，`.cursor/mcp.json` 可以不配置 ERL，例如：
 
 ```json
 {
@@ -20,7 +20,7 @@ KPI 工作区只使用 Skill，不使用 MCP。Agent 读取 Skill，然后直接
 }
 ```
 
-不要再配置 `evidence-research-loop-local` MCP。保存后执行 Reload Window。
+若改用 `evidence-research-loop-local`，按仓库 MCP 文档配置，并先调用 `get_capabilities` 核对版本和 `engine_hash_valid`。不要让 Skill 脚本和 MCP 同时写同一任务目录。保存配置后执行 Reload Window。
 
 ## 2. 调用 Skill
 
@@ -33,7 +33,7 @@ KPI 工作区只使用 Skill，不使用 MCP。Agent 读取 Skill，然后直接
 ```text
 /evidence-research-loop
 
-使用本机 Skill 脚本对当前 KPI 仓库建立工程方案进化项目。不要调用 MCP。
+使用本机 Skill 脚本对当前 KPI 仓库建立工程方案进化项目。本轮保持单一写入口；如果已经通过 MCP 创建项目，就继续使用同一个 MCP 项目而不要并发运行脚本。
 
 目标：为全公司员工年度目标流程开发 KPI 系统。员工提出职责、主要任务和年度目标，与主管共同确认；支持年中检查、批准后的目标变更、年底按成果与证据回顾。
 
@@ -65,7 +65,7 @@ KPI 工作区只使用 Skill，不使用 MCP。Agent 读取 Skill，然后直接
 ```text
 /evidence-research-loop
 
-继续当前 Skill 任务目录。先运行 evolution_controller.py validate；只有协议、基线、裁判和冻结输入都有效时才 start。生成至少两个机制不同的可执行候选，使用预先声明的预算运行多代；完成后运行 audit_search.py。最后分别报告结论、基线、证据、失败和未验证项。不要调用 MCP。
+继续当前任务目录。直接 Skill 路径先运行 evolution_controller.py validate；只有协议、基线、裁判和冻结输入都有效时才 start。生成至少两个机制不同的可执行候选，使用预先声明的预算运行多代；完成后运行 audit_search.py。若本轮选用 MCP，则使用对应 validate/start/status/audit 工具完成同一流程。最后分别报告结论、基线、证据、失败和未验证项。
 ```
 
 Agent 应使用如下脚本顺序：
@@ -97,4 +97,4 @@ evolution_controller.py scaffold
 
 ## 6. Cloud Agent
 
-上述路径适用于 Cursor Desktop。Cursor Cloud Agent 没有你的本机 Codex 登录；若必须在云端运行，需要单独提供生成后端和凭证，不能假设与本机 Skill-only 配置相同。
+上述本机路径适用于 Cursor Desktop。Cursor Cloud Agent 没有你的本机 Codex 登录；若必须在云端运行，需要单独提供生成后端和凭证，不能假设与本机 Skill 或本地 MCP 配置相同。

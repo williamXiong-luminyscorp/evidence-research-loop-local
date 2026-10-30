@@ -1,0 +1,43 @@
+{
+  "run_id": "20261030T215948Z-b1bb6291",
+  "output": "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\github-mcp-release-v251\\test-output\\selftest\\20261030T215948Z-b1bb6291",
+  "suites": [
+    {
+      "command": [
+        "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "evidence-research-loop/tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_sec": 166.69365269999253
+    },
+    {
+      "command": [
+        "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\.venv\\Scripts\\python.exe",
+        "tests/run_server_regressions.py"
+      ],
+      "exit_code": 0,
+      "elapsed_sec": 32.351951999997254
+    },
+    {
+      "command": [
+        "C:\\Users\\WilliamXiong\\OneDrive - Luminys System Corp\\Documents\\ChatGPT\\ai agent\\supply-chain-lab\\shinka-general-researcher\\mcp-server-v1\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_composition_mcp.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_sec": 8.814745299998322
+    }
+  ],
+  "all_suites_passed": true
+}

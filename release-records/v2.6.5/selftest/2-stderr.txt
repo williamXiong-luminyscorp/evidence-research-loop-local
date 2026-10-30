@@ -1,0 +1,8 @@
+test_conditional_then_bound_acceptance_and_revoke (test_composition_mcp.CompositionMCPTests.test_conditional_then_bound_acceptance_and_revoke) ... ok
+test_mcp_transport_exposes_unambiguous_capabilities (test_composition_mcp.CompositionMCPTests.test_mcp_transport_exposes_unambiguous_capabilities) ... ok
+test_transfer_paths_cannot_escape (test_composition_mcp.CompositionMCPTests.test_transfer_paths_cannot_escape) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 6.401s
+
+OK

@@ -1,2 +1,3 @@
 * text=auto eol=lf
 evidence-research-loop/assets/task-templates/scientist-mode/fixtures/*.json text eol=crlf
+release-records/** -text whitespace=cr-at-eol

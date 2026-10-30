@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-30T22:11:15.6319495Z",
+  "status": "deployed_and_verified",
+  "release_commit": "b05e165ddb6d5472148a14fce355c2d85dc47901",
+  "release_tag": "v2.6.5",
+  "server_version": "1.2.4",
+  "engine_version": "evidence-research-loop-v2.6.5",
+  "engine_file_count": 80,
+  "engine_tree_sha256": "83d7bf8be4638d71e9f7cb05b69e56985e2dcdc9abc888be05ecf0c05d5de6d2",
+  "azure": {
+    "tenant_id": "6263c045-9d6c-40bc-922c-dbdd2c400fb8",
+    "subscription_id": "9069dbca-8580-437f-8cac-294d94584d02",
+    "subscription_name": "CSP Subscription 1",
+    "resource_group": "lmyrg",
+    "environment": "bc-diagnostics-env",
+    "container_app": "evidence-research-loop-mcp",
+    "revision": "evidence-research-loop-mcp--v265-20261030",
+    "endpoint": "https://evidence-research-loop-mcp.nicetree-1d19d2fd.eastus.azurecontainerapps.io/mcp",
+    "registry": "erlmcpacr.azurecr.io",
+    "acr_build_run": "ca5",
+    "image_tag": "1.2.4-v2.6.5-20261030",
+    "image_digest": "sha256:92a2867b40aa25cb7433726ca31a7e2693188846a1d0d415377d6574c4860e41",
+    "revision_mode": "Single",
+    "traffic_percent": 100,
+    "min_replicas": 1,
+    "max_replicas": 1,
+    "storage_binding": "erl-mcp-storage",
+    "storage_mount": "/data",
+    "storage_account": "erlmcpdata20261019",
+    "storage_share": "erl-projects",
+    "rollback_revision": "evidence-research-loop-mcp--v251-20261026",
+    "rollback_image_digest": "sha256:065257eba239f1a3a540d46d2dbbb21ac00e11a68dc2cb7e6a43d74f14f34d5f"
+  },
+  "verification": {
+    "skill_quick_validate": "passed",
+    "installed_skill": {
+      "file_count": 80,
+      "tree_sha256": "83d7bf8be4638d71e9f7cb05b69e56985e2dcdc9abc888be05ecf0c05d5de6d2",
+      "matches_release": true
+    },
+    "release_selftest": {
+      "run_id": "20261030T215948Z-b1bb6291",
+      "engine_tests_passed": 50,
+      "server_tests_passed": 9,
+      "composition_mcp_tests_passed": 3,
+      "failed": 0,
+      "total_passed": 62,
+      "model_calls": 0,
+      "raw_manifest_entries": 8,
+      "raw_manifest_matches": 8
+    },
+    "remote_http": {
+      "health_status": "ok",
+      "unauthenticated_mcp_status": 401,
+      "server_version": "1.2.4",
+      "engine_version": "evidence-research-loop-v2.6.5",
+      "engine_hash_valid": true,
+      "engine_file_count": 80,
+      "tool_count": 40,
+      "protocol_version": "2026-07-28"
+    },
+    "remote_research_graph": {
+      "project_id": "azure-v265-feature-20261030a-graph",
+      "audit_valid": true,
+      "audit_accepted": true,
+      "event_count": 4,
+      "asset_count": 1
+    },
+    "remote_scientist_runtime": {
+      "project_id": "azure-v265-feature-20261030a-scientist",
+      "job_id": "job-20261030T221006Z-6b89cc95",
+      "execution_status": "completed",
+      "audit_valid": true,
+      "audit_accepted": true,
+      "event_count": 12,
+      "model_calls": 0,
+      "known_cost_usd": 0.0,
+      "exported": true
+    },
+    "post_restart": {
+      "revision_health": "Healthy",
+      "revision_provisioning": "Provisioned",
+      "new_graph_reaudit_valid_and_accepted": true,
+      "new_scientist_reaudit_valid_and_accepted": true,
+      "legacy_graph_project_id": "azure-v251-feature-20261026c-graph",
+      "legacy_scientist_project_id": "azure-v251-feature-20261026c-scientist",
+      "legacy_graph_reaudit_valid_and_accepted": true,
+      "legacy_scientist_reaudit_valid_and_accepted": true
+    }
+  },
+  "preserved_scope": {
+    "kpi_experiment": "The 2026-10-19 KPI experiment was not rewritten. Its c-0006 result remains a SQLite persistence component baseline, not a whole-product KPI baseline; its revealed five-trace holdout is regression data only.",
+    "progress_canvas": "Progress Canvas is an optional display surface. It is not generated or enforced by the controller and is not an acceptance gate.",
+    "entrypoints": "The local Skill and the version-matched MCP are both supported. A project must have only one active writer at a time."
+  },
+  "cost_boundary": "Release and deployment verification used deterministic commands and zero model calls. Azure infrastructure and registry charges are not calculated in this record.",
+  "capability_boundary": "The remote Graph and Scientist projects verify deployed orchestration, transport, audit and persistence. They do not establish scientific novelty, model creativity, autonomous decomposition, cross-domain generalization, KPI fairness, whole-product KPI quality, or production approval."
+}

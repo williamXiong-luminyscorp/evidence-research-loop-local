@@ -72,6 +72,35 @@
 
 **门禁**：不得把失败惩罚当实际耗时，不得把重复执行数当独立样本数，不得从有限测试推断普遍正确。缺少可复算原始数据时，结论状态为未验证。
 
+### 主张类型不能混用
+
+Scientist Runtime 当前 Schema 使用 `literature` 与 `empirical` 两个机器门禁类别，项目
+仍必须在 statement 和评审中进一步标清证据性质：
+
+| 证据性质 | 可以支持什么 | 不能冒充什么 |
+| --- | --- | --- |
+| 冻结本地观察 | 已观察到的数据、流程或缺口 | 因果效果或普遍规律 |
+| 文献综合 | 来源直接支持的机制与条件 | 当前项目已经实现或有效 |
+| 设计推论 | 待实现架构、接口和失败条件 | 经验验证结果 |
+| 方法协议 | 计划怎样比较、复算和否证 | 已执行实验或完整 preregistration |
+| 经验结果 | 本次真实实验文件直接支持的结果 | 未测试环境中的普遍效果 |
+
+桌面评分、模型共识或结构完整性不能把“文献综合／设计推论／方法协议”升级成经验结果。
+如果运行时二元类型不足以表达细分类型，使用 `claim_type=literature` 通过来源门禁，并在
+statement 中明确写出 `cross-source synthesis`、`unimplemented design inference` 或
+`proposed methodological protocol`；评审必须拒绝把它们称为 empirical validation。
+
+给设计机制评分时，每个非零分必须保存：
+
+`criterion → direct source IDs / observed evidence → proposed interface → evidence class → uncertainty`
+
+多模型或多 Agent 一致不构成额外证据。Anchor 表示机制支持、实现或验证时必须在协议中
+预先定义；未实现方案不得获得“已实现”或“holdout 已验证”等级。来源只描述某项业务活动
+时，不能顺带支持未提及的模型、优化器、学习或解释机制。
+
+独立评审要求修订时，保留原 plan、attempt 和 review，创建新 plan version，把旧输出和
+评审作为冻结输入。不得覆盖旧结论或只改报告措辞来取得接受。
+
 ## 5. 论文组织与独立评审
 
 **输入**：受支持结论、方法、原始证据索引、局限和失败。

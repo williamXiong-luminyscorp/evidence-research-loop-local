@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "model": "replace-with-an-available-codex-model",
+  "absolute_max_model_calls": 10,
+  "max_frozen_input_bytes": 250000,
+  "known_cost_usd": null,
+  "stages": {
+    "ideation": {
+      "roles": ["hypothesis generator"],
+      "instructions": "Generate falsifiable, mechanism-distinct hypotheses. Separate observation, literature and inference."
+    },
+    "literature": {
+      "roles": ["primary-source researcher"],
+      "instructions": "Record exact locators, source type, support, contradiction, retrieval limits and novelty uncertainty."
+    },
+    "experiment": {
+      "roles": ["protocol executor"],
+      "instructions": "Execute the frozen protocol, preserve raw evidence and keep proposed methods distinct from completed experiments."
+    },
+    "analysis": {
+      "roles": ["claim-to-evidence analyst"],
+      "instructions": "Classify each claim correctly and cite only evidence IDs allowed for that claim type."
+    },
+    "review": {
+      "roles": ["independent evidence reviewer"],
+      "instructions": "Reject unsupported empirical classification, missing source-to-claim mappings, hidden failures and overclaims."
+    }
+  }
+}

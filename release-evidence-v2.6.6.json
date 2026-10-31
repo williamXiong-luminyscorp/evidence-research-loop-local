@@ -1,0 +1,26 @@
+{
+  "release": "v2.6.6",
+  "server_version": "1.2.4",
+  "engine_version": "evidence-research-loop-v2.6.6",
+  "skill_file_count": 83,
+  "skill_tree_sha256": "efe02e5eb63617de11561732400e030ac9ed03c4440efd36949d494351be3982",
+  "full_selftest": {
+    "run_id": "20261031T012836Z-921ca610",
+    "engine": {"passed": 55, "failed": 0},
+    "server": {"passed": 9, "failed": 0},
+    "composition_mcp": {"passed": 3, "failed": 0},
+    "total_passed": 67,
+    "total_failed": 0,
+    "all_suites_passed": true,
+    "evidence_path": "test-output/selftest/20261031T012836Z-921ca610"
+  },
+  "prerequisite_attempt": {
+    "run_id": "20261031T012005Z-ea1c2db2",
+    "engine_passed": 54,
+    "server_and_composition_started": false,
+    "reason": "The system Python environment did not include the pinned MCP dependency; the failed attempt was preserved and a repository-local virtual environment was used for the acceptance run."
+  },
+  "model_calls_for_release_tests": 0,
+  "domain_data_bundled": false,
+  "scope": "optional evidence-bounded Codex panel adapter, research evidence classification, versioned review correction guidance, deterministic regression coverage, packaging identity; not domain implementation, operational performance, panel necessity, or production-readiness evidence"
+}

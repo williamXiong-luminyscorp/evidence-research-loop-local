@@ -58,6 +58,11 @@ Evidence Research Loop 是一个**证据驱动的工程方案进化系统**。�
 
 Scientist Mode 现在包含真实命令执行层：它会实际调用构想、文献、实验、分析和独立评审适配器，保存每次请求、响应、原始输出、耗时、费用与哈希，并从证据派生是否接受。专项测试验证的是这些运行与审计约束；它仍不能证明五个模块各自具有独立实证贡献，也不能自动证明某个模型具备 AI Scientist-v2 等级的科研能力。后者必须在未预制答案的真实任务上另行验收。
 
+可选 `codex_panel_adapter.py` 支持每个 Scientist stage 先由多个专业角色独立研究，再由
+一次综合调用输出；它记录逐调用证据并执行绝对调用上限。Panel 共识本身不是证据。
+Scientist Mode 还要求把本地观察、文献综合、未实现设计、拟议方法与真实经验结果分开；
+桌面评分或完整 Schema 不能把设计蓝图升级成已验证效果。
+
 ## 已完成的真实验收
 
 - [`demos/scientist-runtime-backoff-v1`](demos/scientist-runtime-backoff-v1/README.md)：
@@ -305,8 +310,8 @@ py -3.13 -m venv .venv
 docker build -t evidence-research-loop-mcp:test .
 ```
 
-`run_selftest.py` 当前统一运行 50 项引擎回归、9 项 MCP 服务回归与 3 项
-Composition MCP 回归，共 62 项，不调用模型。
+`run_selftest.py` 当前统一运行 55 项引擎回归、9 项 MCP 服务回归与 3 项
+Composition MCP 回归，共 67 项，不调用模型。
 Windows/Codex 沙箱内请使用此入口：它为每次运行设置独立的 `ERL_TEST_TMP`，
 使用工作区 `ai agent/.erl-test-tmp/<唯一 ID>`，避免系统 Temp 的继承权限拒绝写入，
 也缩短生成文件路径。无须关闭沙箱、修改系统 Temp ACL 或以管理员权限运行。

@@ -164,7 +164,7 @@ class RegressionRun:
 def case_engine_identity() -> None:
     identity = server._engine_identity()
     check(
-        identity["engine_version"] == "evidence-research-loop-v2.6.5",
+        identity["engine_version"] == "evidence-research-loop-v2.6.6",
         str(identity),
     )
     check(identity["engine_hash_valid"] is True, str(identity))
